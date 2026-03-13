@@ -494,8 +494,35 @@
     const roofMat = new THREE.MeshStandardMaterial({ color: 0x151412, side: THREE.DoubleSide });
     const roof = new THREE.Mesh(roofGeo, roofMat);
     roof.rotation.x = Math.PI / 2;
-    roof.position.y = 3.5; // Slightly higher for more headroom
+    roof.position.y = 3.5; 
     scene.add(roof);
+
+    // WALLS
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x141311, side: THREE.DoubleSide });
+    const wallSize = 4.3; // matches the collision bounds (2.15 * 2)
+    const wallHeight = 3.5;
+
+    // Back Wall
+    const wallB = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
+    wallB.position.set(0, wallHeight/2, -2.15);
+    scene.add(wallB);
+
+    // Front Wall (optional, but for enclosure)
+    const wallF = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
+    wallF.position.set(0, wallHeight/2, 2.15);
+    scene.add(wallF);
+
+    // Left Wall
+    const wallL = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
+    wallL.rotation.y = Math.PI / 2;
+    wallL.position.set(-2.15, wallHeight/2, 0);
+    scene.add(wallL);
+
+    // Right Wall (Window Wall - offset to allow garden view if model has window)
+    const wallR = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
+    wallR.rotation.y = Math.PI / 2;
+    wallR.position.set(2.15, wallHeight/2, 0);
+    scene.add(wallR);
 
     // GARDEN ENVIRONMENT (Enhanced)
     const gardenGeo = new THREE.PlaneGeometry(200, 200);
@@ -659,29 +686,13 @@
         });
         camera.position.x = nx; camera.position.z = nz;
 
-        // Walking head-bobbing effect
-        if (move.length() > 0) {
-          const bobFreq = 12.0;
-          const bobAmpY = 0.045;
-          const bobAmpZ = 0.015;
-          camera.position.y = 1.72 + Math.sin(now * 0.012) * bobAmpY;
-          // Slight roll to simulate shoulder movement
-          camera.rotation.z = Math.sin(now * 0.006) * bobAmpZ;
-
-          // Footstep logic
-          if (Math.sin(now * 0.012) < -0.9) {
-            const fL = document.getElementById('fl'), fR = document.getElementById('fr');
-            const left = Math.cos(now * 0.006) > 0;
-            if (fL) fL.classList.toggle('on', left);
-            if (fR) fR.classList.toggle('on', !left);
-          }
-        } else {
-          camera.position.y += (1.72 - camera.position.y) * 0.1;
-          camera.rotation.z *= 0.9;
-          const fL = document.getElementById('fl'), fR = document.getElementById('fr');
-          if (fL) fL.classList.remove('on');
-          if (fR) fR.classList.remove('on');
-        }
+        // Reset height and rotation for smooth movement
+        camera.position.y = 1.72;
+        camera.rotation.z = 0;
+        
+        const fL = document.getElementById('fl'), fR = document.getElementById('fr');
+        if (fL) fL.classList.remove('on');
+        if (fR) fR.classList.remove('on');
       }
 
       // Interacting
