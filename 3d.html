@@ -641,6 +641,9 @@
     };
 
     const vel = new THREE.Vector3();
+    let vy = 0; // Vertical velocity
+    const gravity = -18; // Gravity strength
+    const jumpForce = 6; // Jumping power
     let lastT = performance.now();
     function animate() {
       requestAnimationFrame(animate);
@@ -679,8 +682,18 @@
         });
         camera.position.x = nx; camera.position.z = nz;
 
-        // Apply mouse rotation and stabilize height
-        camera.position.y = 1.72;
+        // Vertical Physics (Jumping & Gravity)
+        if (keys['Space'] && camera.position.y <= 1.73) {
+          vy = jumpForce;
+        }
+        vy += gravity * dt;
+        let ny = camera.position.y + vy * dt;
+        
+        // Ground & Ceiling Collisions
+        if (ny < 1.72) { ny = 1.72; vy = 0; }
+        if (ny > 3.3) { ny = 3.3; vy = 0; } // Ceiling limit
+        camera.position.y = ny;
+
         camera.quaternion.setFromEuler(euler);
         
         const fL = document.getElementById('fl'), fR = document.getElementById('fr');
