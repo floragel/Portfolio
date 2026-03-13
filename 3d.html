@@ -484,6 +484,14 @@
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
 
+    // ROOF
+    const roofGeo = new THREE.PlaneGeometry(5, 5); 
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
+    const roof = new THREE.Mesh(roofGeo, roofMat);
+    roof.rotation.x = Math.PI / 2;
+    roof.position.y = 3.3; 
+    scene.add(roof);
+
     // GARDEN ENVIRONMENT (Enhanced)
     const gardenGeo = new THREE.PlaneGeometry(200, 200);
     const gardenMat = new THREE.MeshStandardMaterial({ color: 0x2d5a27 }); // Lush Green
