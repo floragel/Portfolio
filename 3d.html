@@ -494,7 +494,7 @@
     const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
     const roof = new THREE.Mesh(roofGeo, roofMat);
     roof.rotation.x = Math.PI / 2;
-    roof.position.y = 3.5; 
+    roof.position.y = 3.3; // Fixed ceiling height
     scene.add(roof);
 
     // WALLS (Removed manual walls as they conflicted with model orientation)
@@ -563,7 +563,8 @@
       else if (size.x < 1) scale = 100;
       wrapper.scale.setScalar(scale);
 
-      wrapper.rotation.y = -Math.PI / 4; // Adjusting for model orientation to make it "straight"
+      // NO INTERMEDIATE ROTATION - Walls must align with world X/Z for collision boxes to work
+      wrapper.rotation.y = 0; 
 
       room.position.set(-center.x, -center.y, -center.z);
       room.position.y += size.y / 2;
@@ -670,16 +671,18 @@
         // Precise Box Collisions for Objects
         obs.forEach(o => {
           if (nx > o.x1 && nx < o.x2 && nz > o.z1 && nz < o.z2) {
-            // Determine shortest escape route
             const dx1 = Math.abs(nx - o.x1), dx2 = Math.abs(nx - o.x2);
             const dz1 = Math.abs(nz - o.z1), dz2 = Math.abs(nz - o.z2);
             const min = Math.min(dx1, dx2, dz1, dz2);
-            if (min === dx1) nx = o.x1;
-            else if (min === dx2) nx = o.x2;
-            else if (min === dz1) nz = o.z1;
-            else nz = o.z2;
+            if (min === dx1) nx = o.x1; else if (min === dx2) nx = o.x2;
+            else if (min === dz1) nz = o.z1; else nz = o.z2;
           }
         });
+
+        // REINFORCED HARD BOUNDS - Tighten and ensure absolute zero-pass
+        const b = 1.95; // Slightly tighter to ensure visual model covers it
+        nx = Math.max(-b, Math.min(b, nx)); nz = Math.max(-b, Math.min(b, nz));
+
         camera.position.x = nx; camera.position.z = nz;
 
         // Vertical Physics (Jumping & Gravity)
