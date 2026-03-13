@@ -484,12 +484,11 @@
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
 
-    // ROOF
-    const roofGeo = new THREE.PlaneGeometry(10, 10); 
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
+    // ROOF (Thick Slab)
+    const roofGeo = new THREE.BoxGeometry(10, 0.4, 10); 
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE });
     const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.rotation.x = Math.PI / 2;
-    roof.position.y = 2.5; 
+    roof.position.y = 2.7; // Bottom at 2.5
     scene.add(roof);
 
     // GARDEN ENVIRONMENT (Enhanced)
@@ -599,6 +598,22 @@
       hit(0.1, 2.0, 1.5, 2.1, 1.5, -0.5, 'window', 'Window');
       hit(0.8, 1.2, 0.1, -1.9, 1.5, 0.5, 'mirror', 'Mirror');
       hit(0.5, 0.5, 0.8, 1.8, 0.2, 0.8, 'dumbbells', 'Dumbbells');
+
+      // HEAVY PERIMETER BUFFERS (Invisible Thick Walls)
+      function buffer(w, h, d, x, y, z) {
+        const hb = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
+        hb.position.set(x, y, z);
+        scene.add(hb);
+        obs.push({ 
+          x1: x - w/2 - 0.1, x2: x + w/2 + 0.1, 
+          z1: z - d/2 - 0.1, z2: z + d/2 + 0.1 
+        });
+      }
+      const tk = 1.0, rd = 1.95 + tk/2;
+      buffer(tk, 4, 6, -rd, 1.5, 0); // Thick Left Buffer
+      buffer(tk, 4, 6, rd, 1.5, 0);  // Thick Right Buffer
+      buffer(6, 4, tk, 0, 1.5, -rd); // Thick Back Buffer
+      buffer(6, 4, tk, 0, 1.5, rd);  // Thick Front Buffer
 
       document.getElementById('loading').classList.add('done');
     }, undefined, e => {
