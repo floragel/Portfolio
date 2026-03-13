@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio — Ma Chambre 3D</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0a0908;overflow:hidden;font-family:'Space Mono',monospace;cursor:none;}
+  canvas{display:block;}
+  #crosshair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:10;width:18px;height:18px;}
+  #crosshair::before,#crosshair::after{content:'';position:absolute;background:rgba(255,255,255,0.5);transition:background 0.12s;}
+  #crosshair::before{width:1.5px;height:100%;left:50%;transform:translateX(-50%);}
+  #crosshair::after{height:1.5px;width:100%;top:50%;transform:translateY(-50%);}
+  #crosshair.hi::before,#crosshair.hi::after{background:#f0c060;}
+  #ilabel{position:fixed;top:calc(50% - 30px);left:50%;transform:translateX(-50%);pointer-events:none;z-index:10;color:#f0c060;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;opacity:0;transition:opacity 0.15s;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,0.9);}
+  #ilabel.vis{opacity:1;}
+  #hud{position:fixed;top:22px;left:28px;z-index:10;pointer-events:none;}
+  #hud h1{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:rgba(245,240,232,0.92);letter-spacing:-0.02em;text-shadow:0 2px 12px rgba(0,0,0,0.6);}
+  #hud p{color:rgba(140,130,110,0.65);font-size:0.52rem;margin-top:3px;letter-spacing:0.2em;text-transform:uppercase;}
+  #ctrl{position:fixed;bottom:20px;left:28px;z-index:10;pointer-events:none;color:rgba(90,85,70,0.6);font-size:0.5rem;letter-spacing:0.08em;line-height:2.2;text-transform:uppercase;}
+  .k{display:inline-block;border:1px solid rgba(90,85,70,0.35);border-radius:3px;padding:0 4px;font-size:0.48rem;color:rgba(110,105,85,0.6);margin:0 2px;}
+  #steps{position:fixed;bottom:20px;right:28px;z-index:10;pointer-events:none;}
+  .foot{font-size:0.85rem;opacity:0.08;transition:opacity 0.1s,transform 0.1s;}
+  .foot.on{opacity:0.5;transform:translateY(-3px);}
+  #panel{position:fixed;right:-520px;top:0;height:100vh;width:min(480px,92vw);background:rgba(6,5,4,0.98);border-left:1px solid rgba(255,255,255,0.045);z-index:30;transition:right 0.44s cubic-bezier(0.77,0,0.175,1);overflow-y:auto;scrollbar-width:none;}
+  #panel.open{right:0;}
+  #panel::-webkit-scrollbar{display:none;}
+  #pcls{position:absolute;top:18px;right:18px;background:none;border:1px solid #1e1e1a;color:#444;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.78rem;display:flex;align-items:center;justify-content:center;transition:all 0.18s;font-family:'Space Mono',monospace;}
+  #pcls:hover{border-color:#f0c060;color:#f0c060;}
+  #pin{padding:58px 32px 38px;}
+  #pico{font-size:2.2rem;margin-bottom:12px;}
+  #ptag{font-size:0.52rem;letter-spacing:0.3em;text-transform:uppercase;color:#f0c060;margin-bottom:7px;}
+  #ptit{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3.8vw,2.2rem);font-weight:800;color:#ede8e0;line-height:1.0;margin-bottom:12px;white-space:pre-line;}
+  #pdsc{color:#48443e;font-size:0.66rem;line-height:1.9;margin-bottom:20px;}
+  .pitms{display:flex;flex-direction:column;gap:10px;}
+  .pitm{border:1px solid #141412;border-radius:4px;padding:14px 16px;transition:border-color 0.18s,background 0.18s;}
+  .pitm:hover{border-color:#222;background:#0a0908;}
+  .pit{font-family:'Syne',sans-serif;font-weight:700;color:#cec8be;font-size:0.8rem;margin-bottom:4px;}
+  .pid{color:#3c3830;font-size:0.62rem;line-height:1.75;}
+  .ptgs{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+  .tag{background:#0a0908;border:1px solid #1c1a16;color:#f0c060;font-size:0.5rem;padding:2px 6px;border-radius:100px;letter-spacing:0.1em;text-transform:uppercase;}
+  #overlay{position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:50;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;cursor:pointer;transition:opacity 0.4s;}
+  #overlay.hidden{opacity:0;pointer-events:none;}
+  .ovb{text-align:center;max-width:340px;padding:0 20px;}
+  .ovb h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,5.5vw,2.7rem);color:#ede8e0;line-height:1.0;margin-bottom:10px;}
+  .ovb p{color:rgba(110,105,85,0.72);font-size:0.62rem;line-height:1.95;margin-bottom:20px;}
+  .obtn{display:inline-block;border:1px solid #f0c060;color:#f0c060;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;padding:10px 24px;border-radius:3px;cursor:pointer;transition:background 0.18s,color 0.18s;}
+  .obtn:hover{background:#f0c060;color:#060504;}
+  #vig{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 42%,rgba(0,0,0,0.72) 100%);pointer-events:none;z-index:5;}
+  #loading{position:fixed;inset:0;background:#060504;display:flex;align-items:center;justify-content:center;z-index:100;flex-direction:column;gap:14px;transition:opacity 0.5s;}
+  #loading.done{opacity:0;pointer-events:none;}
+  .lbar{width:80px;height:1px;background:#141410;position:relative;overflow:hidden;}
+  .lbar::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:#f0c060;animation:ld 1.4s ease forwards;}
+  @keyframes ld{to{left:0;}}
+  #loading span{color:#2e2c26;font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+<div id="loading"><span>Chargement du modèle 3D...</span><div class="lbar"></div></div>
+<div id="overlay">
+  <div style="font-size:2.4rem">🏠</div>
+  <div class="ovb">
+    <h2>Ma Chambre</h2>
+    <p>Explore mon portfolio à la première personne.<br>Approche un meuble · <strong style="color:#f0c060">E</strong> pour interagir.</p>
+    <div class="obtn" id="enterbtn">Entrer</div>
+  </div>
+</div>
+<div id="vig"></div>
+<div id="crosshair"></div>
+<div id="ilabel">[ E ] Interagir</div>
+<div id="hud"><h1>Ton Nom</h1><p>Portfolio · 2026</p></div>
+<div id="ctrl">
+  <span class="k">W</span><span class="k">A</span><span class="k">S</span><span class="k">D</span> Marcher &nbsp;·&nbsp;
+  <span class="k">Souris</span> Regarder &nbsp;·&nbsp;
+  <span class="k">E</span> Interagir
+</div>
+<div id="steps"><span class="foot" id="fl">👟</span><span class="foot" id="fr">👟</span></div>
+<div id="panel">
+  <button id="pcls">✕</button>
+  <div id="pin">
+    <div id="pico"></div><div id="ptag"></div>
+    <div id="ptit"></div><div id="pdsc"></div>
+    <div class="pitms" id="pitms"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<script>
+window.onerror = function(msg, src, line, col, err) {
+  document.getElementById('loading').innerHTML = '<div style="color:#f06060;font-family:monospace;font-size:0.65rem;padding:20px;text-align:center;line-height:1.8">❌ Erreur JS ligne ' + line + ':<br><b>' + msg + '</b><br><br>Vérifie que portfolio.glb est dans le même dossier et que tu utilises un serveur local.</div>';
+  return false;
+};
+
+// ── DONNÉES DU PORTFOLIO (Personnalisées avec tes projets) ────────────────
+const DATA = {
+  desk: {icon:'💻', tag:'Setup & Projets Dev', title:'Bureau\nde Code', desc:'C\'est ici que tout se construit. Hardware, software, et intégration.', items:[
+    {t:'Projets Robotique', d:'Combinaison hardware et IA. Projets basés sur Arduino, ESP32, Raspberry Pi avec intégration Gemini.', tags:['Robotics','Hardware','AI']},
+    {t:'La Ruche', d:'Développement d\'une application pour une entreprise sociale et solidaire.', tags:['App','Solidaire','Dev']},
+    {t:'Hackathons', d:'Participation aux hackathons, avec pour objectif ceux du MIT.', tags:['Hackathon','Compétition']}
+  ]},
+  bench: {icon:'🏋️', tag:'Discipline & Sport', title:'End Zone\nBench', desc:'La discipline s\'applique partout : dans le code et dans le sport.', items:[
+    {t:'Force & Athlétisme', d:'Objectif : augmenter la force physique et atteindre un physique athlétique et défini.', tags:['Weight Training','Force']},
+    {t:'Préparation Test', d:'Entraînement pour une performance de cirque dans le cadre d\'un test sportif.', tags:['Cirque','Performance']},
+    {t:'Objectif 20km', d:'Préparation spécifique et entraînement ciblé pour courir 20km.', tags:['Endurance','Cardio']}
+  ]},
+  bed: {icon:'🛏️', tag:'Réflexion & Identité', title:'Là où\nÇa Pense', desc:'Les meilleures décisions se prennent souvent ici.', items:[
+    {t:'Style & Identité', d:'Exploration du style vestimentaire Y2K. Préparation minutieuse des outfits pour des événements comme le bal de promo.', tags:['Y2K','Design']},
+    {t:'Model UN', d:'Membre actif du groupe MUN du lycée Stanislas, avec pour ambition de participer aux conférences de Harvard et du MIT.', tags:['MUN','Débat','International']},
+    {t:'Veille Sportive', d:'Analyse et suivi assidu des performances de l\'équipe nationale marocaine de football.', tags:['Football','Analyse']}
+  ]},
+  dresser: {icon:'🗄️', tag:'Expériences & Parcours', title:'IKEA Alex\n& Parcours', desc:'Chaque tiroir = une compétence ou une étape franchie.', items:[
+    {t:'Parcours Académique', d:'Actuellement en Seconde, planification vers la Première/Terminale. Objectif : ingénierie, CS, et universités US/Canada.', tags:['Computer Science','Engineering']},
+    {t:'SHAD Canada 2026', d:'Acceptation au prestigieux programme SHAD Canada. Phase actuelle : sélection du campus.', tags:['SHAD','Excellence']},
+    {t:'FIRST Robotics', d:'Membre actif d\'une équipe FRC (FIRST Robotics Competition).', tags:['FRC','Teamwork']}
+  ]},
+  nightstand: {icon:'🔋', tag:'Quotidien & Routine', title:'Table\nde Nuit', desc:'L\'essentiel pour recharger les batteries.', items:[
+    {t:'Routine Matinale', d:'Pas de téléphone les 30 premières minutes. Focus sur les objectifs de la journée.', tags:['Routine','Mindset']},
+    {t:'Nutrition', d:'Préférences simples : peu de fromage, tolérance modérée pour les avocats et les oeufs (6/10). Focus sur les macros pour l\'entraînement.', tags:['Nutrition','Lifestyle']},
+    {t:'Stack Perso', d:'Téléphone, chargeurs, et bloc-notes pour les idées nocturnes.', tags:['EDC']}
+  ]}
+};
+
+// ── INITIALISATION THREE.JS ───────────────────────────────────────────────
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0e0d0c);
+scene.fog = new THREE.FogExp2(0x0e0d0c, 0.055);
+
+const camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.04, 30);
+camera.position.set(0, 1.72, 0); // Position de départ
+
+// ── LUMIÈRES ──────────────────────────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0xfff8f0, 0.6));
+const pt = new THREE.PointLight(0xfff2e0, 2.0, 10);
+pt.position.set(0, 2.4, 0);
+scene.add(pt);
+
+const monGlow = new THREE.PointLight(0x1a33cc, 0.5, 3.0);
+monGlow.position.set(-1.5, 1.3, -1.6);
+scene.add(monGlow);
+
+// ── CHARGEMENT DU MODÈLE 3D (.glb) ────────────────────────────────────────
+// ── CHARGEMENT DU MODÈLE 3D (.glb) ────────────────────────────────────────
+const loader = new THREE.GLTFLoader();
+
+loader.load(
+  'portfolio.glb', 
+  function (gltf) {
+    const room = gltf.scene;
+    
+    // --- ASTUCE 1 : CENTRAGE AUTOMATIQUE ---
+    // Calcule le centre exact de ta chambre et le ramène à la position de départ
+    const box = new THREE.Box3().setFromObject(room);
+    const center = box.getCenter(new THREE.Vector3());
+    
+    // On centre sur X et Z (on laisse le Y tranquille pour que le sol reste en bas)
+    room.position.x = -center.x;
+    room.position.z = -center.z;
+
+    // --- ASTUCE 2 : L'ÉCHELLE ---
+    // ⚠️ Si après avoir mis ce code, tu vois juste un immense mur gris ou noir, 
+    // supprime les deux slash (//) au début de la ligne en dessous pour diviser la taille par 100 :
+    // room.scale.set(0.01, 0.01, 0.01);
+
+    // Active les ombres et s'assure qu'on voit les murs des deux côtés
+    room.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        // Optionnel mais très utile : rend l'intérieur et l'extérieur des murs visibles
+        if (child.material) {
+           child.material.side = THREE.DoubleSide;
+        }
+      }
+    });
+
+    scene.add(room);
+    document.getElementById('loading').classList.add('done');
+  },
+  undefined,
+  function (error) {
+    console.error('Erreur lors du chargement du modèle 3D:', error);
+  }
+);
+
+// ── HITBOXES INVISIBLES POUR LES INTERACTIONS ─────────────────────────────
+const clickables = [];
+const obs = []; // Tableau pour gérer les collisions (murs invisibles)
+
+// Fonction pour créer une hitbox transparente et cliquable
+function createHitbox(w, h, d, x, y, z, id, label) {
+  const geo = new THREE.BoxGeometry(w, h, d);
+  // Matériau transparent : mets opacity à 0.3 pour les voir lors de tes tests de placement, puis remets à 0
+  const mat = new THREE.MeshBasicMaterial({ color: 0xf0c060, transparent: true, opacity: 0 }); 
+  const hitbox = new THREE.Mesh(geo, mat);
+  hitbox.position.set(x, y, z);
+  
+  hitbox.userData = { 
+    id: id, 
+    label: label,
+    parentGroup: hitbox
+  };
+  
+  scene.add(hitbox);
+  clickables.push(hitbox);
+  
+  // Ajoute automatiquement cette hitbox comme obstacle pour ne pas la traverser
+  // On utilise le rayon le plus grand entre largeur et profondeur
+  obs.push({ cx: x, cz: z, r: Math.max(w, d) / 1.5 });
+  
+  return hitbox;
+}
+
+// ⚠️ IMPORTANT : Modifie ces valeurs (Largeur, Hauteur, Profondeur, Position X, Y, Z) 
+// pour qu'elles correspondent à l'emplacement de tes meubles dans ton fichier Sweet Home 3D
+createHitbox(1.5, 1.0, 1.5, -2.1, 0.5, -0.7, 'desk', 'Bureau & Projets');
+createHitbox(1.5, 0.6, 2.0, 0.7, 0.3, -1.8,  'bed', 'Idées & Réflexions');
+createHitbox(0.5, 1.1, 0.5, -2.9, 0.5, 1.5,  'dresser', 'Skills & Parcours');
+createHitbox(0.5, 0.5, 0.5, -0.5, 0.2, -1.3, 'nightstand', 'Table de Nuit');
+createHitbox(1.5, 0.6, 0.6, -1.5, 0.3, 1.5,  'bench', 'Gym & Discipline');
+
+// ── CONTRÔLES FPS ─────────────────────────────────────────────────────────
+const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+const vel = new THREE.Vector3();
+const keys = {};
+let locked = false, ct = 0, lastT = Date.now(), footA = 0, leftF = true;
+const fL = document.getElementById('fl'), fR = document.getElementById('fr');
+
+document.getElementById('enterbtn').addEventListener('click', () => renderer.domElement.requestPointerLock());
+renderer.domElement.addEventListener('click', () => { if(!locked) renderer.domElement.requestPointerLock(); });
+
+document.addEventListener('pointerlockchange', () => { 
+  locked = document.pointerLockElement === renderer.domElement; 
+  document.getElementById('overlay').classList.toggle('hidden', locked); 
+});
+
+document.addEventListener('mousemove', e => { 
+  if(!locked) return; 
+  euler.setFromQuaternion(camera.quaternion); 
+  euler.y -= e.movementX * 0.0015; 
+  euler.x -= e.movementY * 0.0015; 
+  euler.x = Math.max(-Math.PI/2.05, Math.min(Math.PI/2.05, euler.x)); 
+  camera.quaternion.setFromEuler(euler); 
+});
+
+document.addEventListener('keydown', e => { keys[e.code] = true; });
+document.addEventListener('keyup', e => { keys[e.code] = false; });
+
+// Limites des murs extérieurs (à ajuster selon la taille de ta chambre dans Sweet Home 3D)
+const BOUNDS = { x0: -3.2, x1: 3.2, z0: -2.0, z1: 2.0 };
+
+function doMove() {
+  const now = Date.now(), dt = Math.min((now - lastT) / 1000, 0.05); 
+  lastT = now; ct += dt; 
+  if(!locked) return;
+  
+  let mx = 0, mz = 0, moving = false;
+  if(keys['KeyW'] || keys['ArrowUp']) { mz = -1; moving = true; }
+  if(keys['KeyS'] || keys['ArrowDown']) { mz = 1; moving = true; }
+  if(keys['KeyA'] || keys['ArrowLeft']) { mx = -1; moving = true; }
+  if(keys['KeyD'] || keys['ArrowRight']) { mx = 1; moving = true; }
+  
+  const ln = Math.sqrt(mx*mx + mz*mz); 
+  if(ln > 0) { mx /= ln; mz /= ln; }
+  
+  const sy = Math.sin(euler.y), cy = Math.cos(euler.y);
+  vel.x += (-sy * (-mz) + cy * mx) * 7.5 * dt; 
+  vel.z += (-cy * (-mz) - sy * mx) * 7.5 * dt;
+  vel.x -= vel.x * 15 * dt; 
+  vel.z -= vel.z * 15 * dt;
+  
+  if(moving) { 
+    camera.position.y = 1.72 + Math.sin(ct * 9.5) * 0.015; 
+    footA += dt; 
+    if(footA > 0.31) { 
+      footA = 0; leftF = !leftF; 
+      fL.classList.toggle('on', leftF); fR.classList.toggle('on', !leftF); 
+    }
+  } else { 
+    camera.position.y += (1.72 - camera.position.y) * 0.2; 
+    fL.classList.remove('on'); fR.classList.remove('on'); 
+  }
+  
+  let nx = camera.position.x + vel.x * dt, nz = camera.position.z + vel.z * dt;
+  
+  // Collisions avec les murs
+  nx = Math.max(BOUNDS.x0, Math.min(BOUNDS.x1, nx)); 
+  nz = Math.max(BOUNDS.z0, Math.min(BOUNDS.z1, nz));
+  
+  // Collisions avec les hitboxes (meubles)
+  obs.forEach(o => { 
+    const dx = nx - o.cx, dz = nz - o.cz, d = Math.sqrt(dx*dx + dz*dz); 
+    if(d < o.r && d > 0) { 
+      const p = (o.r - d) / d; nx += dx * p; nz += dz * p; 
+    }
+  });
+  
+  camera.position.x = nx; camera.position.z = nz;
+}
+
+// ── SYSTÈME DE RAYCASTER (CLIC & INTERACTION) ────────────────────────────
+const rc = new THREE.Raycaster(), ctr = new THREE.Vector2(0,0);
+const cross = document.getElementById('crosshair'), ilabel = document.getElementById('ilabel');
+let nearObj = null;
+
+function doInteract() {
+  if(!locked) { cross.classList.remove('hi'); ilabel.classList.remove('vis'); return; }
+  rc.setFromCamera(ctr, camera);
+  
+  const hits = rc.intersectObjects(clickables);
+  if(hits.length > 0 && hits[0].distance < 3.2) { 
+    nearObj = hits[0].object.userData.parentGroup; 
+    cross.classList.add('hi'); 
+    ilabel.classList.add('vis'); 
+    ilabel.textContent = `[ E ]  ${nearObj.userData.label}`;
+  } else { 
+    nearObj = null; 
+    cross.classList.remove('hi'); 
+    ilabel.classList.remove('vis'); 
+  }
+}
+
+// ── UI PANNEAU ────────────────────────────────────────────────────────────
+const panel = document.getElementById('panel');
+document.getElementById('pcls').addEventListener('click', () => panel.classList.remove('open'));
+
+function openPanel(id) {
+  const d = DATA[id]; if(!d) return;
+  document.getElementById('pico').textContent = d.icon; 
+  document.getElementById('ptag').textContent = d.tag;
+  document.getElementById('ptit').textContent = d.title; 
+  document.getElementById('pdsc').textContent = d.desc;
+  
+  const el = document.getElementById('pitms'); el.innerHTML = '';
+  d.items.forEach(item => {
+    const div = document.createElement('div'); div.className = 'pitm';
+    div.innerHTML = `<div class="pit">${item.t}</div><div class="pid">${item.d}</div><div class="ptgs">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
+    el.appendChild(div);
+  });
+  
+  panel.classList.add('open'); 
+  document.exitPointerLock();
+}
+
+document.addEventListener('keydown', e => { 
+  if(e.code === 'KeyE' && locked && nearObj) openPanel(nearObj.userData.id); 
+  if(e.code === 'Escape') panel.classList.remove('open'); 
+});
+
+// ── BOUCLE D'ANIMATION ────────────────────────────────────────────────────
+function animate() {
+  requestAnimationFrame(animate); 
+  doMove(); 
+  doInteract(); 
+  monGlow.intensity = 0.5 + Math.sin(ct * 0.9) * 0.12; 
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => { 
+  camera.aspect = innerWidth / innerHeight; 
+  camera.updateProjectionMatrix(); 
+  renderer.setSize(innerWidth, innerHeight); 
+});
+</script>
+</body>
+</html>

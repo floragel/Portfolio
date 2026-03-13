@@ -1,0 +1,9 @@
+# API Keys and local configuration
+**/config.js
+
+# DS_Store
+.DS_Store
+
+# Temporary files
+/tmp/
+.gemini/
