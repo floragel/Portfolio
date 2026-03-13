@@ -22,14 +22,15 @@ Welcome to my personal portfolio. This project represents six years of software 
 
 - **Terminal Simulator**: A fully functional, in-browser shell with tab-completion and command history that tells my story through a command-line interface.
 - **AI Assistant**: A custom AI clone trained on my technical journey, capable of answering detailed questions about my projects.
-- **3D Interactive Room**: Explore a virtual workspace where my physical builds come to life.
+- **Interactive Hardware Simulator**: Real-time circuit simulation integration that allows users to interact with virtual microcontroller components directly in the browser.
+- **3D Interactive Room**: Explore a virtual workspace where my physical builds come to life in a browser-rendered environment.
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: HTML5, Vanilla CSS, JavaScript (ES6+), SwiftUI.
 - **Backend/Backend-as-a-Service**: Python, Node.js, Supabase, Groq API (LLMs).
 - **Mechanics & Electronics**: C++, Arduino, Raspberry Pi, ESP32, Computer Vision.
-- **Design**: Figma, 3D Modeling (GLB/GLTF).
+- **Design**: Sweet Home 3D, Blender (GLB/GLTF).
 
 ---
 
