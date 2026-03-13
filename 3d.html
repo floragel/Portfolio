@@ -585,7 +585,11 @@
         hb.userData = { id, label };
         scene.add(hb);
         clickables.push(hb);
-        obs.push({ cx: x, cz: z, r: Math.max(w, d) * 0.5 + 0.15 });
+        // Collision Box: [minX, maxX, minZ, maxZ] 
+        obs.push({ 
+          x1: x - w/2 - 0.1, x2: x + w/2 + 0.1, 
+          z1: z - d/2 - 0.1, z2: z + d/2 + 0.1 
+        });
       }
 
       // Restore Monitor Glow
@@ -645,18 +649,28 @@
         if (keys['KeyD']) move.x += 1;
         if (move.length() > 0) move.normalize();
 
-        const targetSpeed = 4.2; // Increased speed (was 2.5)
+        const targetSpeed = 3.36; // 0.8x of 4.2
         vel.x += (move.x * targetSpeed - vel.x) * 12 * dt;
         vel.z += (move.z * targetSpeed - vel.z) * 12 * dt;
         const mv = new THREE.Vector3(vel.x, 0, vel.z).applyQuaternion(camera.quaternion);
         let nx = camera.position.x + mv.x * dt, nz = camera.position.z + mv.z * dt;
 
-        // Hard Room Bounds (Tightened)
+        // Hard Room Bounds (Strict Enclosure)
         const b = 2.15;
         nx = Math.max(-b, Math.min(b, nx)); nz = Math.max(-b, Math.min(b, nz));
+        
+        // Precise Box Collisions for Objects
         obs.forEach(o => {
-          const dx = nx - o.cx, dz = nz - o.cz, d = Math.sqrt(dx * dx + dz * dz);
-          if (d < o.r) { const p = (o.r - d) / d; nx += dx * p; nz += dz * p; }
+          if (nx > o.x1 && nx < o.x2 && nz > o.z1 && nz < o.z2) {
+            // Determine shortest escape route
+            const dx1 = Math.abs(nx - o.x1), dx2 = Math.abs(nx - o.x2);
+            const dz1 = Math.abs(nz - o.z1), dz2 = Math.abs(nz - o.z2);
+            const min = Math.min(dx1, dx2, dz1, dz2);
+            if (min === dx1) nx = o.x1;
+            else if (min === dx2) nx = o.x2;
+            else if (min === dz1) nz = o.z1;
+            else nz = o.z2;
+          }
         });
         camera.position.x = nx; camera.position.z = nz;
 
