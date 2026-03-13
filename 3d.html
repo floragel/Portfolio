@@ -39,6 +39,30 @@
       height: 18px;
     }
 
+    #crosshair::before,
+    #crosshair::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #crosshair::before {
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+
+    #crosshair::after {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
     #crosshair.hi::before,
     #crosshair.hi::after {
       background: #f0c060;
@@ -58,7 +82,6 @@
       opacity: 0;
       transition: opacity 0.15s;
       white-space: nowrap;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
     }
 
     #ilabel.vis {
@@ -67,212 +90,121 @@
 
     #hud {
       position: fixed;
-      top: 22px;
-      left: 28px;
+      top: 40px;
+      left: 40px;
       z-index: 10;
-      pointer-events: none;
+      color: white;
     }
 
     #hud h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 1.5rem;
-      color: rgba(245, 240, 232, 0.92);
-      letter-spacing: -0.02em;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+      background: linear-gradient(90deg, #fff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     #hud p {
-      color: rgba(140, 130, 110, 0.65);
-      font-size: 0.52rem;
-      margin-top: 3px;
+      font-size: 0.6rem;
+      opacity: 0.5;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
     }
 
     #ctrl {
       position: fixed;
-      bottom: 20px;
-      left: 28px;
+      bottom: 40px;
+      left: 40px;
       z-index: 10;
-      pointer-events: none;
-      color: rgba(90, 85, 70, 0.6);
-      font-size: 0.5rem;
-      letter-spacing: 0.08em;
-      line-height: 2.2;
+      color: white;
+      font-size: 0.6rem;
+      opacity: 0.4;
+      display: flex;
+      align-items: center;
+      gap: 15px;
       text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
     .k {
-      display: inline-block;
-      border: 1px solid rgba(90, 85, 70, 0.35);
-      border-radius: 3px;
-      padding: 0 4px;
-      font-size: 0.48rem;
-      color: rgba(110, 105, 85, 0.6);
-      margin: 0 2px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-right: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    #steps {
+    #loading {
       position: fixed;
-      bottom: 20px;
-      right: 28px;
-      z-index: 10;
+      inset: 0;
+      background: #0a0908;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      color: white;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    #loading.done {
+      opacity: 0;
       pointer-events: none;
     }
 
-    .foot {
-      font-size: 0.85rem;
-      opacity: 0.08;
-      transition: opacity 0.1s, transform 0.1s;
-    }
-
-    .foot.on {
-      opacity: 0.5;
-      transform: translateY(-3px);
-    }
-
-    #panel {
-      position: fixed;
-      right: -520px;
-      top: 0;
-      height: 100vh;
-      width: min(480px, 92vw);
-      background: rgba(6, 5, 4, 0.98);
-      border-left: 1px solid rgba(255, 255, 255, 0.045);
-      z-index: 30;
-      transition: right 0.44s cubic-bezier(0.77, 0, 0.175, 1);
-      overflow-y: auto;
-      scrollbar-width: none;
-    }
-
-    #panel.open {
-      right: 0;
-    }
-
-    #panel::-webkit-scrollbar {
-      display: none;
-    }
-
-    #pcls {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      background: none;
-      border: 1px solid #1e1e1a;
-      color: #444;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 0.78rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s;
-      font-family: 'Space Mono', monospace;
-    }
-
-    #pcls:hover {
-      border-color: #f0c060;
-      color: #f0c060;
-    }
-
-    #pin {
-      padding: 58px 32px 38px;
-    }
-
-    #pico {
-      font-size: 2.2rem;
-      margin-bottom: 12px;
-    }
-
-    #ptag {
-      font-size: 0.52rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #f0c060;
-      margin-bottom: 7px;
-    }
-
-    #ptit {
+    #loading span {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(1.5rem, 3.8vw, 2.2rem);
-      font-weight: 800;
-      color: #ede8e0;
-      line-height: 1.0;
-      margin-bottom: 12px;
-      white-space: pre-line;
-    }
-
-    #pdsc {
-      color: #48443e;
-      font-size: 0.66rem;
-      line-height: 1.9;
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
       margin-bottom: 20px;
+      opacity: 0.6;
     }
 
-    .pitms {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .lbar {
+      width: 120px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .pitm {
-      border: 1px solid #141412;
-      border-radius: 4px;
-      padding: 14px 16px;
-      transition: border-color 0.18s, background 0.18s;
+    .lbar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: white;
+      animation: load 1.5s infinite ease-in-out;
     }
 
-    .pitm:hover {
-      border-color: #222;
-      background: #0a0908;
-    }
+    @keyframes load {
+      0% {
+        left: -40%;
+      }
 
-    .pit {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      color: #cec8be;
-      font-size: 0.8rem;
-      margin-bottom: 4px;
-    }
-
-    .pid {
-      color: #3c3830;
-      font-size: 0.62rem;
-      line-height: 1.75;
-    }
-
-    .ptgs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 7px;
-    }
-
-    .tag {
-      background: #0a0908;
-      border: 1px solid #1c1a16;
-      color: #f0c060;
-      font-size: 0.5rem;
-      padding: 2px 6px;
-      border-radius: 100px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      100% {
+        left: 100%;
+      }
     }
 
     #overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.93);
+      background: rgba(10, 9, 8, 0.95);
       z-index: 50;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-      cursor: pointer;
+      color: white;
+      text-align: center;
+      backdrop-filter: blur(10px);
       transition: opacity 0.4s;
     }
 
@@ -282,102 +214,163 @@
     }
 
     .ovb {
-      text-align: center;
-      max-width: 340px;
-      padding: 0 20px;
+      max-width: 400px;
+      padding: 40px;
     }
 
-    .ovb h2 {
+    #overlay h2 {
       font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(1.8rem, 5.5vw, 2.7rem);
-      color: #ede8e0;
-      line-height: 1.0;
+      font-size: 1.8rem;
       margin-bottom: 10px;
     }
 
-    .ovb p {
-      color: rgba(110, 105, 85, 0.72);
-      font-size: 0.62rem;
-      line-height: 1.95;
-      margin-bottom: 20px;
+    #overlay p {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      line-height: 1.8;
+      margin-bottom: 30px;
     }
 
     .obtn {
-      display: inline-block;
-      border: 1px solid #f0c060;
-      color: #f0c060;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.28em;
+      padding: 15px 40px;
+      border: 1px solid white;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      padding: 10px 24px;
-      border-radius: 3px;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s;
+      transition: all 0.3s;
     }
 
     .obtn:hover {
-      background: #f0c060;
-      color: #060504;
+      background: white;
+      color: black;
     }
 
     #vig {
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.72) 100%);
+      z-index: 6;
+      background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
       pointer-events: none;
-      z-index: 5;
     }
 
-    #loading {
+    #steps {
       position: fixed;
-      inset: 0;
-      background: #060504;
+      bottom: 40px;
+      right: 40px;
+      z-index: 10;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      flex-direction: column;
-      gap: 14px;
-      transition: opacity 0.5s;
+      gap: 10px;
+      opacity: 0.3;
     }
 
-    #loading.done {
-      opacity: 0;
-      pointer-events: none;
+    .foot {
+      font-size: 1.2rem;
+      transform: translateY(0);
+      transition: transform 0.1s;
     }
 
-    .lbar {
-      width: 80px;
-      height: 1px;
-      background: #141410;
-      position: relative;
-      overflow: hidden;
+    .foot.on {
+      transform: translateY(-5px);
+      opacity: 1;
     }
 
-    .lbar::after {
-      content: '';
+    #panel {
+      position: fixed;
+      top: 50%;
+      right: -500px;
+      transform: translateY(-50%);
+      width: 420px;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      height: 100vh;
+      z-index: 60;
+      transition: right 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+      padding: 80px 40px;
+      color: white;
+      overflow-y: auto;
+    }
+
+    #panel.open {
+      right: 0;
+    }
+
+    #pcls {
       position: absolute;
-      left: -100%;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: #f0c060;
-      animation: ld 1.4s ease forwards;
+      top: 30px;
+      right: 30px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s;
     }
 
-    @keyframes ld {
-      to {
-        left: 0;
-      }
+    #pcls:hover {
+      opacity: 1;
     }
 
-    #loading span {
-      color: #2e2c26;
-      font-size: 0.55rem;
-      letter-spacing: 0.28em;
+    #ptag {
+      color: #f0c060;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    #ptit {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 30px;
+      white-space: pre-line;
+    }
+
+    #pdsc {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      opacity: 0.6;
+      margin-bottom: 50px;
+    }
+
+    .pitm {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 25px 0;
+    }
+
+    .pit {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .pid {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      margin-bottom: 15px;
+    }
+
+    .ptgs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.55rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #pico {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -407,6 +400,8 @@
     &nbsp;·&nbsp;
     <span class="k">Mouse</span> Look Around &nbsp;·&nbsp;
     <span class="k">E</span> Interact
+    &nbsp;·&nbsp;
+    <span class="k">Space</span> Jump
   </div>
   <div id="steps"><span class="foot" id="fl">👟</span><span class="foot" id="fr">👟</span></div>
   <div id="panel">
@@ -497,8 +492,6 @@
     roof.position.y = 3.3; // Fixed ceiling height
     scene.add(roof);
 
-    // WALLS (Removed manual walls as they conflicted with model orientation)
-
     // GARDEN ENVIRONMENT (Enhanced)
     const gardenGeo = new THREE.PlaneGeometry(200, 200);
     const gardenMat = new THREE.MeshStandardMaterial({ color: 0x2d5a27 }); // Lush Green
@@ -524,7 +517,6 @@
       ray.rotation.z = angleZ;
       scene.add(ray);
     }
-    // Positioning rays to stream through the window area (assuming window is around X=2-3)
     createGodRay(4, 4, -1, Math.PI / 4, -Math.PI / 8); 
 
     // Stylized Garden Objects
@@ -563,8 +555,7 @@
       else if (size.x < 1) scale = 100;
       wrapper.scale.setScalar(scale);
 
-      // NO INTERMEDIATE ROTATION - Walls must align with world X/Z for collision boxes to work
-      wrapper.rotation.y = 0; 
+      wrapper.rotation.y = 0; // Axis aligned
 
       room.position.set(-center.x, -center.y, -center.z);
       room.position.y += size.y / 2;
@@ -577,7 +568,7 @@
         }
       });
 
-      // Hitboxes
+      // Hitbox Utility
       function hit(w, h, d, x, y, z, id, label) {
         const g = new THREE.BoxGeometry(w, h, d);
         const m = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
@@ -586,7 +577,6 @@
         hb.userData = { id, label };
         scene.add(hb);
         clickables.push(hb);
-        // Collision Box: [minX, maxX, minZ, maxZ] 
         obs.push({ 
           x1: x - w/2 - 0.1, x2: x + w/2 + 0.1, 
           z1: z - d/2 - 0.1, z2: z + d/2 + 0.1 
@@ -598,7 +588,7 @@
       monGlow.position.set(-1.5, 1.3, -1.6);
       scene.add(monGlow);
 
-      // Adjusted for scaled room centering - Slightly tighter hitboxes for fluidity
+      // Collisions
       hit(1.4, 1.5, 1.4, -1.6, 0.8, -1.8, 'desk', 'Desk');
       hit(1.8, 0.8, 0.8, 1.5, 0.4, 1.5, 'bench', 'Sport');
       hit(1.6, 1.0, 2.2, 1.2, 0.5, -1.2, 'bed', 'Bed');
@@ -619,7 +609,7 @@
     let locked = false;
     document.getElementById('enterbtn').onclick = () => {
       document.body.requestPointerLock();
-      document.getElementById('overlay').classList.add('hidden'); // Robust hide
+      document.getElementById('overlay').classList.add('hidden');
     };
     document.addEventListener('pointerlockchange', () => {
       locked = document.pointerLockElement === document.body;
@@ -642,10 +632,11 @@
     };
 
     const vel = new THREE.Vector3();
-    let vy = 0; // Vertical velocity
-    const gravity = -18; // Gravity strength
-    const jumpForce = 6; // Jumping power
+    let vy = 0;
+    const gravity = -18;
+    const jumpForce = 6;
     let lastT = performance.now();
+
     function animate() {
       requestAnimationFrame(animate);
       const now = performance.now(), dt = Math.min((now - lastT) / 1000, 0.1); lastT = now;
@@ -658,17 +649,13 @@
         if (keys['KeyD']) move.x += 1;
         if (move.length() > 0) move.normalize();
 
-        const targetSpeed = 3.36; // 0.8x of 4.2
+        const targetSpeed = 3.36;
         vel.x += (move.x * targetSpeed - vel.x) * 12 * dt;
         vel.z += (move.z * targetSpeed - vel.z) * 12 * dt;
         const mv = new THREE.Vector3(vel.x, 0, vel.z).applyQuaternion(camera.quaternion);
         let nx = camera.position.x + mv.x * dt, nz = camera.position.z + mv.z * dt;
 
-        // Hard Room Bounds (Strict Enclosure)
-        const b = 2.15;
-        nx = Math.max(-b, Math.min(b, nx)); nz = Math.max(-b, Math.min(b, nz));
-        
-        // Precise Box Collisions for Objects
+        // Object Collisions
         obs.forEach(o => {
           if (nx > o.x1 && nx < o.x2 && nz > o.z1 && nz < o.z2) {
             const dx1 = Math.abs(nx - o.x1), dx2 = Math.abs(nx - o.x2);
@@ -679,22 +666,17 @@
           }
         });
 
-        // REINFORCED HARD BOUNDS - Tighten and ensure absolute zero-pass
-        const b = 1.95; // Slightly tighter to ensure visual model covers it
+        // World Bounds
+        const b = 1.95;
         nx = Math.max(-b, Math.min(b, nx)); nz = Math.max(-b, Math.min(b, nz));
-
         camera.position.x = nx; camera.position.z = nz;
 
-        // Vertical Physics (Jumping & Gravity)
-        if (keys['Space'] && camera.position.y <= 1.73) {
-          vy = jumpForce;
-        }
+        // Jump & Gravity
+        if (keys['Space'] && camera.position.y <= 1.73) vy = jumpForce;
         vy += gravity * dt;
         let ny = camera.position.y + vy * dt;
-        
-        // Ground & Ceiling Collisions
         if (ny < 1.72) { ny = 1.72; vy = 0; }
-        if (ny > 3.3) { ny = 3.3; vy = 0; } // Ceiling limit
+        if (ny > 3.25) { ny = 3.25; vy = 0; }
         camera.position.y = ny;
 
         camera.quaternion.setFromEuler(euler);
@@ -704,7 +686,6 @@
         if (fR) fR.classList.remove('on');
       }
 
-      // Interacting
       const rc = new THREE.Raycaster();
       rc.setFromCamera(new THREE.Vector2(0, 0), camera);
       const hits = rc.intersectObjects(clickables);
