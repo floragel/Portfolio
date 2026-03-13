@@ -449,7 +449,7 @@
       dresser: {
         icon: '🗄️', tag: 'Journey', title: 'IKEA Alex\n& Milestones', desc: 'Skills and achieved milestones.', items: [
           { t: 'SHAD 2026', d: 'Academic excellence.', tags: ['SHAD'] },
-          { t: 'FloraGel', d: 'IT Vice-President.', tags: ['Leadership'] },
+          { t: 'Floragel', d: 'IT Vice-President.', tags: ['Leadership'] },
           { t: 'Objective: MIT', d: 'Next step: EECS.', tags: ['CS', 'Engineering'] }
         ]
       },
@@ -470,7 +470,8 @@
     document.body.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0e0d0c);
+    scene.background = new THREE.Color(0x87ceeb); // Sky Blue
+    scene.fog = new THREE.FogExp2(0x87ceeb, 0.015);
 
     const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.04, 100);
     camera.position.set(0, 1.72, 0);
@@ -489,34 +490,57 @@
     scene.add(sun);
 
     // ROOF
-    const roofGeo = new THREE.PlaneGeometry(20, 20);
-    const roofMat = new THREE.MeshStandardMaterial({ color: 0x151412 });
+    const roofGeo = new THREE.PlaneGeometry(50, 50);
+    const roofMat = new THREE.MeshStandardMaterial({ color: 0x151412, side: THREE.DoubleSide });
     const roof = new THREE.Mesh(roofGeo, roofMat);
     roof.rotation.x = Math.PI / 2;
-    roof.position.y = 2.8;
+    roof.position.y = 3.5; // Slightly higher for more headroom
     scene.add(roof);
 
-    // GARDEN ENVIRONMENT
-    const gardenGeo = new THREE.PlaneGeometry(100, 100);
-    const gardenMat = new THREE.MeshStandardMaterial({ color: 0x1a2e1a });
+    // GARDEN ENVIRONMENT (Enhanced)
+    const gardenGeo = new THREE.PlaneGeometry(200, 200);
+    const gardenMat = new THREE.MeshStandardMaterial({ color: 0x2d5a27 }); // Lush Green
     const garden = new THREE.Mesh(gardenGeo, gardenMat);
     garden.rotation.x = -Math.PI / 2;
     garden.position.y = -0.05;
+    garden.receiveShadow = true;
     scene.add(garden);
+
+    // Volumetric Sunlight (God Rays)
+    function createGodRay(x, y, z, angleX, angleZ) {
+      const rayGeo = new THREE.CylinderGeometry(0.5, 2.0, 15, 32, 1, true);
+      const rayMat = new THREE.MeshBasicMaterial({
+        color: 0xfff0dd,
+        transparent: true,
+        opacity: 0.1,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+      const ray = new THREE.Mesh(rayGeo, rayMat);
+      ray.position.set(x, y, z);
+      ray.rotation.x = angleX;
+      ray.rotation.z = angleZ;
+      scene.add(ray);
+    }
+    // Positioning rays to stream through the window area (assuming window is around X=2-3)
+    createGodRay(4, 4, -1, Math.PI / 4, -Math.PI / 8); 
 
     // Stylized Garden Objects
     function createTree(x, z) {
-      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 2), new THREE.MeshStandardMaterial({ color: 0x2a1a0a }));
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 2), new THREE.MeshStandardMaterial({ color: 0x3d2b1f }));
       trunk.position.set(x, 1, z);
+      trunk.castShadow = true;
       scene.add(trunk);
-      const canopy = new THREE.Mesh(new THREE.SphereGeometry(1.2, 8, 8), new THREE.MeshStandardMaterial({ color: 0x1a3a1a }));
-      canopy.position.set(x, 2.5, z);
+      
+      const canopy = new THREE.Mesh(new THREE.ConeGeometry(1.5, 3, 8), new THREE.MeshStandardMaterial({ color: 0x1e4520 }));
+      canopy.position.set(x, 3, z);
+      canopy.castShadow = true;
       scene.add(canopy);
     }
-    for (let i = 0; i < 15; i++) {
-      const ang = Math.random() * Math.PI * 2;
-      const rad = 15 + Math.random() * 20;
-      createTree(Math.cos(ang) * rad, Math.sin(ang) * rad);
+    for (let i = 0; i < 60; i++) {
+        const ang = Math.random() * Math.PI * 2;
+        const rad = 8 + Math.random() * 40;
+        createTree(Math.cos(ang) * rad, Math.sin(ang) * rad);
     }
 
     const loader = new THREE.GLTFLoader();
@@ -536,6 +560,8 @@
       if (size.x > 100) scale = 0.01;
       else if (size.x < 1) scale = 100;
       wrapper.scale.setScalar(scale);
+
+      wrapper.rotation.y = -Math.PI / 4; // Adjusting for model orientation to make it "straight"
 
       room.position.set(-center.x, -center.y, -center.z);
       room.position.y += size.y / 2;
@@ -566,11 +592,11 @@
       scene.add(monGlow);
 
       // Adjusted for scaled room centering - Slightly tighter hitboxes for fluidity
-      hit(1.4, 1.5, 1.4, -1.6, 0.8, -1.8, 'desk', 'Bureau');
+      hit(1.4, 1.5, 1.4, -1.6, 0.8, -1.8, 'desk', 'Desk');
       hit(1.8, 0.8, 0.8, 1.5, 0.4, 1.5, 'bench', 'Sport');
-      hit(1.6, 1, 2.2, 1.2, 0.5, -1.2, 'bed', 'Lit');
+      hit(1.6, 1, 2.2, 1.2, 0.5, -1.2, 'bed', 'Bed');
       hit(1.1, 1.2, 0.9, -1.8, 0.6, 1.5, 'dresser', 'IKEA Alex');
-      hit(0.6, 0.6, 0.6, 1.8, 0.5, 0.5, 'nightstand', 'Table de Nuit');
+      hit(0.6, 0.6, 0.6, 1.8, 0.5, 0.5, 'nightstand', 'Night Stand');
 
       document.getElementById('loading').classList.add('done');
     }, undefined, e => {
@@ -585,7 +611,11 @@
     };
     document.addEventListener('pointerlockchange', () => {
       locked = document.pointerLockElement === document.body;
-      if (locked) document.getElementById('overlay').classList.add('hidden');
+      if (locked) {
+        document.getElementById('overlay').classList.add('hidden');
+      } else {
+        document.getElementById('overlay').classList.remove('hidden');
+      }
     });
 
     const euler = new THREE.Euler(0, 0, 0, 'YXZ');
