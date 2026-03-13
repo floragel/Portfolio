@@ -1,4 +1,4 @@
-# Nayl's Portfolio (2020 — 2026)
+# Nayl | Systems Engineer & Builder (2020 — 2026)
 
 Welcome to my personal portfolio. This project represents six years of software development, hardware engineering, and mission-driven leadership. From building my first website at age 9 to designing portable VR headsets and FRC competition robots, this repository showcases my passion for building full-stack systems that bridge the gap between physical hardware and digital experiences.
 
