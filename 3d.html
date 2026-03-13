@@ -489,7 +489,7 @@
     const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
     const roof = new THREE.Mesh(roofGeo, roofMat);
     roof.rotation.x = Math.PI / 2;
-    roof.position.y = 3.3; 
+    roof.position.y = 2.85; 
     scene.add(roof);
 
     // GARDEN ENVIRONMENT (Enhanced)
@@ -676,7 +676,7 @@
         vy += gravity * dt;
         let ny = camera.position.y + vy * dt;
         if (ny < 1.72) { ny = 1.72; vy = 0; }
-        if (ny > 3.25) { ny = 3.25; vy = 0; }
+        if (ny > 2.85) { ny = 2.85; vy = 0; }
         camera.position.y = ny;
 
         camera.quaternion.setFromEuler(euler);
