@@ -497,32 +497,7 @@
     roof.position.y = 3.5; 
     scene.add(roof);
 
-    // WALLS
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
-    const wallSize = 4.3; // matches the collision bounds (2.15 * 2)
-    const wallHeight = 3.5;
-
-    // Back Wall
-    const wallB = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
-    wallB.position.set(0, wallHeight/2, -2.15);
-    scene.add(wallB);
-
-    // Front Wall (optional, but for enclosure)
-    const wallF = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
-    wallF.position.set(0, wallHeight/2, 2.15);
-    scene.add(wallF);
-
-    // Left Wall
-    const wallL = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
-    wallL.rotation.y = Math.PI / 2;
-    wallL.position.set(-2.15, wallHeight/2, 0);
-    scene.add(wallL);
-
-    // Right Wall (Window Wall - offset to allow garden view if model has window)
-    const wallR = new THREE.Mesh(new THREE.PlaneGeometry(wallSize, wallHeight), wallMat);
-    wallR.rotation.y = Math.PI / 2;
-    wallR.position.set(2.15, wallHeight/2, 0);
-    scene.add(wallR);
+    // WALLS (Removed manual walls as they conflicted with model orientation)
 
     // GARDEN ENVIRONMENT (Enhanced)
     const gardenGeo = new THREE.PlaneGeometry(200, 200);
