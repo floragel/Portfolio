@@ -522,6 +522,30 @@
       margin-top: 40px;
     }
 
+    .year-label {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 40px 0 20px 0;
+      letter-spacing: -0.02em;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .year-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .timeline-year-group:first-child .year-label {
+      margin-top: 0;
+    }
+
     .timeline-item {
       display: flex;
       gap: 30px;
@@ -1253,14 +1277,14 @@
           </div>
 
           <div class="proj-item"
-            onclick="openModal('FloraGel Website', 'WEB', 'Selected as 2nd Best VP IT in Quebec, I led the technical vision for FloraGel, a mission-driven enterprise dedicated to protecting living beings. At FloraGel, we believe plants are more than just decor—they are living souls that deserve to thrive. I built and managed the entire IT infrastructure and an interactive plant-care platform that helped our team secure 2nd place in the province and the Best Sales Pitch award at the JA Québec Gala.', ['Leadership', 'Mission-Driven', 'IT Architecture', 'Python', 'LLM', 'HTML', 'JS', 'CSS'], [{url: 'https://github.com/floragel/floragel-web', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/floragel-web/', text: 'Visit Site'}], 'assets/img/floragel.png', '2024-25', { gallery: [{ img: 'assets/img/floragel/1.png', title: 'Contact Page & Chatbot' }, { img: 'assets/img/floragel/2.png', title: 'Interactive Plant Care' }, { img: 'assets/img/floragel/3.png', title: 'Desktop View' }, { img: 'assets/img/floragel/4.png', title: 'Home Page' }] })">
+            onclick="openModal('Floragel Website', 'WEB', 'Selected as 2nd Best VP IT in Quebec, I led the technical vision for Floragel, a mission-driven enterprise dedicated to protecting living beings. At Floragel, we believe plants are more than just decor—they are living souls that deserve to thrive. I built and managed the entire IT infrastructure and an interactive plant-care platform that helped our team secure 2nd place in the province and the Best Sales Pitch award at the JA Québec Gala.', ['Leadership', 'Mission-Driven', 'IT Architecture', 'Python', 'LLM', 'HTML', 'JS', 'CSS'], [{url: 'https://github.com/floragel/floragel-web', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/floragel-web/', text: 'Visit Site'}], 'assets/img/floragel.png', '2024-25', { gallery: [{ img: 'assets/img/floragel/1.png', title: 'Contact Page & Chatbot' }, { img: 'assets/img/floragel/2.png', title: 'Interactive Plant Care' }, { img: 'assets/img/floragel/3.png', title: 'Desktop View' }, { img: 'assets/img/floragel/4.png', title: 'Home Page' }] })">
             <div class="proj-thumb thumb-gray">
-              <img src="assets/img/floragel.png" alt="FloraGel">
+              <img src="assets/img/floragel.png" alt="Floragel">
               <span class="proj-type">WEB</span>
               <span class="proj-year">2024-25</span>
             </div>
             <div class="proj-details">
-              <h4>FloraGel <span class="status-tag">Best Sales Pitch</span></h4>
+              <h4>Floragel <span class="status-tag">Best Sales Pitch</span></h4>
               <p>Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for building the
                 technological soul of this plant-survival project.</p>
             </div>
@@ -1439,91 +1463,82 @@
 
         <div class="experience-timeline">
 
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
+          <!-- 2026 -->
+          <div class="timeline-year-group">
+            <h3 class="year-label">2026 — Leadership & Excellence</h3>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>SHAD Canada Scholar</h4>
+                <p>Selected for this prestigious STEM leadership incubator. Engaging with the next generation of Canadian innovators.</p>
+              </div>
             </div>
-            <div class="timeline-content">
-              <h4>Clofit</h4>
-              <div class="date">2025 - Ongoing</div>
-              <p>Clofit is a modern, native iOS app built in Swift/SwiftUI that acts as a digital wardrobe, personal AI
-                stylist, and fashion social network.
-              </p>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>FRC Scouting App Development</h4>
+                <p>Architected and built a full-stack scouting platform for match strategy, predictive analytics, and team optimization.</p>
+              </div>
             </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4>FIRST Robotics Competition (FRC 6622)</h4>
-              <div class="date">2024 - Ongoing</div>
-              <p>Programming team member for StanRobotix. Developing control software for competitive
-                robots. Aiming for Programming Lead and Co-captain roles.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4>SHAD Canada Scholar</h4>
-              <div class="date">2026</div>
-              <p>Selected for this highly competitive month-long STEM leadership incubator summer program.</p>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>Hackathon Competitor (ConUHacks)</h4>
+                <p>Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h pressure.</p>
+              </div>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
+          <!-- 2025 -->
+          <div class="timeline-year-group">
+            <h3 class="year-label">2025 — Innovation & Awards</h3>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>Clofit — Digital Wardrobe & AI Stylist</h4>
+                <p>Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal fashion.</p>
+              </div>
             </div>
-            <div class="timeline-content">
-              <h4>FRC Scouting App Development</h4>
-              <div class="date">2026</div>
-              <p>Built a strategic data collection application for the FIRST Robotics Competition to
-                analyze match data and optimize team performance.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4>Hackathon Competitor & Winner</h4>
-              <div class="date">2025 - 2026</div>
-              <p>1st place winner at HackDécouverte 2025 (Concordia University) and participant in
-                ConUHacks 2026. Proven ability to build software under tight deadlines.</p>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>1st Place — HackDécouverte (Concordia University)</h4>
+                <p>Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions rapidly.</p>
+              </div>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
+          <!-- 2024 -->
+          <div class="timeline-year-group">
+            <h3 class="year-label">2024 — Foundation & Robotics</h3>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>Vice President IT — Floragel (JA Québec)</h4>
+                <p>Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection project that won Best Sales Pitch.</p>
+              </div>
             </div>
-            <div class="timeline-content">
-              <h4>Vice President IT - JA Québec (FloraGel)</h4>
-              <div class="date">2024 - 2025</div>
-              <p>Directed the technological strategy for a mission-driven enterprise aiming to "save lives" by
-                protecting
-                plants as living beings. Awarded 2nd Best VP IT in Quebec. FloraGel also won Best Sales Pitch at the
-                provincial gala.</p>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
+                <p>Joined the programming team, developing control systems for competitive robots and contributing to team strategy.</p>
+              </div>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4>Hardware Engineering Basics</h4>
-              <div class="date">2020 - 2022</div>
-              <p>Hands-on experience starting from a young age: built a custom PC from scratch, designed a
-                handmade gaming console, and constructed a physical VR headset with integrated
-                programming.</p>
+          <!-- 2020-2023 -->
+          <div class="timeline-year-group">
+            <h3 class="year-label">2020 – 2023 — The Builder's Roots</h3>
+            <div class="timeline-item">
+              <div class="timeline-left"><div class="timeline-dot"></div></div>
+              <div class="timeline-content">
+                <h4>Hardware Engineering & Integrated Systems</h4>
+                <p>From age 9: Built a custom high-performance PC, a handmade gaming console, and a working portable VR headset from scratch.</p>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -2093,7 +2108,7 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 - **FRC Team 6622 (StanRobotix):** Programmer, Builder, Media Team.
 - **Model United Nations (MUN):** COP Oceans, DESMNU Rabat 2026.
 - **Floragel (JA Québec Mini-Enterprise):** Vice-President IT. Mission-driven to "save lives" by treating plants as living beings.
-  - **Awards:** 2nd Best VP IT in all of Quebec. FloraGel also won "Best Sales Pitch" at the provincial gala.
+  - **Awards:** 2nd Best VP IT in all of Quebec. Floragel also won "Best Sales Pitch" at the provincial gala.
   - **Philosophy:** Plants are not just objects; they are living souls. Built the IT infrastructure to help them thrive.
 - **Hardware Engineering Expertise:**
   - Built an Artisanal Portable VR Headset from scratch in 5th grade (Electronics & Sensors).
@@ -2121,7 +2136,7 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
      - *AI Engine:* Computer Vision (for background removal and auto-tagging) and LLMs/Recommendation systems to assemble the perfect outfit based on stylistic rules. (Currently deploying to the public).
 6. **FRC Team 6622 Scouting App:** Full-stack native app in React Native and Go for robotics competitions with offline sync and predictive analytics. [GitHub: https://github.com/floragel/Scouting-App]
 7. **Muse (Brainwave Analytics):** Real-time data visualization dashboard for the Muse 2 headband, displaying focus states via FFT/bandpower analysis to analyze brain waves.
-8. **FloraGel (JA Québec Mini-Enterprise):** Website for Floragel, that indicate every plant's needs and how to take care of them with the floragel product and with a real time chatbot that helps people get their plants the best care possible [https://floragel.github.io/floragel-web/].
+8. **Floragel (JA Québec Mini-Enterprise):** Website for Floragel, that indicate every plant's needs and how to take care of them with the floragel product and with a real time chatbot that helps people get their plants the best care possible [https://floragel.github.io/floragel-web/].
 
 Whenever someone asks "Who is Nayl", "What can he do", or similar, use this context to answer intelligently.`
       }
@@ -2264,7 +2279,7 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
           'children': {
             'trakant.txt': 'Trakant: 1st place application built during HackDécouverte 2025. Designed for rapid deployment and efficient problem-solving under pressure. I focused on creating a clean architecture and integrating real-time data processing.',
             'clofit.txt': 'Clofit: Modern native iOS app acting as a digital wardrobe, personal AI stylist, and fashion social network. Uses Computer Vision for background removal and LLMs for personalized outfit recommendations (OOTD).',
-            'floragel.txt': 'FloraGel: Mission-driven enterprise dedicated to protecting plants as living beings. 2nd Place provincial ranking and Best Sales Pitch winner at JA Québec. Led the technical vision as 2nd Best VP IT in the province.',
+            'floragel.txt': 'Floragel: Mission-driven enterprise dedicated to protecting plants as living beings. 2nd Place provincial ranking and Best Sales Pitch winner at JA Québec. Led the technical vision as 2nd Best VP IT in the province.',
             'frc-scout.txt': 'FRC Scouting App: Comprehensive full-stack scouting application for Team 6622 StanRobotix. Features offline data collection, cloud sync, and predictive analytics for match strategy.',
             'jarvis-os.txt': 'Jarvis OS: Ultra-fast voice-to-voice AI assistant (Python). Uses LiteLLM proxy and sub-50ms local TTS. Integrates with Notion, Google Calendar, and IoT devices.',
             'learn-to-code.txt': 'Learn to Code Platform: Educational platform designed to help others create their own websites. One of my early initiatives to share technical knowledge back in 4th grade.',
@@ -2378,7 +2393,7 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`,
 ----------------------------
 - <b>StanRobotix (FRC 6622):</b> Strategy, Programming & Build Team (2024-ongoing)
 - <b>MUN:</b> Model United Nations (COP OCEANS '25 & DESMNU Rabat '26)
-- <b>FloraGel:</b> VP IT for JA Quebec Mini-Enterprise
+- <b>Floragel:</b> VP IT for JA Quebec Mini-Enterprise
 - <b>Sport:</b> Bodybuilding, Running & Badminton`,
         'theme': (args) => {
           const themes = {
