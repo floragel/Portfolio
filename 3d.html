@@ -484,29 +484,6 @@
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
 
-    // ROOF
-    const roofGeo = new THREE.PlaneGeometry(5, 5); 
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
-    const roof = new THREE.Mesh(roofGeo, wallMat);
-    roof.rotation.x = Math.PI / 2;
-    roof.position.y = 3.3; 
-    scene.add(roof);
-
-    // SOLID WALL SHELL (Sealing corner gaps and blocking trees)
-    function createWall(w, h, x, y, z, ry) {
-      const g = new THREE.PlaneGeometry(w, h);
-      const m = new THREE.MeshStandardMaterial({ color: 0xF4EDDE, side: THREE.DoubleSide });
-      const wsh = new THREE.Mesh(g, m);
-      wsh.position.set(x, y, z);
-      wsh.rotation.y = ry;
-      scene.add(wsh);
-    }
-    const wh = 4, wb = 2.15; // Wall height and boundary
-    createWall(wb * 2, wh, 0, 1.5, -wb, 0);            // Back
-    createWall(wb * 2, wh, 0, 1.5, wb, Math.PI);      // Front
-    createWall(wb * 2, wh, -wb, 1.5, 0, Math.PI / 2); // Left
-    createWall(wb * 2, wh, wb, 1.5, 0, -Math.PI / 2); // Right
-
     // GARDEN ENVIRONMENT (Enhanced)
     const gardenGeo = new THREE.PlaneGeometry(200, 200);
     const gardenMat = new THREE.MeshStandardMaterial({ color: 0x2d5a27 }); // Lush Green
