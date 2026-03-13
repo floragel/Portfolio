@@ -484,11 +484,11 @@
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
 
-    // ROOF (Thick Slab)
-    const roofGeo = new THREE.BoxGeometry(10, 0.4, 10); 
+    // ROOF (Massive Armor Slab)
+    const roofGeo = new THREE.BoxGeometry(50, 2.0, 50); 
     const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE });
     const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 2.7; // Bottom at 2.5
+    roof.position.y = 3.5; // Bottom at 2.5 (3.5 - 1.0)
     scene.add(roof);
 
     // GARDEN ENVIRONMENT (Enhanced)
