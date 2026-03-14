@@ -488,7 +488,7 @@
     const roofGeo = new THREE.BoxGeometry(500, 10, 500); 
     const roofMat = new THREE.MeshStandardMaterial({ color: 0xF4EDDE });
     const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 7.5; // Bottom at 2.5 (7.5 - 5.0)
+    roof.position.y = 7.3; // Bottom at 2.3
     scene.add(roof);
 
     // GARDEN ENVIRONMENT (Enhanced)
@@ -598,6 +598,8 @@
       hit(0.1, 2.0, 1.5, 2.1, 1.5, -0.5, 'window', 'Window');
       hit(0.8, 1.2, 0.1, -1.9, 1.5, 0.5, 'mirror', 'Mirror');
       hit(0.5, 0.5, 0.8, 1.8, 0.2, 0.8, 'dumbbells', 'Dumbbells');
+      // ROOF COLLIDE BOX
+      hit(10, 2.0, 10, 0, 3.5, 0, 'roof_collider', 'Ceiling');
 
       // HEAVY PERIMETER BUFFERS (Invisible Thick Walls)
       function buffer(w, h, d, x, y, z) {
@@ -691,7 +693,7 @@
         vy += gravity * dt;
         let ny = camera.position.y + vy * dt;
         if (ny < 1.72) { ny = 1.72; vy = 0; }
-        if (ny > 2.5) { ny = 2.5; vy = 0; }
+        if (ny > 2.2) { ny = 2.2; vy = 0; }
         camera.position.y = ny;
 
         camera.quaternion.setFromEuler(euler);
