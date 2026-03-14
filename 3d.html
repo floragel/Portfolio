@@ -671,7 +671,11 @@
       hit(0.8, 1.4, 1.0, -1.4, 0.5, -1.2, 'corkboard', 'Corkboard'); // Area around bed/shelf
 
       // --- PHOTO BOARD (nayl.jpeg) ---
-      const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg');
+      const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg', 
+        () => console.log('Photo texture loaded successfully'),
+        undefined,
+        (err) => console.error('Photo texture failed to load:', err)
+      );
       const photoGeo = new THREE.BoxGeometry(0.8, 1.0, 0.05);
       const photoMat = new THREE.MeshStandardMaterial({ map: photoTex });
       const photoBoard = new THREE.Mesh(photoGeo, photoMat);
@@ -797,11 +801,12 @@
       clickables.forEach(c => {
         if(c.userData.visualMesh) {
           c.userData.visualMesh.scale.setScalar(1);
-          if(c.userData.visualMesh.material.emissive) c.userData.visualMesh.material.emissive.setHex(0x000000);
+          if(c.userData.visualMesh.material && c.userData.visualMesh.material.emissive) 
+            c.userData.visualMesh.material.emissive.setHex(0x000000);
         }
       });
 
-      if (locked && hits.length > 0 && hits[0].distance < 3.5) {
+      if (locked && hits.length > 0 && hits[0].distance < 4.5) {
         labels.classList.add('vis'); cross.classList.add('hi');
         labels.textContent = `[ E ] ${hits[0].object.userData.label}`;
         
@@ -810,7 +815,8 @@
         const obj = hits[0].object;
         if(obj.userData.visualMesh) {
           obj.userData.visualMesh.scale.setScalar(1.02);
-          if(obj.userData.visualMesh.material.emissive) obj.userData.visualMesh.material.emissive.setHex(0x333333);
+          if(obj.userData.visualMesh.material && obj.userData.visualMesh.material.emissive)
+            obj.userData.visualMesh.material.emissive.setHex(0x333333);
         }
 
         if (keys['KeyE']) openPanel(hits[0].object.userData.id);
