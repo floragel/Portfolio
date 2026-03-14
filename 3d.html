@@ -420,38 +420,77 @@
 
   <script>
     const DATA = {
-      desk: {
-        icon: '💻', tag: 'Setup & Dev Projects', title: 'Coding\nDesk', desc: 'Hardware, software, and integration.', items: [
-          { t: 'Clofit', d: 'Digital wardrobe, AI stylist.', tags: ['AI', 'iOS', 'Python'] },
-          { t: 'FRC 6622', d: 'Control systems development.', tags: ['C++', 'Java', 'Kotlin'] },
-          { t: 'Robotics Projects', d: 'Arduino, ESP32, Gemini AI.', tags: ['Hardware', 'AI'] }
-        ]
-      },
-      bench: {
-        icon: '🏋️', tag: 'Discipline', title: 'End Zone\nBench', desc: 'Discipline in code and sport.', items: [
-          { t: 'Strength', d: 'Weight training and conditioning.', tags: ['Weight Training'] },
-          { t: 'Circus', d: 'Acrobatic performance training.', tags: ['Performance'] },
-          { t: 'Cardio', d: '20km preparation.', tags: ['Endurance'] }
-        ]
-      },
-      bed: {
-        icon: '🛏️', tag: 'Identity', title: 'Where\nThinking Happens', desc: 'Personal reflections and projects.', items: [
-          { t: 'Model UN', d: 'Harvard & MIT conferences goal.', tags: ['MUN', 'Debate'] },
-          { t: 'Ologra OS', d: 'Coding since 9 years old.', tags: ['Systems'] },
-          { t: 'Style', d: 'Y2K design exploration.', tags: ['Design'] }
-        ]
-      },
-      dresser: {
-        icon: '🗄️', tag: 'Journey', title: 'IKEA Alex\n& Milestones', desc: 'Skills and achieved milestones.', items: [
-          { t: 'SHAD 2026', d: 'Academic excellence.', tags: ['SHAD'] },
-          { t: 'Floragel', d: 'IT Vice-President.', tags: ['Leadership'] },
-          { t: 'Objective: MIT', d: 'Next step: EECS.', tags: ['CS', 'Engineering'] }
-        ]
-      },
       nightstand: {
         icon: '🔋', tag: 'Routine', title: 'Night\nStand', desc: 'Daily essentials.', items: [
           { t: 'Mindset', d: 'Goal-oriented focus.', tags: ['Routine'] },
           { t: 'IoT', d: 'Personal home automation.', tags: ['Hardware'] }
+        ]
+      },
+      computer: {
+        icon: '💻', tag: 'Hardware Engineering', title: 'Custom DIY\nLaptop', desc: 'Built a portable computing station from scratch at age 9.', items: [
+          { t: 'Architecture', d: 'Raspberry Pi 4 based system.', tags: ['RPi 4', 'Linux'] },
+          { t: 'Build', d: 'Custom-modified internal housing.', tags: ['Hardware', 'DIY'] }
+        ]
+      },
+      vr_headset: {
+        icon: '🥽', tag: 'Engineering', title: 'Portable VR\nHeadset', desc: 'Independent VR headset built at age 12.', items: [
+          { t: 'Sensors', d: '9-axis MPU9250 motion tracking.', tags: ['MPU9250', 'Arduino'] },
+          { t: 'Processing', d: 'Raspberry Pi 4 core.', tags: ['RPi 4', 'Python'] }
+        ]
+      },
+      breadboard: {
+        icon: '🔌', tag: 'IoT / Systems', title: 'Jarvis IoT\nBridge', desc: 'Hardware layer for residential automation.', items: [
+          { t: 'Connectivity', d: 'ESP32 & NodeMCU protocols.', tags: ['ESP32', 'IoT'] },
+          { t: 'Infrastructure', d: 'Connected home ecosystem.', tags: ['Systems'] }
+        ]
+      },
+      plant: {
+        icon: '🌱', tag: 'Mission-Driven IT', title: 'FloraGel\nInfrastructure', desc: '2nd Best VP IT in Quebec for plant protection.', items: [
+          { t: 'Mission', d: 'Saving living plant souls.', tags: ['Leadership'] },
+          { t: 'Tech', d: 'Full-stack care platform.', tags: ['Python', 'Web'] }
+        ]
+      },
+      robot: {
+        icon: '🤖', tag: 'Robotics', title: 'FRC Team 6622\nStanRobotix', desc: 'Industrial robotics and match strategy.', items: [
+          { t: 'Hardware', d: 'Wiring & assembly of competition robots.', tags: ['FRC', 'Engineering'] },
+          { t: 'Scouting', d: 'Full-stack app with analytics.', tags: ['Kotlin', 'Data'] }
+        ]
+      },
+      controller: {
+        icon: '🎮', tag: 'Retro Engineering', title: 'Retro\nConsole', desc: 'Physical gaming console build.', items: [
+          { t: 'Core', d: 'Raspberry Pi 3 emulation core.', tags: ['RPi 3'] },
+          { t: 'Design', d: 'Custom input mapping & housing.', tags: ['Hardware'] }
+        ]
+      },
+      medal: {
+        icon: '🏆', tag: 'Awards', title: 'Excellence &\nVictories', desc: 'Top-tier competition results.', items: [
+          { t: 'HackDécouverte', d: '1st Place for Trakant app.', tags: ['Champion'] },
+          { t: 'JA Québec', d: '2nd Best VP IT in the province.', tags: ['Leadership'] }
+        ]
+      },
+      mirror: {
+        icon: '🪞', tag: 'iOS Development', title: 'Clofit\nDigital Wardrobe', desc: 'AI-powered fashion stylist app.', items: [
+          { t: 'Vision', d: 'Background removal for clothes.', tags: ['Computer Vision'] },
+          { t: 'AI', d: 'OOTD generation via LLMs.', tags: ['SwiftUI', 'LLM'] }
+        ]
+      },
+      corkboard: {
+        icon: '📌', tag: 'Experience', title: 'Extracurricular\nImpact', desc: 'Leadership and academic reach.', items: [
+          { t: 'SHAD 2026', d: 'STEM leadership incubator.', tags: ['Canada Scholar'] },
+          { t: 'Model UN', d: 'International conference strategy.', tags: ['MUN', 'Debate'] }
+        ]
+      },
+      dumbbells: {
+        icon: '💪', tag: 'Discipline', title: 'Physical\nActivities', desc: 'Peak physical conditioning.', items: [
+          { t: 'Strength', d: 'Daily weight training routine.', tags: ['Gym'] },
+          { t: 'Endurance', d: 'Running & cardiovascular health.', tags: ['Running'] },
+          { t: 'Circus', d: 'Acrobatic test preparation.', tags: ['Circus'] }
+        ]
+      },
+      profile_board: {
+        icon: '👨‍💻', tag: 'Identity', title: 'About\nNayl Lahlou', desc: 'Systems Developer & Builder since 2020.', items: [
+          { t: 'Origins', d: 'Coding and building since age 9.', tags: ['Personal'] },
+          { t: 'Vision', d: 'Bridging physical and digital worlds.', tags: ['Mission'] }
         ]
       }
     };
@@ -560,20 +599,38 @@
       room.position.y += size.y / 2;
       wrapper.add(room);
 
+      const meshes = {};
       room.traverse(c => {
         if (c.isMesh) {
           c.castShadow = c.receiveShadow = true;
           if (c.material) c.material.side = THREE.DoubleSide;
+          
+          // Identify specific meshes by name (based on GLB structure)
+          const name = c.name.toLowerCase();
+          if (name.includes('computer') || name.includes('laptop')) meshes.computer = c;
+          if (name.includes('vr') || name.includes('headset')) meshes.vr_headset = c;
+          if (name.includes('breadboard')) meshes.breadboard = c;
+          if (name.includes('plant')) meshes.plant = c;
+          if (name.includes('robot')) meshes.robot = c;
+          if (name.includes('controller') || name.includes('gamepad')) meshes.controller = c;
+          if (name.includes('medal')) meshes.medal = c;
+          if (name.includes('mirror')) meshes.mirror = c;
+          if (name.includes('corkboard')) meshes.corkboard = c;
+          if (name.includes('dumbbell')) meshes.dumbbells = c;
         }
       });
 
-      // Hitbox Utility
+      // Hitbox Utility - UPDATED to link visual meshes
       function hit(w, h, d, x, y, z, id, label, canBlock = true) {
         const g = new THREE.BoxGeometry(w, h, d);
         const m = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
         const hb = new THREE.Mesh(g, m);
         hb.position.set(x, y, z);
-        hb.userData = { id, label };
+        
+        // Link to visual mesh for hover effects
+        const visual = meshes[id];
+        hb.userData = { id, label, visualMesh: visual };
+        
         scene.add(hb);
         clickables.push(hb);
         if (canBlock) {
@@ -602,6 +659,32 @@
       hit(0.5, 0.5, 0.8, 1.8, 0.2, 0.8, 'dumbbells', 'Dumbbells');
       // ROOF COLLIDE BOX (Ethereal - doesn't block walking)
       hit(10, 2.0, 10, 0, 3.5, 0, 'roof_collider', 'Ceiling', false);
+
+      // --- SPECIFIC OBJECT HOTSPOTS ---
+      hit(0.4, 0.4, 0.4, -1.5, 1.4, -1.8, 'computer', 'Computer');
+      hit(0.3, 0.3, 0.3, -1.2, 1.3, -1.7, 'vr_headset', 'VR Headset');
+      hit(0.2, 0.1, 0.3, -1.8, 1.3, -1.6, 'breadboard', 'Breadboard');
+      hit(0.3, 0.5, 0.3, -1.8, 1.0, 1.6, 'plant', 'Plant');
+      hit(0.3, 0.3, 0.3, -1.6, 0.6, 1.4, 'robot', 'Mini Robot');
+      hit(0.3, 0.2, 0.3, -1.9, 0.6, 1.7, 'controller', 'Game Controller');
+      hit(0.2, 0.3, 0.1, -1.95, 1.8, 0.1, 'medal', 'Medal');
+      hit(0.8, 1.4, 1.0, -1.4, 0.5, -1.2, 'corkboard', 'Corkboard'); // Area around bed/shelf
+
+      // --- PHOTO BOARD (nayl.jpeg) ---
+      const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg');
+      const photoGeo = new THREE.BoxGeometry(0.8, 1.0, 0.05);
+      const photoMat = new THREE.MeshStandardMaterial({ map: photoTex });
+      const photoBoard = new THREE.Mesh(photoGeo, photoMat);
+      photoBoard.position.set(-1.95, 2.2, -0.8);
+      photoBoard.rotation.y = Math.PI/2;
+      scene.add(photoBoard);
+      
+      const photoHit = new THREE.Mesh(photoGeo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
+      photoHit.position.copy(photoBoard.position);
+      photoHit.rotation.y = photoBoard.rotation.y;
+      photoHit.userData = { id: 'profile_board', label: 'About Nayl', visualMesh: photoBoard };
+      scene.add(photoHit);
+      clickables.push(photoHit);
 
       // HEAVY PERIMETER BUFFERS (Invisible Thick Walls)
       function buffer(w, h, d, x, y, z) {
@@ -709,12 +792,31 @@
       rc.setFromCamera(new THREE.Vector2(0, 0), camera);
       const hits = rc.intersectObjects(clickables);
       const labels = document.getElementById('ilabel'), cross = document.getElementById('crosshair');
+      
+      // RESET HOVER EFFECTS
+      clickables.forEach(c => {
+        if(c.userData.visualMesh) {
+          c.userData.visualMesh.scale.setScalar(1);
+          if(c.userData.visualMesh.material.emissive) c.userData.visualMesh.material.emissive.setHex(0x000000);
+        }
+      });
+
       if (locked && hits.length > 0 && hits[0].distance < 3.5) {
         labels.classList.add('vis'); cross.classList.add('hi');
         labels.textContent = `[ E ] ${hits[0].object.userData.label}`;
+        
+        // APPLY HOVER FEEDBACK
+        document.body.style.cursor = 'pointer';
+        const obj = hits[0].object;
+        if(obj.userData.visualMesh) {
+          obj.userData.visualMesh.scale.setScalar(1.02);
+          if(obj.userData.visualMesh.material.emissive) obj.userData.visualMesh.material.emissive.setHex(0x333333);
+        }
+
         if (keys['KeyE']) openPanel(hits[0].object.userData.id);
       } else {
         labels.classList.remove('vis'); cross.classList.remove('hi');
+        document.body.style.cursor = 'default';
       }
 
       renderer.render(scene, camera);
