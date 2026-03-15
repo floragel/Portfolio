@@ -1126,11 +1126,15 @@
     @media (max-width: 1080px) {
       .bento-container {
         grid-template-columns: 1fr;
+        margin-top: 80px;
+        padding: 0 20px;
       }
 
       .profile-card {
         position: static;
         margin-bottom: 40px;
+        width: 100%;
+        max-width: none;
       }
 
       .hero-title,
@@ -1140,6 +1144,55 @@
 
       .color-blocks-grid {
         grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .stat-item h3 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title,
+      .section-title {
+        font-size: 42px;
+      }
+
+      .proj-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .proj-thumb {
+        width: 100%;
+        height: 120px;
+      }
+
+      .modal-inner-content {
+        padding: 24px;
+      }
+
+      .modal-title {
+        font-size: 22px;
+      }
+
+      .navbar {
+        width: 90%;
+        gap: 12px;
+        padding: 8px 16px;
+      }
+
+      .navbar span {
+        font-size: 11px;
+      }
+
+      .color-block {
+        min-height: 150px;
       }
     }
   </style>
@@ -1245,7 +1298,7 @@
 
         <div id="software-projects" class="projects-container active projects-list">
           <div class="proj-item"
-            onclick="openModal('Trakant', 'APP', 'The application built during HackDécouverte that secured 1st place. Designed for rapid deployment and efficient problem-solving under pressure. I focused on creating a clean architecture and integrating real-time data processing to stand out from the competition.', ['Kotlin', 'Data', 'Hackathon'], 'https://github.com/floragel/Trakant', 'assets/img/trakant.png', '2025', { gallery: [{ img: '', title: 'Main Interface' }, { img: '', title: 'Data Processing View' }] })">
+            onclick="openModal('Trakant', 'APP', 'The application built during HackDécouverte that secured 1st place. Designed for rapid deployment and efficient problem-solving under pressure. I focused on creating a clean architecture and integrating real-time data processing to stand out from the competition.', ['Kotlin', 'Data', 'Hackathon'], 'https://github.com/floragel/Trakant', 'assets/img/trakant.png', '2025', { gallery: [{ img: 'assets/img/trakant/1.png', title: 'Main Interface' }, { img: 'assets/img/trakant/2.png', title: 'Data Processing View' }, { img: 'assets/img/HackDecouverte.jpg', title: 'Winning HackDécouverte 2025' }] })">
             <div class="proj-thumb thumb-orange">
               <img src="assets/img/trakant.png" alt="Trakant">
               <span class="proj-type">APP</span>
@@ -1277,7 +1330,7 @@
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Floragel Website', 'WEB', 'Selected as 2nd Best VP IT in Quebec, I led the technical vision for Floragel, a mission-driven enterprise dedicated to protecting living beings. At Floragel, we believe plants are more than just decor—they are living souls that deserve to thrive. I built and managed the entire IT infrastructure and an interactive plant-care platform that helped our team secure 2nd place in the province and the Best Sales Pitch award at the JA Québec Gala.', ['Leadership', 'Mission-Driven', 'IT Architecture', 'Python', 'LLM', 'HTML', 'JS', 'CSS'], [{url: 'https://github.com/floragel/floragel-web', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/floragel-web/', text: 'Visit Site'}], 'assets/img/floragel.png', '2024-25', { gallery: [{ img: 'assets/img/floragel/1.png', title: 'Contact Page & Chatbot' }, { img: 'assets/img/floragel/2.png', title: 'Interactive Plant Care' }, { img: 'assets/img/floragel/3.png', title: 'Desktop View' }, { img: 'assets/img/floragel/4.png', title: 'Home Page' }] })">
+            onclick="openModal('Floragel Website', 'WEB', 'Selected as 2nd Best VP IT in Quebec, I led the technical vision for Floragel, a mission-driven enterprise dedicated to protecting living beings. At Floragel, we believe plants are more than just decor—they are living souls that deserve to thrive. I built and managed the entire IT infrastructure and an interactive plant-care platform that helped our team secure 2nd place in the province and the Best Sales Pitch award at the JA Québec Gala.', ['Leadership', 'Mission-Driven', 'IT Architecture', 'Python', 'LLM', 'HTML', 'JS', 'CSS'], [{url: 'https://github.com/floragel/floragel-web', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/floragel-web/', text: 'Visit Site'}, {url: 'https://jaquebec.org/fr/participation-au-gala-benefice-de-la-releve/', text: 'Official Recognition'}], 'assets/img/floragel.png', '2024-25', { gallery: [{ img: 'assets/img/floragel/1.png', title: 'Contact Page & Chatbot' }, { img: 'assets/img/floragel/2.png', title: 'Interactive Plant Care' }, { img: 'assets/img/floragel/3.png', title: 'Desktop View' }, { img: 'assets/img/floragel/4.png', title: 'Home Page' }] })">
             <div class="proj-thumb thumb-gray">
               <img src="assets/img/floragel.png" alt="Floragel">
               <span class="proj-type">WEB</span>
@@ -2196,28 +2249,41 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
       appendAiMessage("...", 'ai', loadingId);
 
       try {
-        const apiKey = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_API_KEY) ? CONFIG.GROQ_API_KEY : '';
-
-        if (!apiKey || apiKey.includes('YOUR_KEY')) {
-          updateAiMessage(loadingId, "<b>API Key missing:</b> Please add your Groq API key to <code>config.js</code> to use the AI chat.");
-          return;
+        const localApiKey = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_API_KEY) ? CONFIG.GROQ_API_KEY : '';
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        
+        // Use proxy if in production or if local key is placeholder
+        const useProxy = isProduction || !localApiKey || localApiKey.includes('YOUR_KEY');
+        
+        let response;
+        if (useProxy) {
+          // PROXY MODE (Recommended for Production)
+          response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: aiConversationHistory })
+          });
+        } else {
+          // DIRECT MODE (Local Development)
+          response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localApiKey}`
+            },
+            body: JSON.stringify({
+              model: 'meta-llama/llama-3.1-70b-versatile',
+              messages: aiConversationHistory,
+              temperature: 0.7,
+              max_tokens: 1024
+            })
+          });
         }
 
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-          },
-          body: JSON.stringify({
-            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-            messages: aiConversationHistory,
-            temperature: 0.7,
-            max_tokens: 1024
-          })
-        });
-
         if (!response.ok) {
+          if (useProxy && response.status === 404) {
+            throw new Error("Proxy script /api/chat not found. If you are local, add your key to config.js. If you are in production, see deployment_security.md.");
+          }
           throw new Error(`API error: ${response.status}`);
         }
 
@@ -2227,8 +2293,8 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
         aiConversationHistory.push({ role: 'assistant', content: aiText });
         updateAiMessage(loadingId, aiText);
       } catch (error) {
-        console.error("Groq API Error:", error);
-        updateAiMessage(loadingId, "Oops, I encountered an error connecting to Groq. Please make sure you added your API key in the source code!");
+        console.error("Chat Error:", error);
+        updateAiMessage(loadingId, `<b>Error:</b> ${error.message}`);
       }
     }
 
