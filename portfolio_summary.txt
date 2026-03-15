@@ -1,0 +1,88 @@
+NAYL LAHLOU - PORTFOLIO SUMMARY (2020 - 2026)
+==============================================
+
+IDENTITY & MISSION
+------------------
+Name: Nayl Lahlou
+Title: Systems Developer & Builder
+Location: Montreal, QC
+Mission: Bridging the gap between physical hardware and digital experiences. 
+Background: A builder since age 9, passionate about full-stack integration, robotics, and mission-driven innovation.
+
+"Code is just a tool; the real magic is what you build with it to help others or push the boundaries of what's possible."
+
+EDUCATION & LEADERSHIP
+----------------------
+- SHAD Canada Scholar (2026): Selected for a prestigious STEM leadership incubator.
+- Collège Stanislas, Montreal (2024 - Present): High-level academics and FRC leadership.
+- Lycée Claudel, Ottawa (2023 - 2024): Focus on mathematics and sciences.
+- Lycée Français Louis Massignon, Casablanca (2016 - 2023): International academic foundation.
+
+KEY SOFTWARE PROJECTS
+----------------------
+1. Trakant (2025)
+   - Achievement: 1st Place Winner at HackDécouverte (Concordia University).
+   - Description: A high-stakes app designed for rapid problem-solving and deployment under pressure.
+
+2. Clofit (2025 - 2026)
+   - Tech: SwiftUI, Supabase, LLMs, Computer Vision.
+   - Description: A modern native iOS app acting as a digital wardrobe and AI stylist. Uses Computer Vision for background removal and LLMs for personalized "Outfit Of The Day" (OOTD) generation based on weather and style.
+
+3. FloraGel (2024 - 2025)
+   - Achievement: Ranked 2nd Best VP IT in Quebec; Won "Best Sales Pitch" at JA Québec Gala.
+   - Description: A mission-driven project protecting plants and living souls. Architected the entire IT infrastructure and an interactive care platform.
+
+4. FRC Scouting App (2026)
+   - Tech: Full-stack (web/offline-sync), Predictive Analytics.
+   - Description: A powerful data-driven tool for FRC Team 6622 (StanRobotix) to optimize match strategy and analyze competitor performance.
+
+5. Jarvis OS (2025)
+   - Tech: Python, LiteLLM, local TTS.
+   - Description: An ultra-fast voice AI assistant with deep residential IoT integration and sub-50ms local TTS.
+
+6. OLOGRA OS & First Website (2020)
+   - Age: 9 years old.
+   - Tech: Visual Basic, HTML/CSS.
+   - Description: A custom terminal environment and OS with user guides and downloadable formats, marking the start of my technical journey.
+
+HARDWARE & ENGINEERING
+----------------------
+1. Portable VR Headset (Age 12)
+   - Tech: Arduino Leonardo, Raspberry Pi 4, MPU9250 (IMU TRACKING).
+   - Description: A fully independent VR system designed and built from scratch.
+
+2. FRC Robotics (Team 6622 - StanRobotix)
+   - Role: Hardware assembly, strategy, and industrial-grade electrical wiring for competition-level robots.
+
+3. Jarvis IoT Bridge (2026)
+   - Tech: ESP32, ESP8266, Arduino.
+   - Description: The physical hardware layer for Jarvis OS, creating a multi-protocol bridge for home automation.
+
+4. Retro Console (2021)
+   - Tech: Raspberry Pi 3.
+   - Description: A custom emulation station with optimized input mapping for retro gaming controllers.
+
+5. Custom DIY Laptop (2020)
+   - Tech: Raspberry Pi 4.
+   - Description: A portable computing station built into a custom housing to learn PC architecture.
+
+TECHNICAL SKILLS
+----------------
+- Languages: SwiftUI, Kotlin, Python, C++, Java, JavaScript (ES6+), TypeScript, HTML5, CSS3.
+- Frameworks: React Native, React, Next.js, Node.js.
+- Specialized: LLMs & AI Integration, Computer Vision, Embedded Systems, IoT.
+- Hardware: Arduino, ESP32/ESP8266, Raspberry Pi, Industrial Sensors, Competition Robotics (FRC).
+- Design: 3D Modeling (Blender, GLB/GLTF), Sweet Home 3D.
+
+INTERACTIVE PORTFOLIO FEATURES
+------------------------------
+- 3D Interactive Room: A browser-rendered workspace where digital and physical builds converge.
+- AI Technical Assistant: A custom-trained AI clone that shares the details of Nayl's technical journey.
+- Terminal Simulator: A functional in-browser shell allowing users to explore the portfolio via CLI commands.
+- Hardware Simulator: Real-time virtual circuit interaction directly in the web UI.
+
+CONTACT & SOCIALS
+-----------------
+- LinkedIn: linkedin.com/in/nayl-lahlou/
+- GitHub: github.com/floragel
+- Instagram: instagram.com/nayl.lahlou/

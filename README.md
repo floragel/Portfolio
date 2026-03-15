@@ -4,11 +4,13 @@ Welcome to my personal portfolio. This project represents six years of software 
 
 ## 🚀 Key Software Projects
 
+- **EduMaths**: A mathematics education platform created at age 12 to help students struggling with math. Features video lessons, PDF notes, and a custom MySQL database. My first major full-stack project.
 - **FloraGel**: Ranked **2nd Best VP IT in Quebec**. I built the entire IT architecture for this plant-protection company, featuring an interactive care platform. Won "Best Sales Pitch" at the JA Québec provincial gala.
 - **Clofit**: A modern native iOS app (SwiftUI/Supabase) that acts as a digital wardrobe and AI stylist using Computer Vision and LLMs.
 - **Trakant**: 1st place winner at HackDécouverte. A high-stakes app designed for rapid problem-solving.
 - **FRC Scouting App**: A full-stack data collection and predictive analytics tool for FRC Team 6622 (StanRobotix).
 - **Jarvis OS**: An ultra-fast voice AI assistant with local TTS and deep residential IoT integration.
+- **Learn to Code Platform**: An early educational hub (2020) built at age 9 to teach web development basics.
 
 ## 🛠️ Hardware & Engineering
 
@@ -24,6 +26,7 @@ Welcome to my personal portfolio. This project represents six years of software 
 - **AI Assistant**: A custom AI clone trained on my technical journey, capable of answering detailed questions about my projects.
 - **Interactive Hardware Simulator**: Real-time circuit simulation integration that allows users to interact with virtual microcontroller components directly in the browser.
 - **3D Interactive Room**: Explore a virtual workspace where my physical builds come to life in a browser-rendered environment.
+- **Mobile-Responsive Navigation**: Hand-crafted hamburger menu system with custom animations and fluid, blurred transitions optimized for the mobile web.
 
 ## 🛠️ Tech Stack
 
