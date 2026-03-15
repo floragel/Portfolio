@@ -44,6 +44,44 @@
       padding-bottom: 100px;
     }
 
+    /* --- MOBILE MENU TOGGLE --- */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      cursor: pointer;
+      z-index: 2005;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: 0.3s;
+    }
+
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-white);
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
     /* --- 2. FLOATING NAVBAR --- */
     .navbar {
       position: fixed;
@@ -1157,6 +1195,40 @@
     }
 
     @media (max-width: 600px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(15, 14, 13, 0.98);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: none;
+        border-radius: 0;
+        transform: none;
+        gap: 40px;
+        padding: 0;
+      }
+
+      .navbar.active {
+        left: 0;
+      }
+
+      .navbar span {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
+
       .hero-title,
       .section-title {
         font-size: 42px;
@@ -1181,16 +1253,6 @@
         font-size: 22px;
       }
 
-      .navbar {
-        width: 90%;
-        gap: 12px;
-        padding: 8px 16px;
-      }
-
-      .navbar span {
-        font-size: 11px;
-      }
-
       .color-block {
         min-height: 150px;
       }
@@ -1200,7 +1262,13 @@
 
 <body>
 
-  <nav class="navbar">
+  <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav class="navbar" id="main-navbar">
     <span onclick="scrollToSection('home')" class="active">Home</span>
     <span onclick="scrollToSection('projects')">Projects</span>
     <span onclick="scrollToSection('experience')">Experience</span>
@@ -1872,18 +1940,37 @@
   <script>
     // 1. Navigation
     function scrollToSection(id) {
+      closeMenu();
       if (id === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
-        event.target.classList.add('active');
+        const homeSpan = document.querySelector('.navbar span[onclick*="home"]');
+        if (homeSpan) homeSpan.classList.add('active');
         return;
       }
 
       const section = document.getElementById(id);
       if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
         document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
-        event.target.classList.add('active');
+        const activeSpan = document.querySelector(`.navbar span[onclick*="${id}"]`);
+        if (activeSpan) activeSpan.classList.add('active');
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function toggleMenu() {
+      const navbar = document.getElementById('main-navbar');
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      navbar.classList.toggle('active');
+      menuBtn.classList.toggle('active');
+    }
+
+    function closeMenu() {
+      const navbar = document.getElementById('main-navbar');
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      if (navbar && navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+        menuBtn.classList.remove('active');
       }
     }
 
