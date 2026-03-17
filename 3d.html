@@ -678,26 +678,57 @@
       // --- PHOTO BOARD (nayl.jpeg) ---
       const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg');
       
-      // Frame
-      const frameGeo = new THREE.BoxGeometry(0.5, 0.7, 0.08);
-      const frameMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.1, metalness: 0.8 });
-      const frame = new THREE.Mesh(frameGeo, frameMat);
-      frame.position.set(1.5, 1.35, 1.96); // Above Bench
-      frame.rotation.y = 0;
-      scene.add(frame);
+      // Frame for profile
+      const frameGeo = new THREE.BoxGeometry(0.4, 0.5, 0.05);
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.1, metalness: 1 });
+      const profileFrame = new THREE.Mesh(frameGeo, frameMat);
+      profileFrame.position.set(1.0, 1.4, 1.97); // Above Bench (left side)
+      scene.add(profileFrame);
 
-      const photoGeo = new THREE.PlaneGeometry(0.42, 0.62);
+      const photoGeo = new THREE.PlaneGeometry(0.36, 0.46);
       const photoMat = new THREE.MeshStandardMaterial({ map: photoTex, side: THREE.DoubleSide });
       const photoBoard = new THREE.Mesh(photoGeo, photoMat);
-      photoBoard.position.set(0.05, 0, 0); // Relative to frame
-      frame.add(photoBoard);
+      photoBoard.position.set(0, 0, -0.026); // On front of frame (room side is -Z for back wall)
+      profileFrame.add(photoBoard);
       
-      const photoHit = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.2), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
-      photoHit.position.copy(frame.position);
-      photoHit.rotation.y = frame.rotation.y;
-      photoHit.userData = { id: 'profile_board', label: 'About Nayl', visualMesh: frame };
+      const photoHit = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.1), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
+      photoHit.position.copy(profileFrame.position);
+      photoHit.userData = { id: 'profile_board', label: 'About Nayl', visualMesh: profileFrame };
       scene.add(photoHit);
       clickables.push(photoHit);
+
+      // --- CORKBOARD ---
+      const corkMat = new THREE.MeshStandardMaterial({ color: 0x8d5524, roughness: 0.9 });
+      const corkGeo = new THREE.BoxGeometry(0.7, 0.5, 0.04);
+      const corkboard = new THREE.Mesh(corkGeo, corkMat);
+      corkboard.position.set(1.8, 1.4, 1.97); // Above Bench (right side)
+      scene.add(corkboard);
+
+      // Corkboard Frame
+      const cFrameGeo = new THREE.BoxGeometry(0.74, 0.54, 0.03);
+      const cFrameMat = new THREE.MeshStandardMaterial({ color: 0x4d3227 });
+      const cFrame = new THREE.Mesh(cFrameGeo, cFrameMat);
+      cFrame.position.set(0, 0, 0.01); 
+      corkboard.add(cFrame);
+
+      // Post-its
+      function addPostIt(x, y, color) {
+        const pGeo = new THREE.PlaneGeometry(0.12, 0.12);
+        const pMat = new THREE.MeshStandardMaterial({ color, side: THREE.DoubleSide });
+        const postIt = new THREE.Mesh(pGeo, pMat);
+        postIt.position.set(x, y, -0.021);
+        postIt.rotation.z = (Math.random() - 0.5) * 0.2;
+        corkboard.add(postIt);
+      }
+      addPostIt(-0.15, 0.1, 0xfff700); // Yellow
+      addPostIt(0.1, 0.05, 0xffa500);  // Orange
+      addPostIt(-0.05, -0.1, 0x00ff00); // Green
+
+      const corkHit = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.1), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
+      corkHit.position.copy(corkboard.position);
+      corkHit.userData = { id: 'corkboard', label: 'Activities', visualMesh: corkboard };
+      scene.add(corkHit);
+      clickables.push(corkHit);
 
       // HEAVY PERIMETER BUFFERS (Invisible Thick Walls)
       function buffer(w, h, d, x, y, z) {
