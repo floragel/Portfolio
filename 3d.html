@@ -66,7 +66,13 @@
     #crosshair.hi::before,
     #crosshair.hi::after {
       background: #f0c060;
+      width: 4px;
+      height: 4px;
+      box-shadow: 0 0 10px #f0c060, 0 0 20px #f0c060;
     }
+    
+    #crosshair.hi::before { width: 2px; height: 140%; }
+    #crosshair.hi::after { width: 140%; height: 2px; }
 
     #ilabel {
       position: fixed;
@@ -427,9 +433,9 @@
         ]
       },
       computer: {
-        icon: '💻', tag: 'Hardware Engineering', title: 'Custom DIY\nLaptop', desc: 'Built a portable computing station from scratch at age 9.', items: [
-          { t: 'Architecture', d: 'Raspberry Pi 4 based system.', tags: ['RPi 4', 'Linux'] },
-          { t: 'Build', d: 'Custom-modified internal housing.', tags: ['Hardware', 'DIY'] }
+        icon: '💻', tag: 'Hardware Engineering', title: 'Portable DIY\nLaptop', desc: 'Custom-built computing station designed for mobility and localized development.', items: [
+          { t: 'Architecture', d: 'Raspberry Pi 4 based system.', tags: ['RPi 4', 'Software Integration'] },
+          { t: 'Build', d: 'Modified internal housing and power delivery.', tags: ['Hardware', 'DIY'] }
         ]
       },
       vr_headset: {
@@ -439,9 +445,9 @@
         ]
       },
       breadboard: {
-        icon: '🔌', tag: 'IoT / Systems', title: 'Jarvis IoT\nBridge', desc: 'Hardware layer for residential automation.', items: [
-          { t: 'Connectivity', d: 'ESP32 & NodeMCU protocols.', tags: ['ESP32', 'IoT'] },
-          { t: 'Infrastructure', d: 'Connected home ecosystem.', tags: ['Systems'] }
+        icon: '🔌', tag: 'IoT / Systems', title: 'Jarvis IoT\nBridge', desc: 'The hardware backbone of the Jarvis residential automation ecosystem.', items: [
+          { t: 'Connectivity', d: 'Multi-protocol ESP32 and ESP8266 array.', tags: ['ESP32', 'Arduino'] },
+          { t: 'Ecosystem', d: 'Centralized bridging for smart home services.', tags: ['IoT', 'Home Automation'] }
         ]
       },
       plant: {
@@ -463,9 +469,9 @@
         ]
       },
       medal: {
-        icon: '🏆', tag: 'Awards', title: 'Excellence &\nVictories', desc: 'Top-tier competition results.', items: [
-          { t: 'HackDécouverte', d: '1st Place for Trakant app.', tags: ['Champion'] },
-          { t: 'JA Québec', d: '2nd Best VP IT in the province.', tags: ['Leadership'] }
+        icon: '🏆', tag: 'Awards', title: 'Excellence &\nVictories', desc: 'Recognition for technical and leadership performance.', items: [
+          { t: 'HackDécouverte', d: '1st Place for Trakant (Concordia).', tags: ['Winner'] },
+          { t: 'JA Québec', d: '2nd Best VP IT in the Province.', tags: ['Leadership'] }
         ]
       },
       mirror: {
@@ -671,22 +677,26 @@
       hit(0.8, 1.4, 1.0, -1.4, 0.5, -1.2, 'corkboard', 'Corkboard'); // Area around bed/shelf
 
       // --- PHOTO BOARD (nayl.jpeg) ---
-      const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg', 
-        () => console.log('Photo texture loaded successfully'),
-        undefined,
-        (err) => console.error('Photo texture failed to load:', err)
-      );
-      const photoGeo = new THREE.BoxGeometry(0.8, 1.0, 0.05);
-      const photoMat = new THREE.MeshStandardMaterial({ map: photoTex });
-      const photoBoard = new THREE.Mesh(photoGeo, photoMat);
-      photoBoard.position.set(-1.95, 2.2, -0.8);
-      photoBoard.rotation.y = Math.PI/2;
-      scene.add(photoBoard);
+      const photoTex = new THREE.TextureLoader().load('assets/img/nayl.jpeg');
       
-      const photoHit = new THREE.Mesh(photoGeo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
-      photoHit.position.copy(photoBoard.position);
-      photoHit.rotation.y = photoBoard.rotation.y;
-      photoHit.userData = { id: 'profile_board', label: 'About Nayl', visualMesh: photoBoard };
+      // Frame
+      const frameGeo = new THREE.BoxGeometry(0.5, 0.7, 0.08);
+      const frameMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.1, metalness: 0.8 });
+      const frame = new THREE.Mesh(frameGeo, frameMat);
+      frame.position.set(-1.96, 2.1, -0.8);
+      frame.rotation.y = Math.PI/2;
+      scene.add(frame);
+
+      const photoGeo = new THREE.PlaneGeometry(0.42, 0.62);
+      const photoMat = new THREE.MeshStandardMaterial({ map: photoTex, side: THREE.DoubleSide });
+      const photoBoard = new THREE.Mesh(photoGeo, photoMat);
+      photoBoard.position.set(0.05, 0, 0); // Relative to frame
+      frame.add(photoBoard);
+      
+      const photoHit = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.8, 0.2), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
+      photoHit.position.copy(frame.position);
+      photoHit.rotation.y = frame.rotation.y;
+      photoHit.userData = { id: 'profile_board', label: 'About Nayl', visualMesh: frame };
       scene.add(photoHit);
       clickables.push(photoHit);
 
@@ -811,12 +821,16 @@
         labels.textContent = `[ E ] ${hits[0].object.userData.label}`;
         
         // APPLY HOVER FEEDBACK
-        document.body.style.cursor = 'pointer';
         const obj = hits[0].object;
         if(obj.userData.visualMesh) {
-          obj.userData.visualMesh.scale.setScalar(1.02);
-          if(obj.userData.visualMesh.material && obj.userData.visualMesh.material.emissive)
-            obj.userData.visualMesh.material.emissive.setHex(0x333333);
+          obj.userData.visualMesh.scale.lerp(new THREE.Vector3(1.04, 1.04, 1.04), 0.2);
+          if(obj.userData.visualMesh.traverse) {
+              obj.userData.visualMesh.traverse(child => {
+                  if(child.isMesh && child.material && child.material.emissive) {
+                      child.material.emissive.setHex(0x222222);
+                  }
+              });
+          }
         }
 
         if (keys['KeyE']) openPanel(hits[0].object.userData.id);
