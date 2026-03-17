@@ -682,13 +682,20 @@
       const frameGeo = new THREE.BoxGeometry(0.4, 0.5, 0.05);
       const frameMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.1, metalness: 1 });
       const profileFrame = new THREE.Mesh(frameGeo, frameMat);
-      profileFrame.position.set(1.0, 1.4, 1.97); // Above Bench (left side)
+      profileFrame.position.set(1.6, 1.4, 1.97); // Further Left
       scene.add(profileFrame);
 
       const photoGeo = new THREE.PlaneGeometry(0.36, 0.46);
-      const photoMat = new THREE.MeshStandardMaterial({ map: photoTex, side: THREE.DoubleSide });
+      const photoMat = new THREE.MeshStandardMaterial({ 
+        map: photoTex, 
+        side: THREE.DoubleSide,
+        color: 0x666666, // Darker multiplier
+        roughness: 1.0,
+        metalness: 0,
+        emissive: 0x000000
+      });
       const photoBoard = new THREE.Mesh(photoGeo, photoMat);
-      photoBoard.position.set(0, 0, -0.026); // On front of frame (room side is -Z for back wall)
+      photoBoard.position.set(0, 0, -0.026); 
       profileFrame.add(photoBoard);
       
       const photoHit = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.1), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
@@ -701,7 +708,7 @@
       const corkMat = new THREE.MeshStandardMaterial({ color: 0x8d5524, roughness: 0.9 });
       const corkGeo = new THREE.BoxGeometry(0.7, 0.5, 0.04);
       const corkboard = new THREE.Mesh(corkGeo, corkMat);
-      corkboard.position.set(1.8, 1.4, 1.97); // Above Bench (right side)
+      corkboard.position.set(-0.4, 1.4, 1.97); // Far Right
       scene.add(corkboard);
 
       // Corkboard Frame
