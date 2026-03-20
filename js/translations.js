@@ -370,7 +370,15 @@ const roomDataTranslations = {
         'mirror': { icon: '🪞', tag: 'STYLE', title: 'Clofit AI', desc: 'Native iOS app acting as a digital wardrobe and personal AI stylist using Computer Vision.', items: [{ t: 'Fashion', d: 'Digital Wardrobe', tags: ['iOS', 'AI'] }] },
         'corkboard': { icon: '📌', tag: 'LIFE', title: 'Activities & Focus', desc: 'Engagement in MUN, SHAD Canada, and physical training (Bodybuilding/Running).', items: [{ t: 'Focus', d: 'SHAD 2026 Scholar', tags: ['Leadership', 'Sport'] }] },
         'dumbbells': { icon: '💪', tag: 'HEALTH', title: 'Physical Growth', desc: 'Personal commitment to bodybuilding and marathon running to maintain high peak performance.', items: [{ t: 'Peak', d: '10km Marathon Training', tags: ['Fitness', 'Discipline'] }] },
-        'profile_board': { icon: '👤', tag: 'ABOUT', title: 'Nayl Lahlou', desc: 'Systems developer coding since age 9. Winner of HackDécouverte 2025.', items: [{ t: 'Systems', d: 'Software & Hardware', tags: ['Builder', 'Founder'] }] }
+        'profile_board': { icon: '👤', tag: 'ABOUT', title: 'Nayl Lahlou', desc: 'Systems developer coding since age 9. Winner of HackDécouverte 2025.', items: [{ t: 'Systems', d: 'Software & Hardware', tags: ['Builder', 'Founder'] }] },
+        'desk': { title: 'My Desk' },
+        'bench': { title: 'Workout Bench' },
+        'bed': { title: 'My Bed' },
+        'dresser': { title: 'IKEA Dresser' },
+        'nightstand': { title: 'Nightstand' },
+        'chair': { title: 'My Chair' },
+        'door': { title: 'Door' },
+        'window': { title: 'Window' }
     },
     fr: {
         'computer': { icon: '💻', tag: 'CONSTRUCTION', title: 'PC Portable DIY', desc: 'Station portable basée sur RPi4 dans un boîtier personnalisé pour apprendre l\'architecture à 9 ans.', items: [{ t: 'Architecture', d: 'Basé sur Raspberry Pi 4', tags: ['Hardware', 'Linux'] }] },
@@ -383,7 +391,15 @@ const roomDataTranslations = {
         'mirror': { icon: '🪞', tag: 'STYLE', title: 'Clofit IA', desc: 'App iOS native servant de garde-robe numérique et styliste IA personnel.', items: [{ t: 'Mode', d: 'Garde-robe Digitale', tags: ['iOS', 'IA'] }] },
         'corkboard': { icon: '📌', tag: 'VIE', title: 'Activités & Focus', desc: 'Engagement au MUN, SHAD Canada, et entraînement physique (Muscu/Course).', items: [{ t: 'Focus', d: 'Boursier SHAD 2026', tags: ['Leadership', 'Sport'] }] },
         'dumbbells': { icon: '💪', tag: 'SANTÉ', title: 'Croissance Physique', desc: 'Engagement personnel en musculation et marathon pour maintenir une haute performance.', items: [{ t: 'Peak', d: 'Entraînement Marathon 10km', tags: ['Fitness', 'Discipline'] }] },
-        'profile_board': { icon: '👤', tag: 'À PROPOS', title: 'Nayl Lahlou', desc: 'Développeur systèmes depuis l\'âge de 9 ans. Gagnant de HackDécouverte 2025.', items: [{ t: 'Systèmes', d: 'Logiciel & Matériel', tags: ['Bâtisseur', 'Fondateur'] }] }
+        'profile_board': { icon: '👤', tag: 'À PROPOS', title: 'Nayl Lahlou', desc: 'Développeur systèmes depuis l\'âge de 9 ans. Gagnant de HackDécouverte 2025.', items: [{ t: 'Systèmes', d: 'Logiciel & Matériel', tags: ['Bâtisseur', 'Fondateur'] }] },
+        'desk': { title: 'Mon Bureau' },
+        'bench': { title: 'Banc de Sport' },
+        'bed': { title: 'Mon Lit' },
+        'dresser': { title: 'Commode IKEA' },
+        'nightstand': { title: 'Table de Chevet' },
+        'chair': { title: 'Ma Chaise' },
+        'door': { title: 'Porte' },
+        'window': { title: 'Fenêtre' }
     }
 };
 
