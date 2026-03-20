@@ -7,6 +7,7 @@
   <title>Nayl | Systems Developer & Builder</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/translations.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1257,10 +1258,134 @@
         min-height: 150px;
       }
     }
+
+    /* --- LANGUAGE SPLASH SCREEN --- */
+    #language-splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #151312;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #language-splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-content {
+      text-align: center;
+      max-width: 400px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .splash-logo {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, #f46c38 0%, #c5ff41 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: splashPulse 3s infinite ease-in-out;
+    }
+
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.05); filter: brightness(1.2); }
+    }
+
+    .splash-welcome {
+       font-size: 24px;
+       margin-bottom: 10px;
+       opacity: 0.8;
+       letter-spacing: 0.1em;
+       text-transform: uppercase;
+    }
+
+    .splash-btns {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .splash-btn {
+      padding: 14px 40px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .splash-btn:hover {
+      background: white;
+      color: #151312;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .splash-btn.en:hover { border-color: var(--accent-orange); }
+    .splash-btn.fr:hover { border-color: var(--accent-lime); }
+
+    /* New Language Toggle Styles */
+    .nav-lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 10px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 2px 4px;
+      transition: all 0.3s;
+    }
+    .lang-btn:hover { color: #fff; }
+    .lang-btn.active { color: var(--accent-orange); }
   </style>
 </head>
 
-<body>
+  <div id="language-splash">
+    <div class="splash-content">
+      <div class="splash-welcome" data-t="splash-welcome">WELCOME / BIENVENUE,</div>
+      <div class="splash-logo">
+        <span style="font-size: 0.5em; display: block; filter: brightness(0.8);" data-t="splash-name">MY NAME IS / MON NOM EST</span>
+        NAYL
+      </div>
+      <p style="color: rgba(255,255,255,0.5); margin-bottom: 30px; font-size: 14px; letter-spacing: 0.05em;" data-t="splash-choose">Select your preferred language</p>
+      <div class="splash-btns">
+        <button class="splash-btn fr" onclick="setLanguage('fr')" data-t="splash-fr">Français</button>
+        <button class="splash-btn en" onclick="setLanguage('en')" data-t="splash-en">English</button>
+      </div>
+    </div>
+  </div>
 
   <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">
     <span></span>
@@ -1269,11 +1394,17 @@
   </div>
 
   <nav class="navbar" id="main-navbar">
-    <span onclick="scrollToSection('home')" class="active">Home</span>
-    <span onclick="scrollToSection('projects')">Projects</span>
-    <span onclick="scrollToSection('experience')">Experience</span>
-    <span onclick="scrollToSection('skills')">Skills</span>
-    <span onclick="scrollToSection('about')">Ask AI</span>
+    <span onclick="scrollToSection('home')" class="active" data-t="nav-home">Home</span>
+    <span onclick="scrollToSection('projects')" data-t="nav-projects">Projects</span>
+    <span onclick="scrollToSection('experience')" data-t="nav-experience">Experience</span>
+    <span onclick="scrollToSection('skills')" data-t="nav-skills">Skills</span>
+    <span onclick="scrollToSection('about')" data-t="nav-ai">Ask AI</span>
+    <div class="nav-lang-toggle">
+      <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+      <span style="opacity: 0.3;">/</span>
+      <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
+    </div>
+    <span onclick="window.location.href='3d.html'" style="color: var(--accent-lime) !important;" data-t="nav-3d">✦ Explore in 3D</span>
   </nav>
 
   <div class="bento-container">
@@ -1281,7 +1412,7 @@
     <aside id="home" class="profile-card scrolly" style="animation-delay: 0.1s;">
       <canvas id="profile-fluid-canvas"></canvas>
       <div class="profile-img-placeholder"></div>
-      <h2 class="profile-name">Systems Developer</h2>
+      <h2 class="profile-name" data-t="profile-title">Systems Developer</h2>
 
       <div class="location">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1289,10 +1420,10 @@
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
           <circle cx="12" cy="10" r="3"></circle>
         </svg>
-        Montreal, QC
+        <span data-t="profile-location">Montreal, QC</span>
       </div>
 
-      <p class="profile-bio">Building systems since 2020. Specializing in robotics, electronics, and full-stack software
+      <p class="profile-bio" data-t="profile-bio">Building systems since 2020. Specializing in robotics, electronics, and full-stack software
         integration.</p>
       <div class="social-links">
         <a href="https://github.com/floragel" target="_blank" class="social-icon github-icon" aria-label="GitHub"></a>
@@ -1306,14 +1437,14 @@
     <main class="content-col">
 
       <div class="scrolly" style="animation-delay: 0.2s;">
-        <div class="hero-title text-solid">SYSTEMS</div>
-        <div class="hero-title text-outline">DEVELOPER</div>
-        <p class="hero-desc">
+        <div class="hero-title text-solid" data-t="hero-title-1">SYSTEMS</div>
+        <div class="hero-title text-outline" data-t="hero-title-2">DEVELOPER</div>
+        <p class="hero-desc" data-t="hero-desc">
           I have been coding and building systems since I was 9. From assembling my first PC to winning
           hackathons with custom apps and managing IT infrastructure for award-winning ventures.
         </p>
         <div style="margin-top: 30px;">
-          <a href="3d.html" class="ai-launch-btn">
+          <a href="3d.html" class="ai-launch-btn" data-t="nav-3d">
             ✦ Explore in 3D
           </a>
         </div>
@@ -1323,97 +1454,96 @@
         <div class="stats-row">
           <div class="stat-item">
             <h3>1st</h3>
-            <p>HackDécouverte '25</p>
+            <p data-t="stat-hack-label">HackDécouverte '25</p>
           </div>
           <div class="stat-item">
             <h3>2nd</h3>
-            <p>Best VP IT QC</p>
+            <p data-t="stat-vpit-label">Best VP IT QC</p>
           </div>
           <div class="stat-item">
             <h3>10+</h3>
-            <p>Projects Built</p>
+            <p data-t="stat-projects-label">Projects Built</p>
           </div>
           <div class="stat-item">
             <h3>2020</h3>
-            <p>First Project</p>
+            <p data-t="stat-start-label">First Project</p>
           </div>
         </div>
 
         <div class="color-blocks-grid">
           <div class="color-block bg-orange" style="cursor: pointer;"
-            onclick="openModal('Web & App Development', 'EXPERTISE', 'Extensive experience in full-stack web and cross-platform mobile application development. Proficient in creating scalable architectures, real-time data processing systems, and integrating complex AI functionalities into modern UIs using frameworks like React Native, Next.js, and SwiftUI.', ['SwiftUI', 'React Native', 'React', 'Next.js', 'Node.js', 'Python', 'C++', 'Kotlin', 'Git', 'HTML/CSS/JS', 'SQL/Postgres', 'TypeScript', 'Linux'], '', '', '2020-2026')">
+            onclick="openProjectModal('expertise-web')">
             <div class="icon-box">✦</div>
-            <h3>Web & App Development</h3>
+            <h3 data-t="expertise-web">Web & App Development</h3>
             <div class="arrow-out">→</div>
           </div>
           <div class="color-block bg-lime" style="cursor: pointer;"
-            onclick="openModal('Hardware & Systems', 'EXPERTISE', 'Deep-rooted passion and early experience in hardware engineering and low-level system design. Built custom PCs, gaming consoles, and programmed physical VR headsets with integrated electronic components from scratch. Skilled in bridging the gap between hardware sensors (like Muse Brainwave) and real-time software analytics.', ['C++', 'Python', 'Linux', 'Raspberry Pi', 'Arduino', 'ESP32', 'Meta Quest', 'Computer Vision', 'Embedded Systems', 'IoT'], '', '', '2020-2026')">
+            onclick="openProjectModal('expertise-hardware')">
             <div class="icon-box">◩</div>
-            <h3>Hardware & Systems</h3>
+            <h3 data-t="expertise-hardware">Hardware & Systems</h3>
             <div class="arrow-out">→</div>
           </div>
         </div>
       </div>
 
       <section id="projects" class="scrolly" style="animation-delay: 0.4s;">
-        <div class="section-title text-solid" style="margin-bottom: 40px;">RECENT<br><span
-            class="text-outline">PROJECTS</span></div>
+<div class="section-title text-solid" style="margin-bottom: 40px;"><span data-t="section-projects-1">RECENT</span><br><span class="text-outline" data-t="section-projects-2">PROJECTS</span></div>
 
         <div class="project-tabs">
-          <button class="proj-tab active" onclick="switchProjTab('software', this)">SOFTWARE & AI</button>
-          <button class="proj-tab" onclick="switchProjTab('hardware', this)">HARDWARE & ENG.</button>
+          <button class="proj-tab active" onclick="switchProjTab('software', this)" data-t="tab-software">SOFTWARE & AI</button>
+          <button class="proj-tab" onclick="switchProjTab('hardware', this)" data-t="tab-hardware">HARDWARE & ENG.</button>
         </div>
 
         <div id="software-projects" class="projects-container active projects-list">
           <div class="proj-item"
-            onclick="openModal('Trakant', 'APP', 'The application built during HackDécouverte that secured 1st place. Designed for rapid deployment and efficient problem-solving under pressure. I focused on creating a clean architecture and integrating real-time data processing to stand out from the competition.', ['Kotlin', 'Data', 'Hackathon'], 'https://github.com/floragel/Trakant', 'assets/img/trakant.png', '2025', { gallery: [{ img: 'assets/img/trakant/1.png', title: 'Main Interface' }, { img: 'assets/img/trakant/2.png', title: 'Data Processing View' }, { img: 'assets/img/HackDecouverte.jpg', title: 'Winning HackDécouverte 2025' }] })">
+            onclick="openProjectModal('trakant')">
             <div class="proj-thumb thumb-orange">
               <img src="assets/img/trakant.png" alt="Trakant">
               <span class="proj-type">APP</span>
               <span class="proj-year">2025</span>
             </div>
             <div class="proj-details">
-              <h4>Trakant <span class="status-tag">Hackathon Winner</span></h4>
-              <p>1st place application built during HackDécouverte for rapid deployment and efficient problem-solving
+              <h4>Trakant <span class="status-tag" data-t="tag-winner">Hackathon Winner</span></h4>
+              <p data-t="trakant-short">1st place application built during HackDécouverte for rapid deployment and efficient problem-solving
                 under pressure.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Clofit', 'APP', 'Clofit is a modern, native iOS app built in Swift/SwiftUI that acts as a digital wardrobe, personal AI stylist, and fashion social network. It uses computer vision to remove backgrounds from clothes and LLMs to generate the perfect Outfit Of The Day (OOTD) based on user morphology, weather, and aesthetic preferences.', ['SwiftUI', 'Supabase', 'Computer Vision', 'LLMs', 'Python'], '', 'assets/img/clofit.png', '2025-26', { gallery: [{ img: '', title: 'AI Background Removal' }, { img: '', title: 'Face Shape Analysis' }] })">
+            onclick="openProjectModal('clofit')">
             <div class="proj-thumb thumb-lime">
               <img src="assets/img/clofit.png" alt="Clofit">
               <span class="proj-type">APP</span>
               <span class="proj-year">2025-26</span>
             </div>
             <div class="proj-details">
-              <h4>Clofit <span class="status-tag"
+              <h4>Clofit <span class="status-tag" data-t="tag-soon"
                   style="border-color: var(--text-gray); color: var(--text-gray);">Deploying Soon</span>
               </h4>
-              <p>Native iOS app acting as a digital wardrobe, personal AI stylist, and fashion social network using
+              <p data-t="clofit-short">Native iOS app acting as a digital wardrobe, personal AI stylist, and fashion social network using
                 Computer Vision and LLMs.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Floragel Website', 'WEB', 'Selected as 2nd Best VP IT in Quebec, I led the technical vision for Floragel, a mission-driven enterprise dedicated to protecting living beings. At Floragel, we believe plants are more than just decor—they are living souls that deserve to thrive. I built and managed the entire IT infrastructure and an interactive plant-care platform that helped our team secure 2nd place in the province and the Best Sales Pitch award at the JA Québec Gala.', ['Leadership', 'Mission-Driven', 'IT Architecture', 'Python', 'LLM', 'HTML', 'JS', 'CSS'], [{url: 'https://github.com/floragel/floragel-web', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/floragel-web/', text: 'Visit Site'}, {url: 'https://jaquebec.org/fr/participation-au-gala-benefice-de-la-releve/', text: 'Official Recognition'}], 'assets/img/floragel.png', '2024-25', { gallery: [{ img: 'assets/img/floragel/1.png', title: 'Contact Page & Chatbot' }, { img: 'assets/img/floragel/2.png', title: 'Interactive Plant Care' }, { img: 'assets/img/floragel/3.png', title: 'Desktop View' }, { img: 'assets/img/floragel/4.png', title: 'Home Page' }] })">
+            onclick="openProjectModal('floragel')">
             <div class="proj-thumb thumb-gray">
               <img src="assets/img/floragel.png" alt="Floragel">
               <span class="proj-type">WEB</span>
               <span class="proj-year">2024-25</span>
             </div>
             <div class="proj-details">
-              <h4>Floragel <span class="status-tag">Best Sales Pitch</span></h4>
-              <p>Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for building the
+              <h4>Floragel <span class="status-tag" data-t="tag-pitch">Best Sales Pitch</span></h4>
+              <p data-t="floragel-short">Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for building the
                 technological soul of this plant-survival project.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('FRC Scouting App', 'WEB', 'Developed a comprehensive full-stack scouting application for the FIRST Robotics Competition (FRC Team 6622). It allows the team to collect offline data, sync to the cloud, analyze team performance using predictive analytics, and strategize matches effectively during intensive competitions.', ['HTML', 'CSS', 'JS', 'Data Analysis', 'FRC', 'Python'], 'https://github.com/floragel/Scouting-App', 'assets/img/frc-scouting-app.png', '2026', { gallery: [{ img: 'assets/img/frc-scouting-app.png', title: 'Pit Scouting' }, { img: 'assets/img/frc-scouting-app/1.png', title: 'Admin Dashboard' }, { img: 'assets/img/frc-scouting-app/2.png', title: 'Home Page' }, { img: 'assets/img/frc-scouting-app/3.png', title: 'Scout Dashboard' }] })">
+            onclick="openProjectModal('frc-scouting')">
             <div class="proj-thumb thumb-gray">
               <img src="assets/img/frc-scouting-app.png" alt="FRC Scouting App">
               <span class="proj-type">APP</span>
@@ -1421,7 +1551,7 @@
             </div>
             <div class="proj-details">
               <h4>FRC Scouting App</h4>
-              <p>Full-stack offline and online first scouting application for FIRST Robotics Competition with predictive
+              <p data-t="frc-short">Full-stack offline and online first scouting application for FIRST Robotics Competition with predictive
                 analytics.
               </p>
             </div>
@@ -1429,7 +1559,7 @@
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Jarvis OS', 'AI', 'An ultra-fast voice-to-voice AI assistant built in Python. It uses a LiteLLM proxy, sub-50ms local TTS (Text-to-Speech), and integrates function calling to act on external services like Notion, Google Calendar, and weather APIs.', ['Python', 'LiteLLM', 'TTS', 'Voice AI'], '', 'assets/img/jarvis.png', '2025')">
+            onclick="openProjectModal('jarvis')">
             <div class="proj-thumb thumb-orange">
               <img src="assets/img/jarvis.png" alt="Jarvis OS">
               <span class="proj-type">AI</span>
@@ -1437,14 +1567,14 @@
             </div>
             <div class="proj-details">
               <h4>Jarvis OS</h4>
-              <p>Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and IoT
+              <p data-t="jarvis-short">Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and IoT
                 integrations, that can be controlled by voice commands and can control my home.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('EduMaths', 'WEB', 'A mathematics education platform created at age 12 to help students struggling with math. Users could create accounts, join their class, and access video lessons and PDF notes created by me and my team. This was my first major full-stack project using PHP and MySQL.', ['PHP', 'HTML', 'CSS', 'JavaScript', 'MySQL', 'Early Project', 'Education'], 'https://github.com/floragel/EduMaths', 'assets/img/edumaths/home.png', '2022', { gallery: [{ img: 'assets/img/edumaths/home.png', title: 'Landing Page' }, { img: 'assets/img/edumaths/courses.png', title: 'Course Library' }, { img: 'assets/img/edumaths/details.png', title: 'Lesson View' }, { img: 'assets/img/edumaths/team.png', title: 'The EduMaths Team' }] })">
+            onclick="openProjectModal('edumaths')">
             <div class="proj-thumb thumb-lime">
               <img src="assets/img/edumaths/home.png" alt="EduMaths">
               <span class="proj-type">WEB</span>
@@ -1452,14 +1582,14 @@
             </div>
             <div class="proj-details">
               <h4>EduMaths</h4>
-              <p>Full-stack educational platform with video courses and PDF notes, built using PHP and MySQL to help
+              <p data-t="edumaths-short">Full-stack educational platform with video courses and PDF notes, built using PHP and MySQL to help
                 peers with mathematics.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Learn to Code Platform', 'WEB', 'Created an educational platform designed to help others learn how to create their own websites. This was one of my early initiatives to share technical knowledge at a young age.', ['Web Dev', 'Education', 'Early Project', 'HTML', 'CSS'], [{url: 'https://github.com/floragel/site-de-ouf', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/site-de-ouf/', text: 'Visit Site'}], 'assets/img/learning-website.png', '2020')">
+            onclick="openProjectModal('learning-platform')">
             <div class="proj-thumb thumb-gray">
               <img src="assets/img/learning-website.png" alt="Learn to Code Platform">
               <span class="proj-type">WEB</span>
@@ -1467,13 +1597,13 @@
             </div>
             <div class="proj-details">
               <h4>Learn to Code Platform</h4>
-              <p>Created a website designed to help others learn programming back in 4th grade.</p>
+              <p data-t="learning-short">Created a website designed to help others learn programming back in 4th grade.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('My First Website & OLOGRA OS', 'OS / WEB', 'In 2020, at just 9 years old, I built my very first website alongside OLOGRA OS. OLOGRA OS was a custom operating system environment I programmed from scratch using Visual Basic. It featured user guides, downloadable formats (.exe and .iso), and custom settings. This was my first deep dive into programming and UI design!', ['Visual Basic', 'OS Development', 'HTML/CSS', 'Early Project'], [{url: 'https://github.com/floragel/My-first-website', text: 'GitHub Repo'}, {url: 'https://floragel.github.io/My-first-website/', text: 'Visit Site'}], 'assets/img/my-first-website.png', '2020')">
+            onclick="openProjectModal('first-site')">
             <div class="proj-thumb thumb-gray">
               <img src="assets/img/my-first-website.png" alt="My First Website">
               <span class="proj-type">OS/WEB</span>
@@ -1481,28 +1611,28 @@
             </div>
             <div class="proj-details">
               <h4>My First Website & OLOGRA OS</h4>
-              <p>Built my first website and a custom operating system (OLOGRA OS) using Visual Basic at age 9.</p>
+              <p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic at age 9.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
         </div>
         <div id="hardware-projects" class="projects-container projects-list">
           <div class="proj-item"
-            onclick="openModal('Portable VR Headset', 'HARDWARE', 'Designed and built a fully functional independent portable VR headset from scratch at age 12. Hardware includes an Arduino Leonardo for control, Raspberry Pi 4 for processing, MPU9250 for 9-axis motion tracking, an integrated screen, and a dedicated battery system. It uses a physical housing to create an immersive experience.', ['Arduino Leonardo', 'RPi 4', 'MPU9250', 'Electronics'], '', 'assets/img/hardware/VR_headset/V2_1.jpeg', '2022', { gallery: [{ title: 'V1 Prototype', img: 'assets/img/hardware/VR_headset/V1.jpeg' }, { title: 'V2 Portable Build', img: 'assets/img/hardware/VR_headset/V2_1.jpeg' }, { title: 'Internal Components', img: 'assets/img/hardware/VR_headset/V2_2.jpeg' }, { title: 'Final Assembly', img: 'assets/img/hardware/VR_headset/V2_3.jpeg' }] })">
+            onclick="openProjectModal('vr-headset')">
             <div class="proj-thumb thumb-orange">
               <img src="assets/img/hardware/VR_headset/V2_1.jpeg" alt="VR Headset">
               <span class="proj-type">VR</span>
               <span class="proj-year">2022</span>
             </div>
             <div class="proj-details">
-              <h4>Portable VR Headset <span class="status-tag">Physical Build</span></h4>
-              <p>Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion tracking.</p>
+              <h4>Portable VR Headset <span class="status-tag" data-t="tag-physical">Physical Build</span></h4>
+              <p data-t="vr-short">Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion tracking.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('FRC Competition Robot (StanRobotix)', 'ROBOTICS', 'Active member of FRC Team 6622 StanRobotix. I contributed to the strategy, hardware assembly, and electrical wiring of our competition robots. This involves working with industrial-grade motors, sensors, and complex pneumatics to meet the high standards of FIRST Robotics.', ['FRC', 'Engineering', 'Electronics', 'Teamwork'], 'https://www.stanrobotix6622.com/', 'assets/img/hardware/frc-robot/frc-robot-6622-2025.png', '2024-ongoing', { bgPosition: 'center 85%', gallery: [{ img: 'assets/img/hardware/frc-robot/frc-robot-6622-2025.png', title: '2025 Robot', bgPosition: 'center 85%' }, { img: '', title: '2026 Robot' }] })">
+            onclick="openProjectModal('frc-robot')">
             <div class="proj-thumb thumb-lime">
               <img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="FRC Robot 6622">
               <span class="proj-type">ROBOT</span>
@@ -1510,26 +1640,26 @@
             </div>
             <div class="proj-details">
               <h4>FRC Competition Robot</h4>
-              <p>Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and wiring.</p>
+              <p data-t="frc-robot-short">Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and wiring.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Custom Laptop', 'HARDWARE', 'Built a portable computing station from scratch at age 9. The system is powered by a Raspberry Pi 4, housed in a custom-modified plastic box for food, and features a tiny integrated keyboard and a portable battery system. This project was my first deep dive into modular hardware assembly.', ['RPi 4', 'Hardware Arch.', 'DIY', 'Early Start'], '', '', '2020')">
+            onclick="openProjectModal('custom-laptop')">
             <div class="proj-thumb thumb-gray">
               <span class="proj-type">PC</span>
               <span class="proj-year">2020</span>
             </div>
             <div class="proj-details">
               <h4>Custom Laptop <span class="status-tag">Age 9</span></h4>
-              <p>Built a portable station using RPi4 and a DIY housing to learn computer architecture.</p>
+              <p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer architecture.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Retro Console', 'HARDWARE', 'A physical gaming console build based on a Raspberry Pi 3 core. Designed the physical form factor and configured the input mapping for various retro controllers. The console is fully operational with custom emulation software.', ['RPi 3', 'Emulation', 'Retro Gaming', '3D Printing'], '', 'assets/img/hardware/game_console/1.jpeg', '2021', { bgPosition: 'center 40%', gallery: [{ img: 'assets/img/hardware/game_console/1.jpeg', title: 'Main View', bgPosition: 'center 40%' }, { img: 'assets/img/hardware/game_console/2.jpeg', title: 'Internal Layout', bgPosition: 'center 30%' }, { img: 'assets/img/hardware/game_console/3.jpeg', title: 'Testing Phase', bgPosition: 'center 70%' }] })">
+            onclick="openProjectModal('retro-console')">
             <div class="proj-thumb thumb-orange">
               <img src="assets/img/hardware/game_console/1.jpeg" alt="Retro Console">
               <span class="proj-type">Gaming</span>
@@ -1537,13 +1667,13 @@
             </div>
             <div class="proj-details">
               <h4>Retro Console</h4>
-              <p>Physical console build powered by RPi3 for custom emulation and retro gaming.</p>
+              <p data-t="console-short">Physical console build powered by RPi3 for custom emulation and retro gaming.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
 
           <div class="proj-item"
-            onclick="openModal('Jarvis IoT Bridge', 'IoT / HARDWARE', 'The physical hardware layer for Jarvis OS. Built using ESP32, ESP8266, Arduino, and NodeMCU microcontrollers to interface with residential electrical systems, sensors, and smart switches. It creates a robust network of connected devices that can be controlled by voice.', ['ESP32', 'ESP8266', 'Arduino', 'NodeMCU', 'IoT', '3D Printing', 'Raspberry Pi'], '', 'assets/img/hardware/jarvis_iot/jarvis_iot.jpeg', '2026', { bgPosition: 'center 77%', bgSize: 'cover', gallery: [{ img: 'assets/img/hardware/jarvis_iot/jarvis_iot.jpeg', title: 'Bridge Architecture', bgPosition: 'center 77%' }] })">
+            onclick="openProjectModal('jarvis-iot')">
             <div class="proj-thumb thumb-lime">
               <img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="Jarvis IoT Bridge">
               <span class="proj-type">IoT</span>
@@ -1551,7 +1681,7 @@
             </div>
             <div class="proj-details">
               <h4>Jarvis IoT Bridge</h4>
-              <p>Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p>
+              <p data-t="iot-short">Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p>
             </div>
             <div class="proj-arrow">↗</div>
           </div>
@@ -1559,16 +1689,16 @@
       </section>
 
       <section id="education" class="scrolly" style="animation-delay: 0.45s;">
-        <div class="section-title text-solid">MY<br><span class="text-outline">EDUCATION</span></div>
+        <div class="section-title text-solid"><span data-t="section-edu-1">MY</span><br><span class="text-outline" data-t="section-edu-2">EDUCATION</span></div>
         <div class="experience-timeline">
           <div class="timeline-item">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h4>Collège Stanislas</h4>
+              <h3>Collège Stanislas</h3>
               <div class="date">2024 - Present · Montreal</div>
-              <p>Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
+              <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1576,9 +1706,9 @@
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h4>Lycée Claudel</h4>
+              <h3>Lycée Claudel</h3>
               <div class="date">2023 - 2024 · Ottawa</div>
-              <p>Completed grade 8 with a focus on core sciences and mathematics.</p>
+              <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1586,29 +1716,29 @@
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h4>Lycée Français International Louis Massignon</h4>
+              <h3>Lycée Français International Louis Massignon</h3>
               <div class="date">2016 - 2023 · Casablanca</div>
-              <p>Early academic foundation in a rigorous international environment.</p>
+              <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
             </div>
           </div>
         </div>
       </section>
 
       <section id="experience" class="scrolly" style="animation-delay: 0.5s;">
-        <div class="section-title text-solid">YEARS OF<br><span class="text-outline">EXPERIENCE</span></div>
+        <div class="section-title text-solid"><span data-t="section-exp-1">YEARS OF</span><br><span class="text-outline" data-t="section-exp-2">EXPERIENCE</span></div>
 
         <div class="experience-timeline">
 
           <!-- 2026 -->
           <div class="timeline-year-group">
-            <h3 class="year-label">2026 — Leadership & Excellence</h3>
+            <h3 class="year-label" data-t="lab-2026">2026 — Leadership & Excellence</h3>
             <div class="timeline-item">
               <div class="timeline-left">
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>SHAD Canada Scholar</h4>
-                <p>Selected for this prestigious STEM leadership incubator. Engaging with the next generation of
+                <h4 data-t="shad">SHAD Canada Scholar</h4>
+                <p data-t="shad">Selected for this prestigious STEM leadership incubator. Engaging with the next generation of
                   Canadian innovators.</p>
               </div>
             </div>
@@ -1617,8 +1747,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>FRC Scouting App Development</h4>
-                <p>Architected and built a full-stack scouting platform for match strategy, predictive analytics, and
+                <h4 data-t="frc-scout">FRC Scouting App Development</h4>
+                <p data-t="frc-scout">Architected and built a full-stack scouting platform for match strategy, predictive analytics, and
                   team optimization.</p>
               </div>
             </div>
@@ -1627,8 +1757,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>Hackathon Competitor (ConUHacks)</h4>
-                <p>Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h
+                <h4 data-t="hack">Hackathon Competitor (ConUHacks)</h4>
+                <p data-t="hack">Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h
                   pressure.</p>
               </div>
             </div>
@@ -1636,14 +1766,14 @@
 
           <!-- 2025 -->
           <div class="timeline-year-group">
-            <h3 class="year-label">2025 — Innovation & Awards</h3>
+            <h3 class="year-label" data-t="lab-2025">2025 — Innovation & Awards</h3>
             <div class="timeline-item">
               <div class="timeline-left">
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>Clofit — Digital Wardrobe & AI Stylist</h4>
-                <p>Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal
+                <h4 data-t="clofit-exp">Clofit — Digital Wardrobe & AI Stylist</h4>
+                <p data-t="clofit-exp">Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal
                   fashion.</p>
               </div>
             </div>
@@ -1652,8 +1782,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>1st Place — HackDécouverte (Concordia University)</h4>
-                <p>Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions
+                <h4 data-t="hack-win">1st Place — HackDécouverte (Concordia University)</h4>
+                <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions
                   rapidly.</p>
               </div>
             </div>
@@ -1661,14 +1791,14 @@
 
           <!-- 2024 -->
           <div class="timeline-year-group">
-            <h3 class="year-label">2024 — Foundation & Robotics</h3>
+            <h3 class="year-label" data-t="lab-2024">2024 — Foundation & Robotics</h3>
             <div class="timeline-item">
               <div class="timeline-left">
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>Vice President IT — Floragel (JA Québec)</h4>
-                <p>Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection
+                <h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4>
+                <p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection
                   project that won Best Sales Pitch.</p>
               </div>
             </div>
@@ -1677,8 +1807,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
-                <p>Joined the programming team, developing control systems for competitive robots and contributing to
+                <h4 data-t="robotics">FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
+                <p data-t="robotics">Joined the programming team, developing control systems for competitive robots and contributing to
                   team strategy.</p>
               </div>
             </div>
@@ -1686,14 +1816,14 @@
 
           <!-- 2020-2023 -->
           <div class="timeline-year-group">
-            <h3 class="year-label">2020 – 2023 — The Builder's Roots</h3>
+            <h3 class="year-label" data-t="lab-2020">2020 – 2023 — The Builder's Roots</h3>
             <div class="timeline-item">
               <div class="timeline-left">
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>EduMaths — Founder & Developer</h4>
-                <p>Created a full-stack mathematics learning platform at age 12. Directed a small team of friends to
+                <h4 data-t="edu-found">EduMaths — Founder & Developer</h4>
+                <p data-t="edu-found">Created a full-stack mathematics learning platform at age 12. Directed a small team of friends to
                   record video lessons, integrated PDF exports, and managed a MySQL database for user profiles.</p>
               </div>
             </div>
@@ -1702,8 +1832,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>Learn to Code Platform</h4>
-                <p>Launched an educational hub to teach others how to build websites, emphasizing community learning
+                <h4 data-t="learn-coding">Learn to Code Platform</h4>
+                <p data-t="learn-coding">Launched an educational hub to teach others how to build websites, emphasizing community learning
                   from the very start.</p>
               </div>
             </div>
@@ -1712,8 +1842,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>My First Website & OLOGRA OS</h4>
-                <p>Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A fundamental dive
+                <h4 data-t="ologra">My First Website & OLOGRA OS</h4>
+                <p data-t="ologra">Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A fundamental dive
                   into UI design and logic.</p>
               </div>
             </div>
@@ -1723,8 +1853,8 @@
                 <div class="timeline-dot"></div>
               </div>
               <div class="timeline-content">
-                <h4>Hardware Engineering & Integrated Systems</h4>
-                <p>From age 9: Built a custom high-performance PC, a handmade gaming console, and a working portable VR
+                <h4 data-t="hardware-roots">Hardware Engineering & Integrated Systems</h4>
+                <p data-t="hardware-roots">From age 9: Built a custom high-performance PC, a handmade gaming console, and a working portable VR
                   headset from scratch.</p>
               </div>
             </div>
@@ -1830,19 +1960,19 @@
           </div>
           <div class="skill-card">
             <div class="skill-brand">🎯</div>
-            <div class="skill-name">IT Strategy</div>
+            <div class="skill-name" data-t="skill-strategy">IT Strategy</div>
           </div>
           <div class="skill-card">
             <div class="skill-brand">📢</div>
-            <div class="skill-name">Leadership</div>
+            <div class="skill-name" data-t="skill-leadership">Leadership</div>
           </div>
           <div class="skill-card">
             <div class="skill-brand">🇫🇷</div>
-            <div class="skill-name">French</div>
+            <div class="skill-name" data-t="skill-french">French</div>
           </div>
           <div class="skill-card">
             <div class="skill-brand">🇬🇧</div>
-            <div class="skill-name">English</div>
+            <div class="skill-name" data-t="skill-english">English</div>
           </div>
         </div>
       </section>
@@ -1859,9 +1989,9 @@
 
           <div
             style="position: relative; z-index: 2; pointer-events: none; width: 100%; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-            <div style="font-weight: 700; color: #333; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em;">
+            <div data-t="about-hey" style="font-weight: 700; color: #333; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em;">
               Hey, I'm Nayl 👋</div>
-            <h3
+            <h3 data-t="about-role"
               style="font-family: var(--font-display); font-size: 48px; font-weight: 800; color: #111; margin-bottom: 30px; letter-spacing: -0.04em; line-height: 1;">
               Systems Developer</h3>
 
@@ -1873,7 +2003,7 @@
             <!-- Fake Input Bar -->
             <div
               style="width: 100%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 50px; padding: 6px 6px 6px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
-              <span style="color: #888; font-size: 14px; font-weight: 500;">Ask me anything...</span>
+              <span data-t="about-placeholder" style="color: #888; font-size: 14px; font-weight: 500;">Ask me anything...</span>
               <div
                 style="width: 36px; height: 36px; background: #60a5fa; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
@@ -1887,23 +2017,23 @@
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
               <span
                 style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #4ade80;">●</span> Me
+                <span style="color: #4ade80;">●</span> <span data-t="about-me">Me</span>
               </span>
               <span
                 style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #38bdf8;">●</span> Projects
+                <span style="color: #38bdf8;">●</span> <span data-t="about-projects">Projects</span>
               </span>
               <span
                 style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #a855f7;">●</span> Skills
+                <span style="color: #a855f7;">●</span> <span data-t="about-skills">Skills</span>
               </span>
               <span
                 style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #f472b6;">●</span> Fun
+                <span style="color: #f472b6;">●</span> <span data-t="about-fun">Fun</span>
               </span>
               <span
                 style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #fbbf24;">●</span> Contact
+                <span style="color: #fbbf24;">●</span> <span data-t="about-contact">Contact</span>
               </span>
             </div>
           </div>
@@ -1912,7 +2042,7 @@
 
       <footer class="site-footer scrolly"
         style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
-        <p style="color: var(--text-gray); font-size: 14px; font-weight: 400;">© 2026 Nayl Lahlou. Built with passion.
+        <p style="color: var(--text-gray); font-size: 14px; font-weight: 400;" data-t="footer-passion">© 2026 Nayl Lahlou. Built with passion.
         </p>
         <div style="display: flex; gap: 24px;">
           <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank"
@@ -1989,20 +2119,20 @@
 
     <div class="ai-glass-content" onclick="event.stopPropagation()">
       <div class="ai-modal-header">
-        <div class="ai-modal-title">Nayl's AI <span class="status-badge">Online</span></div>
+        <div class="ai-modal-title"><span data-t="ai-title">Nayl's AI</span> <span class="status-badge" data-t="ai-status">Online</span></div>
         <button class="ai-close-btn" onclick="closeAiModal(event)">&times;</button>
       </div>
 
       <div class="ai-chat-area" id="ai-chat-area">
-        <div class="chat-bubble bubble-ai">
+        <div class="chat-bubble bubble-ai" data-t="ai-welcome">
           Hi there! I'm Nayl's AI clone. I know everything about his software development journey since 2020.
           Feel free to ask me anything!
         </div>
       </div>
 
       <div class="ai-input-area">
-        <input type="text" id="ai-modal-input" placeholder="Ask a question...">
-        <button onclick="sendAiMessage()">Send</button>
+        <input type="text" id="ai-modal-input" placeholder="Ask a question..." data-t-placeholder="ai-placeholder">
+        <button onclick="sendAiMessage()" data-t="ai-send">Send</button>
       </div>
     </div>
   </div>
@@ -2055,7 +2185,7 @@
     // 2. Project Modal Logic
     const projModal = document.getElementById('project-modal');
 
-    function openModal(title, type, description, techs, link, imagePath, year = '', extra = {}) {
+    function openModal(id, title, type, description, techs, link, imagePath, year = '', extra = {}) {
       document.getElementById('modal-title').textContent = title;
       document.getElementById('modal-type').textContent = type;
       document.getElementById('modal-desc').textContent = description;
@@ -2156,7 +2286,7 @@
       const termSim = document.getElementById('modal-terminal-simulator');
       console.log('Modal opening for:', title);
 
-      if (title === 'Hardware & Systems') {
+      if (id === 'expertise-hardware') {
         hwSim.style.display = 'block';
         termSim.style.display = 'none';
         imgBanner.style.display = 'none';
@@ -2170,7 +2300,7 @@
           }
         };
         tryHw();
-      } else if (title === 'Web & App Development') {
+      } else if (id === 'expertise-web') {
         termSim.style.display = 'block';
         hwSim.style.display = 'none';
         imgBanner.style.display = 'none';
@@ -2419,7 +2549,10 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
           response = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ messages: aiConversationHistory })
+            body: JSON.stringify({ 
+              messages: aiConversationHistory,
+              language: localStorage.getItem('language') || 'en'
+            })
           });
         } else {
           // DIRECT MODE (Local Development)
@@ -2430,8 +2563,14 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
               'Authorization': `Bearer ${localApiKey}`
             },
             body: JSON.stringify({
-              model: 'meta-llama/llama-4-scout-17b-16e-instruct',
-              messages: aiConversationHistory,
+              model: 'llama-3.3-70b-versatile',
+              messages: [
+                {
+                  role: 'system',
+                  content: `Current language: ${localStorage.getItem('language') || 'en'}. Please respond in this language.`
+                },
+                ...aiConversationHistory
+              ],
               temperature: 0.7,
               max_tokens: 1024
             })
@@ -2789,6 +2928,37 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`,
   <script src="js/webgl-fluid.js"></script>
   <script src="js/circuit-simulator.js?v=11"></script>
   <script>
+    // --- LANGUAGE MANAGEMENT ---
+    function setLanguage(lang) {
+      localStorage.setItem('language', lang);
+      if (window.applyTranslations) {
+        applyTranslations(lang);
+      }
+      const splash = document.getElementById('language-splash');
+      if (splash) splash.classList.add('hidden');
+
+      // Update toggle buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btn-' + lang);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('language');
+      if (savedLang) {
+        if (window.applyTranslations) {
+          applyTranslations(savedLang);
+        }
+        const splash = document.getElementById('language-splash');
+        if (splash) splash.style.display = 'none';
+        
+        // Update toggle buttons on load
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.getElementById('btn-' + savedLang);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+    });
+
     // Project Modal Interaction logic is handled in the openModal/closeModal functions
   </script>
 </body>
