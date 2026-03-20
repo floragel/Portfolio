@@ -86,19 +86,23 @@
     /* --- 2. FLOATING NAVBAR --- */
     .navbar {
       position: fixed;
-      top: 24px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 8px 20px;
+      background: rgba(15, 14, 13, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 20px;
+      border-radius: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 18px;
       z-index: 1000;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+      max-width: 90vw;
     }
 
     .navbar span {
@@ -1359,11 +1363,10 @@
     .nav-lang-toggle {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin: 0 10px;
-      padding: 4px 10px;
+      gap: 4px;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
+      padding: 4px 8px;
+      border-radius: 50px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -1371,12 +1374,17 @@
       background: none;
       border: none;
       color: rgba(255, 255, 255, 0.4);
-      font-family: inherit;
-      font-size: 11px;
+      font-family: var(--font-display);
+      font-size: 10px;
       font-weight: 700;
       cursor: pointer;
       padding: 2px 4px;
       transition: all 0.3s;
+      letter-spacing: 0.05em;
+    }
+
+    .lang-btn.active {
+      color: var(--accent-orange);
     }
 
     .lang-btn:hover {
