@@ -3,7 +3,7 @@ const translations = {
         "nav-home": "Home",
         "nav-projects": "Projects",
         "nav-experience": "Experience",
-        "nav-skills": "Skills",
+        "nav-skills": "Experiences",
         "nav-ai": "Ask AI",
         "nav-3d": "✦ Explore in 3D",
         "profile-title": "Systems Developer",
@@ -30,6 +30,10 @@ const translations = {
         "section-edu-2": "EDUCATION",
         "section-exp-1": "YEARS OF",
         "section-exp-2": "EXPERIENCE",
+        "section-skills-1": "MY",
+        "section-skills-2": "SKILLS",
+        "section-about-1": "ABOUT",
+        "section-about-2": "ME",
         "splash-welcome": "WELCOME / BIENVENUE,",
         "splash-name": "MY NAME IS / MON NOM EST",
         "splash-choose": "Select your preferred language",
@@ -82,13 +86,56 @@ const translations = {
         "frc-robot-short": "Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and wiring.",
         "laptop-short": "Built a portable station using RPi4 and a DIY housing to learn computer architecture.",
         "console-short": "Physical console build powered by RPi3 for custom emulation and retro gaming.",
-        "iot-short": "Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation."
+        "iot-short": "Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.",
+        "project-trakant-desc": "1st place application built during HackDécouverte 2025 at Concordia University. Trakant was designed for rapid deployment and efficient problem-solving under extreme 24h pressure. I focused on architecting a scalable real-time engine and a polished user interface to demonstrate technical agility.",
+        "project-clofit-desc": "Clofit is a native iOS application built with SwiftUI that serves as a digital wardrobe and personal AI stylist. It uses Computer Vision for automated clothes tagging and background removal, and advanced recommendation algorithms to suggest outfits (OOTD) based on style rules, body shape, and weather.",
+        "project-floragel-desc": "As VP IT of Floragel, I led the technical vision for this plant-protection venture. The project won 'Best Sales Pitch' and I was ranked 2nd Best VP IT in Quebec. We built a platform that treats plants as living beings, providing them with personalized care through IoT and AI.",
+        "project-scouting-desc": "A comprehensive scouting platform for FIRST Robotics (Team 6622). Built with React Native and Go, it features offline-first data collection, secure cloud synchronization, and predictive analytics to optimize match strategy.",
+        "project-jarvis-desc": "Jarvis OS is an ultra-fast voice-controlled AI assistant. It integrates with native applications like Notion and Google Calendar, and controls home automation via custom IoT bridges. Built in Python with a focus on low-latency response times.",
+        "project-edumaths-desc": "Created at age 12, EduMaths is a full-stack educational platform for mathematics. It features user profiles, video lessons delivered by a team of friends, and automated PDF export logic. Built using PHP and MySQL.",
+        "project-learning-desc": "One of my earliest projects aimed at sharing technical knowledge. I built a platform to teach coding and web development principles to fellow students, fostering a community of young creators.",
+        "project-ologra-desc": "OLOGRA OS was a custom operating system environment built in Visual Basic at age 9. It featured a file explorer, custom settings, and a suite of small utility apps, marking my first major dive into complex software logic.",
+        "project-vr-desc": "A fully artisanal VR headset built from components. Powered by a Raspberry Pi 4 and Arduino Leonardo, it features custom 3D-printed optics housing and 9-axis motion tracking for an immersive standalone experience.",
+        "project-frc-robot-desc": "Contributing to the hardware and build team of StanRobotix 6622. I worked on industrial-grade electronics, pneumatic systems, and mechanical assembly for international FIRST Robotics competitions.",
+        "project-laptop-desc": "My first hardware build at age 9. A portable computing station made from a Raspberry Pi 4 and DIY components, housed in a custom enclosure to learn the fundamentals of computer architecture.",
+        "project-console-desc": "A handcrafted retro gaming system. Powered by a custom Raspberry Pi image with thousands of titles, featuring 3D-printed components and mapped physical controllers for an authentic retro feel.",
+        "project-iot-bridge-desc": "A multi-protocol hardware bridge connecting Jarvis OS to the physical world. Built using ESP32 and Arduino, it manages smart lighting, climate sensors, and security systems through a centralized hub.",
+        "terminal-welcome": "[OK] Portfolio Shell session started.",
+        "terminal-help-tip": "Type 'help' for command list.",
+        "terminal-help": "<b>Available commands:</b>\n  ls        - List directory contents\n  cd [dir]  - Change directory\n  cat [file]- Display file content\n  clear     - Clear terminal screen\n  whoami    - Display detailed professional profile\n  neofetch  - Display system/profile summary\n  hackathons- View hackathon wins & awards\n  extracurriculars - View my activities\n  theme [name] - Change terminal theme\n  circus    - Watch an ASCII somersault!\n  exit      - Close terminal\n  \n<b>Tips:</b>\n  - Available themes: <b>matrix</b>, <b>retro</b>, <b>light</b>, <b>dark</b>\n  - Use <b>Tab</b> to autocomplete.\n  - Use <b>Up/Down</b> for history.",
+        "terminal-fs": {
+            "projects": {
+                "trakant.txt": "Trakant: 1st place application built during HackDécouverte 2025. Designed for rapid deployment and efficient problem-solving under pressure.",
+                "edumaths.txt": "EduMaths: A full-stack mathematics learning platform built at age 12 using PHP and MySQL. Features video lessons and automated PDF generation.",
+                "clofit.txt": "Clofit: Modern native iOS app acting as a digital wardrobe and personal AI stylist using Computer Vision and LLMs.",
+                "floragel.txt": "Floragel: Mission-driven enterprise dedicated to protecting plants as living beings. 2nd Place provincial ranking and Best Sales Pitch winner.",
+                "frc-scout.txt": "FRC Scouting App: Comprehensive scouting platform for Team 6622. Features offline sync and predictive analytics.",
+                "jarvis-os.txt": "Jarvis OS: Ultra-fast voice-to-voice AI assistant using LiteLLM proxy and low-latency local TTS.",
+                "learn-to-code.txt": "Learn to Code Platform: Educational platform to help others create their own websites. Sharing technical knowledge since 4th grade.",
+                "ologra-os.txt": "OLOGRA OS & First Website: Custom operating system built in Visual Basic at age 9. My very first deep dive into programming."
+            },
+            "hardware": {
+                "vr-headset.txt": "VR Headset: Independent portable system with RPi 4 and Arduino. Features 9-axis tracking and custom optics.",
+                "frc-robot.txt": "FRC Competition Robot: Strategy and hardware assembly for Team 6622. Industrial electronics and pneumatics.",
+                "custom-laptop.txt": "Custom Laptop: Portable station built at age 9 using a Raspberry Pi 4 in a custom DIY housing.",
+                "retro-console.txt": "Retro Console (2021): Physical gaming system powered by RPi 3 with 3D printed housing.",
+                "iot-bridge.txt": "Jarvis IoT Bridge (2026): Multi-protocol bridge for home automation using ESP32 and Arduino."
+            },
+            "skills": {
+                "frontend.txt": "SwiftUI, React Native, Next.js, TypeScript, Three.js, Tailwind CSS, Kotlin, HTML, CSS, JS.",
+                "backend.txt": "Node.js, Python, PostgreSQL, Supabase, FastAPI, PHP, MySQL.",
+                "systems.txt": "C++, Linux, Docker, Git, Embedded Systems, IoT, Arduino, Raspberry Pi.",
+                "ai.txt": "LLM Integration, Computer Vision, Voice AI, Predictive Analytics, Image Generation."
+            },
+            "about.txt": "Nayl Lahlou: Software & Systems Developer based in Montreal. Coding since age 9. Passionate about bridging hardware and web.",
+            "contact.txt": "Email: lahlou@nayl.ca | GitHub: @floragel | LinkedIn: nayl-lahlou"
+        }
     },
     fr: {
         "nav-home": "Accueil",
         "nav-projects": "Projets",
-        "nav-experience": "Expérience",
-        "nav-skills": "Compétences",
+        "nav-experience": "Parcours",
+        "nav-skills": "Expériences",
         "nav-ai": "Demander à l'IA",
         "nav-3d": "✦ Visite en 3D",
         "profile-title": "Développeur Systèmes",
@@ -167,7 +214,37 @@ const translations = {
         "frc-robot-short": "Assemblage et câblage pour StanRobotix 6622. Mécanique et électronique industrielle.",
         "laptop-short": "Station portable DIY (RPi4) pour apprendre l'architecture informatique à 9 ans.",
         "console-short": "Console physique (RPi3) pour l'émulation personnalisée et le retro gaming.",
-        "iot-short": "Pont hardware multi-protocole (ESP32/Arduino) pour Jarvis OS."
+        "iot-short": "Pont hardware multi-protocole (ESP32/Arduino) pour Jarvis OS.",
+        "terminal-welcome": "[OK] Session Shell Portfolio démarrée.",
+        "terminal-help-tip": "Tapez 'help' pour la liste des commandes.",
+        "terminal-help": "<b>Commandes disponibles :</b>\n  ls        - Lister le contenu du répertoire\n  cd [dir]  - Changer de répertoire\n  cat [file]- Afficher le contenu du fichier\n  clear     - Effacer l'écran\n  whoami    - Afficher le profil professionnel détaillé\n  neofetch  - Afficher le résumé système/profil\n  hackathons- Voir les victoires et prix\n  extracurriculars - Voir mes activités\n  theme [name] - Changer le thème du terminal\n  circus    - Regarder un saut périlleux ASCII !\n  exit      - Fermer le terminal\n  \n<b>Astuces :</b>\n  - Thèmes disponibles : <b>matrix</b>, <b>retro</b>, <b>light</b>, <b>dark</b>\n  - Utilisez <b>Tab</b> pour l'autocomplétion.\n  - Utilisez <b>Haut/Bas</b> pour l'historique.",
+        "terminal-fs": {
+            "projets": {
+                "trakant.txt": "Trakant : Application lauréate du 1er prix HackDécouverte 2025. Conçue pour un déploiement rapide et efficace sous pression.",
+                "edumaths.txt": "EduMaths : Plateforme éducative de maths créée à 12 ans en PHP/MySQL. Cours vidéos et PDF automatisés.",
+                "clofit.txt": "Clofit : App iOS native agissant comme garde-robe numérique et styliste IA utilisant Computer Vision et LLMs.",
+                "floragel.txt": "Floragel : Entreprise dédiée à la protection du vivant. 2ème place provinciale et Meilleur Pitch au Québec.",
+                "scout-frc.txt": "App Scouting FRC : Plateforme de repérage complète pour l'équipe 6622. Synchro cloud et analyses prédictives.",
+                "jarvis-os.txt": "Jarvis OS : Assistant IA vocal ultra-rapide utilisant LiteLLM et synthèse vocale locale bas niveau.",
+                "apprendre-le-code.txt": "Learning Platform : Plateforme pour aider les autres à coder. Partage de connaissances depuis le CM1.",
+                "ologra-os.txt": "OLOGRA OS : Système d'exploitation personnalisé construit en Visual Basic à 9 ans."
+            },
+            "materiel": {
+                "casque-vr.txt": "Casque VR : Système indépendant portable avec RPi 4 et Arduino. Suivi 9 axes et optiques sur mesure.",
+                "robot-frc.txt": "Robot FRC : Stratégie et assemblage matériel pour StanRobotix 6622. Électronique et pneumatique industrielle.",
+                "laptop-diy.txt": "PC Portable : Station portable construite à 9 ans avec un Raspberry Pi 4 dans un boîtier DIY.",
+                "console-retro.txt": "Console Rétro (2021) : Système de jeu physique propulsé par RPi 3 avec boîtier imprimé en 3D.",
+                "pont-iot.txt": "Pont IoT Jarvis (2026) : Pont matériel multi-protocole pour la domotique utilisant ESP32 et Arduino."
+            },
+            "competences": {
+                "frontend.txt": "SwiftUI, React Native, Next.js, TypeScript, Three.js, Tailwind CSS, Kotlin, HTML, CSS, JS.",
+                "backend.txt": "Node.js, Python, PostgreSQL, Supabase, FastAPI, PHP, MySQL.",
+                "systemes.txt": "C++, Linux, Docker, Git, Systèmes Embarqués, IoT, Arduino, Raspberry Pi.",
+                "ia.txt": "Intégration LLM, Vision par Ordi, IA Vocale, Analyses Prédictives, Génération d'Images."
+            },
+            "a-propos.txt": "Nayl Lahlou : Développeur Logiciel & Systèmes basé à Montréal. Code depuis ses 9 ans. Passionné par le lien hardware/web.",
+            "contact.txt": "Email : lahlou@nayl.ca | GitHub : @floragel | LinkedIn : nayl-lahlou"
+        }
     }
 };
 

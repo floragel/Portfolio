@@ -93,15 +93,19 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 10px 24px;
-      border-radius: 100px;
+      padding: 8px 20px;
       display: flex;
-      gap: 20px;
-      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 1000;
     }
 
     .navbar span {
-      font-size: 13px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
       font-family: var(--font-display);
       cursor: pointer;
       color: var(--text-gray);
@@ -1262,19 +1266,14 @@
     /* --- LANGUAGE SPLASH SCREEN --- */
     #language-splash {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #151312;
+      inset: 0;
+      background: #0a0a0a;
       z-index: 9999;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
       transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
-      color: white;
-      font-family: 'Poppins', sans-serif;
     }
 
     #language-splash.hidden {
@@ -1284,66 +1283,77 @@
     }
 
     .splash-content {
-      text-align: center;
-      max-width: 400px;
+      animation: fadeIn 1s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 40px;
-      position: relative;
-    }
-
-    .splash-logo {
-      font-size: 56px;
-      font-weight: 900;
-      margin-bottom: 20px;
-      line-height: 1.1;
-      letter-spacing: -0.05em;
-      background: linear-gradient(135deg, #f46c38 0%, #c5ff41 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: splashPulse 3s infinite ease-in-out;
-    }
-
-    @keyframes splashPulse {
-      0%, 100% { transform: scale(1); filter: brightness(1); }
-      50% { transform: scale(1.05); filter: brightness(1.2); }
     }
 
     .splash-welcome {
-       font-size: 24px;
-       margin-bottom: 10px;
-       opacity: 0.8;
-       letter-spacing: 0.1em;
-       text-transform: uppercase;
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .splash-logo {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 10vw, 84px);
+      line-height: 1;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 48px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .splash-logo span {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 400;
     }
 
     .splash-btns {
       display: flex;
-      gap: 20px;
-      margin-top: 40px;
+      gap: 16px;
     }
 
     .splash-btn {
-      padding: 14px 40px;
+      padding: 12px 32px;
       border-radius: 100px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(255, 255, 255, 0.03);
       color: white;
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      font-size: 16px;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .splash-btn:hover {
       background: white;
-      color: #151312;
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      color: #0a0a0a;
+      transform: translateY(-4px);
+      border-color: white;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
     }
 
-    .splash-btn.en:hover { border-color: var(--accent-orange); }
-    .splash-btn.fr:hover { border-color: var(--accent-lime); }
+    .splash-btn.fr:hover {
+      border-color: var(--accent-lime);
+    }
 
     /* New Language Toggle Styles */
     .nav-lang-toggle {
@@ -1356,10 +1366,11 @@
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .lang-btn {
       background: none;
       border: none;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
       font-family: inherit;
       font-size: 11px;
       font-weight: 700;
@@ -1367,338 +1378,393 @@
       padding: 2px 4px;
       transition: all 0.3s;
     }
-    .lang-btn:hover { color: #fff; }
-    .lang-btn.active { color: var(--accent-orange); }
+
+    .lang-btn:hover {
+      color: #fff;
+    }
+
+    .lang-btn.active {
+      color: var(--accent-orange);
+    }
   </style>
 </head>
 
-  <div id="language-splash">
-    <div class="splash-content">
-      <div class="splash-welcome" data-t="splash-welcome">WELCOME / BIENVENUE,</div>
-      <div class="splash-logo">
-        <span style="font-size: 0.5em; display: block; filter: brightness(0.8);" data-t="splash-name">MY NAME IS / MON NOM EST</span>
-        NAYL
-      </div>
-      <p style="color: rgba(255,255,255,0.5); margin-bottom: 30px; font-size: 14px; letter-spacing: 0.05em;" data-t="splash-choose">Select your preferred language</p>
-      <div class="splash-btns">
-        <button class="splash-btn fr" onclick="setLanguage('fr')" data-t="splash-fr">Français</button>
-        <button class="splash-btn en" onclick="setLanguage('en')" data-t="splash-en">English</button>
-      </div>
+<div id="language-splash">
+  <div class="splash-content">
+    <div class="splash-welcome" data-t="splash-welcome">WELCOME / BIENVENUE,</div>
+    <div class="splash-logo">
+      <span style="font-size: 0.5em; display: block; filter: brightness(0.8);" data-t="splash-name">MY NAME IS / MON NOM
+        EST</span>
+      NAYL
+    </div>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 30px; font-size: 14px; letter-spacing: 0.05em;"
+      data-t="splash-choose">Select your preferred language</p>
+    <div class="splash-btns">
+      <button class="splash-btn fr" onclick="setLanguage('fr')" data-t="splash-fr">Français</button>
+      <button class="splash-btn en" onclick="setLanguage('en')" data-t="splash-en">English</button>
     </div>
   </div>
+</div>
 
-  <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+<div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<nav class="navbar" id="main-navbar">
+  <span onclick="scrollToSection('home')" class="active" data-t="nav-home">Home</span>
+  <span onclick="scrollToSection('projects')" data-t="nav-projects">Projects</span>
+  <span onclick="scrollToSection('experience')" data-t="nav-experience">Experience</span>
+  <span onclick="scrollToSection('skills')" data-t="nav-skills">Skills</span>
+  <span onclick="scrollToSection('about')" data-t="nav-ai">Ask AI</span>
+  <div class="nav-lang-toggle">
+    <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+    <span style="opacity: 0.3;">/</span>
+    <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
   </div>
+  <span onclick="window.location.href='3d.html'" style="color: var(--accent-lime) !important;" data-t="nav-3d">✦ Explore
+    in 3D</span>
+</nav>
 
-  <nav class="navbar" id="main-navbar">
-    <span onclick="scrollToSection('home')" class="active" data-t="nav-home">Home</span>
-    <span onclick="scrollToSection('projects')" data-t="nav-projects">Projects</span>
-    <span onclick="scrollToSection('experience')" data-t="nav-experience">Experience</span>
-    <span onclick="scrollToSection('skills')" data-t="nav-skills">Skills</span>
-    <span onclick="scrollToSection('about')" data-t="nav-ai">Ask AI</span>
-    <div class="nav-lang-toggle">
-      <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
-      <span style="opacity: 0.3;">/</span>
-      <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
+<div class="bento-container">
+
+  <aside id="home" class="profile-card scrolly" style="animation-delay: 0.1s;">
+    <canvas id="profile-fluid-canvas"></canvas>
+    <div class="profile-img-placeholder"></div>
+    <h2 class="profile-name" data-t="profile-title">Systems Developer</h2>
+
+    <div class="location">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span data-t="profile-location">Montreal, QC</span>
     </div>
-    <span onclick="window.location.href='3d.html'" style="color: var(--accent-lime) !important;" data-t="nav-3d">✦ Explore in 3D</span>
-  </nav>
 
-  <div class="bento-container">
+    <p class="profile-bio" data-t="profile-bio">Building systems since 2020. Specializing in robotics, electronics, and
+      full-stack software
+      integration.</p>
+    <div class="social-links">
+      <a href="https://github.com/floragel" target="_blank" class="social-icon github-icon" aria-label="GitHub"></a>
+      <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" class="social-icon linkedin-icon"
+        aria-label="LinkedIn"></a>
+      <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" class="social-icon insta-icon"
+        aria-label="Instagram"></a>
+    </div>
+  </aside>
 
-    <aside id="home" class="profile-card scrolly" style="animation-delay: 0.1s;">
-      <canvas id="profile-fluid-canvas"></canvas>
-      <div class="profile-img-placeholder"></div>
-      <h2 class="profile-name" data-t="profile-title">Systems Developer</h2>
+  <main class="content-col">
 
-      <div class="location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-          <circle cx="12" cy="10" r="3"></circle>
-        </svg>
-        <span data-t="profile-location">Montreal, QC</span>
+    <div class="scrolly" style="animation-delay: 0.2s;">
+      <div class="hero-title text-solid" data-t="hero-title-1">SYSTEMS</div>
+      <div class="hero-title text-outline" data-t="hero-title-2">DEVELOPER</div>
+      <p class="hero-desc" data-t="hero-desc">
+        I have been coding and building systems since I was 9. From assembling my first PC to winning
+        hackathons with custom apps and managing IT infrastructure for award-winning ventures.
+      </p>
+      <div style="margin-top: 30px;">
+        <a href="3d.html" class="ai-launch-btn" data-t="nav-3d">
+          ✦ Explore in 3D
+        </a>
       </div>
+    </div>
 
-      <p class="profile-bio" data-t="profile-bio">Building systems since 2020. Specializing in robotics, electronics, and full-stack software
-        integration.</p>
-      <div class="social-links">
-        <a href="https://github.com/floragel" target="_blank" class="social-icon github-icon" aria-label="GitHub"></a>
-        <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" class="social-icon linkedin-icon"
-          aria-label="LinkedIn"></a>
-        <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" class="social-icon insta-icon"
-          aria-label="Instagram"></a>
-      </div>
-    </aside>
-
-    <main class="content-col">
-
-      <div class="scrolly" style="animation-delay: 0.2s;">
-        <div class="hero-title text-solid" data-t="hero-title-1">SYSTEMS</div>
-        <div class="hero-title text-outline" data-t="hero-title-2">DEVELOPER</div>
-        <p class="hero-desc" data-t="hero-desc">
-          I have been coding and building systems since I was 9. From assembling my first PC to winning
-          hackathons with custom apps and managing IT infrastructure for award-winning ventures.
-        </p>
-        <div style="margin-top: 30px;">
-          <a href="3d.html" class="ai-launch-btn" data-t="nav-3d">
-            ✦ Explore in 3D
-          </a>
+    <div class="scrolly" style="animation-delay: 0.3s;">
+      <div class="stats-row">
+        <div class="stat-item">
+          <h3>1st</h3>
+          <p data-t="stat-hack-label">HackDécouverte '25</p>
         </div>
-      </div>
-
-      <div class="scrolly" style="animation-delay: 0.3s;">
-        <div class="stats-row">
-          <div class="stat-item">
-            <h3>1st</h3>
-            <p data-t="stat-hack-label">HackDécouverte '25</p>
-          </div>
-          <div class="stat-item">
-            <h3>2nd</h3>
-            <p data-t="stat-vpit-label">Best VP IT QC</p>
-          </div>
-          <div class="stat-item">
-            <h3>10+</h3>
-            <p data-t="stat-projects-label">Projects Built</p>
-          </div>
-          <div class="stat-item">
-            <h3>2020</h3>
-            <p data-t="stat-start-label">First Project</p>
-          </div>
+        <div class="stat-item">
+          <h3>2nd</h3>
+          <p data-t="stat-vpit-label">Best VP IT QC</p>
         </div>
-
-        <div class="color-blocks-grid">
-          <div class="color-block bg-orange" style="cursor: pointer;"
-            onclick="openProjectModal('expertise-web')">
-            <div class="icon-box">✦</div>
-            <h3 data-t="expertise-web">Web & App Development</h3>
-            <div class="arrow-out">→</div>
-          </div>
-          <div class="color-block bg-lime" style="cursor: pointer;"
-            onclick="openProjectModal('expertise-hardware')">
-            <div class="icon-box">◩</div>
-            <h3 data-t="expertise-hardware">Hardware & Systems</h3>
-            <div class="arrow-out">→</div>
-          </div>
+        <div class="stat-item">
+          <h3>10+</h3>
+          <p data-t="stat-projects-label">Projects Built</p>
+        </div>
+        <div class="stat-item">
+          <h3>2020</h3>
+          <p data-t="stat-start-label">First Project</p>
         </div>
       </div>
 
-      <section id="projects" class="scrolly" style="animation-delay: 0.4s;">
-<div class="section-title text-solid" style="margin-bottom: 40px;"><span data-t="section-projects-1">RECENT</span><br><span class="text-outline" data-t="section-projects-2">PROJECTS</span></div>
+      <div class="color-blocks-grid">
+        <div class="color-block bg-orange" style="cursor: pointer;" onclick="openProjectModal('expertise-web')">
+          <div class="icon-box">✦</div>
+          <h3 data-t="expertise-web">Web & App Development</h3>
+          <div class="arrow-out">→</div>
+        </div>
+        <div class="color-block bg-lime" style="cursor: pointer;" onclick="openProjectModal('expertise-hardware')">
+          <div class="icon-box">◩</div>
+          <h3 data-t="expertise-hardware">Hardware & Systems</h3>
+          <div class="arrow-out">→</div>
+        </div>
+      </div>
+    </div>
 
-        <div class="project-tabs">
-          <button class="proj-tab active" onclick="switchProjTab('software', this)" data-t="tab-software">SOFTWARE & AI</button>
-          <button class="proj-tab" onclick="switchProjTab('hardware', this)" data-t="tab-hardware">HARDWARE & ENG.</button>
+    <section id="projects" class="scrolly" style="animation-delay: 0.4s;">
+      <div class="section-title text-solid" style="margin-bottom: 40px;"><span
+          data-t="section-projects-1">RECENT</span><br><span class="text-outline"
+          data-t="section-projects-2">PROJECTS</span></div>
+
+      <div class="project-tabs">
+        <button class="proj-tab active" onclick="switchProjTab('software', this)" data-t="tab-software">SOFTWARE &
+          AI</button>
+        <button class="proj-tab" onclick="switchProjTab('hardware', this)" data-t="tab-hardware">HARDWARE &
+          ENG.</button>
+      </div>
+
+      <div id="software-projects" class="projects-container active projects-list">
+        <div class="proj-item" onclick="openProjectModal('trakant')">
+          <div class="proj-thumb thumb-orange">
+            <img src="assets/img/trakant.png" alt="Trakant">
+            <span class="proj-type">APP</span>
+            <span class="proj-year">2025</span>
+          </div>
+          <div class="proj-details">
+            <h4>Trakant <span class="status-tag" data-t="tag-winner">Hackathon Winner</span></h4>
+            <p data-t="trakant-short">1st place application built during HackDécouverte for rapid deployment and
+              efficient problem-solving
+              under pressure.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
         </div>
 
-        <div id="software-projects" class="projects-container active projects-list">
-          <div class="proj-item"
-            onclick="openProjectModal('trakant')">
-            <div class="proj-thumb thumb-orange">
-              <img src="assets/img/trakant.png" alt="Trakant">
-              <span class="proj-type">APP</span>
-              <span class="proj-year">2025</span>
-            </div>
-            <div class="proj-details">
-              <h4>Trakant <span class="status-tag" data-t="tag-winner">Hackathon Winner</span></h4>
-              <p data-t="trakant-short">1st place application built during HackDécouverte for rapid deployment and efficient problem-solving
-                under pressure.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="proj-item" onclick="openProjectModal('clofit')">
+          <div class="proj-thumb thumb-lime">
+            <img src="assets/img/clofit.png" alt="Clofit">
+            <span class="proj-type">APP</span>
+            <span class="proj-year">2025-26</span>
           </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('clofit')">
-            <div class="proj-thumb thumb-lime">
-              <img src="assets/img/clofit.png" alt="Clofit">
-              <span class="proj-type">APP</span>
-              <span class="proj-year">2025-26</span>
-            </div>
-            <div class="proj-details">
-              <h4>Clofit <span class="status-tag" data-t="tag-soon"
-                  style="border-color: var(--text-gray); color: var(--text-gray);">Deploying Soon</span>
-              </h4>
-              <p data-t="clofit-short">Native iOS app acting as a digital wardrobe, personal AI stylist, and fashion social network using
-                Computer Vision and LLMs.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+          <div class="proj-details">
+            <h4>Clofit <span class="status-tag" data-t="tag-soon"
+                style="border-color: var(--text-gray); color: var(--text-gray);">Deploying Soon</span>
+            </h4>
+            <p data-t="clofit-short">Native iOS app acting as a digital wardrobe, personal AI stylist, and fashion
+              social network using
+              Computer Vision and LLMs.</p>
           </div>
+          <div class="proj-arrow">↗</div>
+        </div>
 
-          <div class="proj-item"
-            onclick="openProjectModal('floragel')">
-            <div class="proj-thumb thumb-gray">
-              <img src="assets/img/floragel.png" alt="Floragel">
-              <span class="proj-type">WEB</span>
-              <span class="proj-year">2024-25</span>
-            </div>
-            <div class="proj-details">
-              <h4>Floragel <span class="status-tag" data-t="tag-pitch">Best Sales Pitch</span></h4>
-              <p data-t="floragel-short">Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for building the
-                technological soul of this plant-survival project.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="proj-item" onclick="openProjectModal('floragel')">
+          <div class="proj-thumb thumb-gray">
+            <img src="assets/img/floragel.png" alt="Floragel">
+            <span class="proj-type">WEB</span>
+            <span class="proj-year">2024-25</span>
           </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('frc-scouting')">
-            <div class="proj-thumb thumb-gray">
-              <img src="assets/img/frc-scouting-app.png" alt="FRC Scouting App">
-              <span class="proj-type">APP</span>
-              <span class="proj-year">2026</span>
-            </div>
-            <div class="proj-details">
-              <h4>FRC Scouting App</h4>
-              <p data-t="frc-short">Full-stack offline and online first scouting application for FIRST Robotics Competition with predictive
-                analytics.
-              </p>
-            </div>
-            <div class="proj-arrow">↗</div>
+          <div class="proj-details">
+            <h4>Floragel <span class="status-tag" data-t="tag-pitch">Best Sales Pitch</span></h4>
+            <p data-t="floragel-short">Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for
+              building the
+              technological soul of this plant-survival project.</p>
           </div>
+          <div class="proj-arrow">↗</div>
+        </div>
 
-          <div class="proj-item"
-            onclick="openProjectModal('jarvis')">
-            <div class="proj-thumb thumb-orange">
-              <img src="assets/img/jarvis.png" alt="Jarvis OS">
-              <span class="proj-type">AI</span>
-              <span class="proj-year">2025</span>
-            </div>
-            <div class="proj-details">
-              <h4>Jarvis OS</h4>
-              <p data-t="jarvis-short">Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and IoT
-                integrations, that can be controlled by voice commands and can control my home.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="proj-item" onclick="openProjectModal('frc-scouting')">
+          <div class="proj-thumb thumb-gray">
+            <img src="assets/img/frc-scouting-app.png" alt="FRC Scouting App">
+            <span class="proj-type">APP</span>
+            <span class="proj-year">2026</span>
           </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('edumaths')">
-            <div class="proj-thumb thumb-lime">
-              <img src="assets/img/edumaths/home.png" alt="EduMaths">
-              <span class="proj-type">WEB</span>
-              <span class="proj-year">2022</span>
-            </div>
-            <div class="proj-details">
-              <h4>EduMaths</h4>
-              <p data-t="edumaths-short">Full-stack educational platform with video courses and PDF notes, built using PHP and MySQL to help
-                peers with mathematics.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+          <div class="proj-details">
+            <h4>FRC Scouting App</h4>
+            <p data-t="frc-short">Full-stack offline and online first scouting application for FIRST Robotics
+              Competition with predictive
+              analytics.
+            </p>
           </div>
+          <div class="proj-arrow">↗</div>
+        </div>
 
-          <div class="proj-item"
-            onclick="openProjectModal('learning-platform')">
-            <div class="proj-thumb thumb-gray">
-              <img src="assets/img/learning-website.png" alt="Learn to Code Platform">
-              <span class="proj-type">WEB</span>
-              <span class="proj-year">2020</span>
-            </div>
-            <div class="proj-details">
-              <h4>Learn to Code Platform</h4>
-              <p data-t="learning-short">Created a website designed to help others learn programming back in 4th grade.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="proj-item" onclick="openProjectModal('jarvis')">
+          <div class="proj-thumb thumb-orange">
+            <img src="assets/img/jarvis.png" alt="Jarvis OS">
+            <span class="proj-type">AI</span>
+            <span class="proj-year">2025</span>
           </div>
+          <div class="proj-details">
+            <h4>Jarvis OS</h4>
+            <p data-t="jarvis-short">Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and
+              IoT
+              integrations, that can be controlled by voice commands and can control my home.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
 
-          <div class="proj-item"
-            onclick="openProjectModal('first-site')">
-            <div class="proj-thumb thumb-gray">
-              <img src="assets/img/my-first-website.png" alt="My First Website">
-              <span class="proj-type">OS/WEB</span>
-              <span class="proj-year">2020</span>
-            </div>
-            <div class="proj-details">
-              <h4>My First Website & OLOGRA OS</h4>
-              <p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic at age 9.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="proj-item" onclick="openProjectModal('edumaths')">
+          <div class="proj-thumb thumb-lime">
+            <img src="assets/img/edumaths/home.png" alt="EduMaths">
+            <span class="proj-type">WEB</span>
+            <span class="proj-year">2022</span>
+          </div>
+          <div class="proj-details">
+            <h4>EduMaths</h4>
+            <p data-t="edumaths-short">Full-stack educational platform with video courses and PDF notes, built using PHP
+              and MySQL to help
+              peers with mathematics.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('learning-platform')">
+          <div class="proj-thumb thumb-gray">
+            <img src="assets/img/learning-website.png" alt="Learn to Code Platform">
+            <span class="proj-type">WEB</span>
+            <span class="proj-year">2020</span>
+          </div>
+          <div class="proj-details">
+            <h4>Learn to Code Platform</h4>
+            <p data-t="learning-short">Created a website designed to help others learn programming back in 4th grade.
+            </p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('first-site')">
+          <div class="proj-thumb thumb-gray">
+            <img src="assets/img/my-first-website.png" alt="My First Website">
+            <span class="proj-type">OS/WEB</span>
+            <span class="proj-year">2020</span>
+          </div>
+          <div class="proj-details">
+            <h4>My First Website & OLOGRA OS</h4>
+            <p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic
+              at age 9.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+      </div>
+      <div id="hardware-projects" class="projects-container projects-list">
+        <div class="proj-item" onclick="openProjectModal('vr-headset')">
+          <div class="proj-thumb thumb-orange">
+            <img src="assets/img/hardware/VR_headset/V2_1.jpeg" alt="VR Headset">
+            <span class="proj-type">VR</span>
+            <span class="proj-year">2022</span>
+          </div>
+          <div class="proj-details">
+            <h4>Portable VR Headset <span class="status-tag" data-t="tag-physical">Physical Build</span></h4>
+            <p data-t="vr-short">Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion
+              tracking.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('frc-robot')">
+          <div class="proj-thumb thumb-lime">
+            <img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="FRC Robot 6622">
+            <span class="proj-type">ROBOT</span>
+            <span class="proj-year">2024-ongoing</span>
+          </div>
+          <div class="proj-details">
+            <h4>FRC Competition Robot</h4>
+            <p data-t="frc-robot-short">Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and
+              wiring.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('custom-laptop')">
+          <div class="proj-thumb thumb-gray">
+            <span class="proj-type">PC</span>
+            <span class="proj-year">2020</span>
+          </div>
+          <div class="proj-details">
+            <h4>Custom Laptop <span class="status-tag">Age 9</span></h4>
+            <p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer
+              architecture.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('retro-console')">
+          <div class="proj-thumb thumb-orange">
+            <img src="assets/img/hardware/game_console/1.jpeg" alt="Retro Console">
+            <span class="proj-type">Gaming</span>
+            <span class="proj-year">2021</span>
+          </div>
+          <div class="proj-details">
+            <h4>Retro Console</h4>
+            <p data-t="console-short">Physical console build powered by RPi3 for custom emulation and retro gaming.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+
+        <div class="proj-item" onclick="openProjectModal('jarvis-iot')">
+          <div class="proj-thumb thumb-lime">
+            <img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="Jarvis IoT Bridge">
+            <span class="proj-type">IoT</span>
+            <span class="proj-year">2026</span>
+          </div>
+          <div class="proj-details">
+            <h4>Jarvis IoT Bridge</h4>
+            <p data-t="iot-short">Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p>
+          </div>
+          <div class="proj-arrow">↗</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="scrolly" style="animation-delay: 0.45s;">
+      <div class="section-title text-solid"><span data-t="section-edu-1">MY</span><br><span class="text-outline"
+          data-t="section-edu-2">EDUCATION</span></div>
+      <div class="experience-timeline">
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Collège Stanislas</h3>
+            <div class="date">2024 - Present · Montreal</div>
+            <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership
+              in robotics.</p>
           </div>
         </div>
-        <div id="hardware-projects" class="projects-container projects-list">
-          <div class="proj-item"
-            onclick="openProjectModal('vr-headset')">
-            <div class="proj-thumb thumb-orange">
-              <img src="assets/img/hardware/VR_headset/V2_1.jpeg" alt="VR Headset">
-              <span class="proj-type">VR</span>
-              <span class="proj-year">2022</span>
-            </div>
-            <div class="proj-details">
-              <h4>Portable VR Headset <span class="status-tag" data-t="tag-physical">Physical Build</span></h4>
-              <p data-t="vr-short">Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion tracking.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-dot"></div>
           </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('frc-robot')">
-            <div class="proj-thumb thumb-lime">
-              <img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="FRC Robot 6622">
-              <span class="proj-type">ROBOT</span>
-              <span class="proj-year">2024-ongoing</span>
-            </div>
-            <div class="proj-details">
-              <h4>FRC Competition Robot</h4>
-              <p data-t="frc-robot-short">Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and wiring.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
-          </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('custom-laptop')">
-            <div class="proj-thumb thumb-gray">
-              <span class="proj-type">PC</span>
-              <span class="proj-year">2020</span>
-            </div>
-            <div class="proj-details">
-              <h4>Custom Laptop <span class="status-tag">Age 9</span></h4>
-              <p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer architecture.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
-          </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('retro-console')">
-            <div class="proj-thumb thumb-orange">
-              <img src="assets/img/hardware/game_console/1.jpeg" alt="Retro Console">
-              <span class="proj-type">Gaming</span>
-              <span class="proj-year">2021</span>
-            </div>
-            <div class="proj-details">
-              <h4>Retro Console</h4>
-              <p data-t="console-short">Physical console build powered by RPi3 for custom emulation and retro gaming.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
-          </div>
-
-          <div class="proj-item"
-            onclick="openProjectModal('jarvis-iot')">
-            <div class="proj-thumb thumb-lime">
-              <img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="Jarvis IoT Bridge">
-              <span class="proj-type">IoT</span>
-              <span class="proj-year">2026</span>
-            </div>
-            <div class="proj-details">
-              <h4>Jarvis IoT Bridge</h4>
-              <p data-t="iot-short">Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p>
-            </div>
-            <div class="proj-arrow">↗</div>
+          <div class="timeline-content">
+            <h3>Lycée Claudel</h3>
+            <div class="date">2023 - 2024 · Ottawa</div>
+            <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
           </div>
         </div>
-      </section>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Lycée Français International Louis Massignon</h3>
+            <div class="date">2016 - 2023 · Casablanca</div>
+            <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="education" class="scrolly" style="animation-delay: 0.45s;">
-        <div class="section-title text-solid"><span data-t="section-edu-1">MY</span><br><span class="text-outline" data-t="section-edu-2">EDUCATION</span></div>
-        <div class="experience-timeline">
+    <section id="experience" class="scrolly" style="animation-delay: 0.5s;">
+      <div class="section-title text-solid"><span data-t="section-exp-1">YEARS OF</span><br><span class="text-outline"
+          data-t="section-exp-2">EXPERIENCE</span></div>
+
+      <div class="experience-timeline">
+
+        <!-- 2026 -->
+        <div class="timeline-year-group">
+          <h3 class="year-label" data-t="lab-2026">2026 — Leadership & Excellence</h3>
           <div class="timeline-item">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h3>Collège Stanislas</h3>
-              <div class="date">2024 - Present · Montreal</div>
-              <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
+              <h4 data-t="shad">SHAD Canada Scholar</h4>
+              <p data-t="shad">Selected for this prestigious STEM leadership incubator. Engaging with the next
+                generation of
+                Canadian innovators.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1706,9 +1772,10 @@
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h3>Lycée Claudel</h3>
-              <div class="date">2023 - 2024 · Ottawa</div>
-              <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
+              <h4 data-t="frc-scout">FRC Scouting App Development</h4>
+              <p data-t="frc-scout">Architected and built a full-stack scouting platform for match strategy, predictive
+                analytics, and
+                team optimization.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1716,712 +1783,691 @@
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
-              <h3>Lycée Français International Louis Massignon</h3>
-              <div class="date">2016 - 2023 · Casablanca</div>
-              <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
+              <h4 data-t="hack">Hackathon Competitor (ConUHacks)</h4>
+              <p data-t="hack">Pushed limits at ConUHacks 2026, building and deploying interactive software solutions
+                under 24h
+                pressure.</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <section id="experience" class="scrolly" style="animation-delay: 0.5s;">
-        <div class="section-title text-solid"><span data-t="section-exp-1">YEARS OF</span><br><span class="text-outline" data-t="section-exp-2">EXPERIENCE</span></div>
-
-        <div class="experience-timeline">
-
-          <!-- 2026 -->
-          <div class="timeline-year-group">
-            <h3 class="year-label" data-t="lab-2026">2026 — Leadership & Excellence</h3>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="shad">SHAD Canada Scholar</h4>
-                <p data-t="shad">Selected for this prestigious STEM leadership incubator. Engaging with the next generation of
-                  Canadian innovators.</p>
-              </div>
+        <!-- 2025 -->
+        <div class="timeline-year-group">
+          <h3 class="year-label" data-t="lab-2025">2025 — Innovation & Awards</h3>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
             </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="frc-scout">FRC Scouting App Development</h4>
-                <p data-t="frc-scout">Architected and built a full-stack scouting platform for match strategy, predictive analytics, and
-                  team optimization.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="hack">Hackathon Competitor (ConUHacks)</h4>
-                <p data-t="hack">Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h
-                  pressure.</p>
-              </div>
+            <div class="timeline-content">
+              <h4 data-t="clofit-exp">Clofit — Digital Wardrobe & AI Stylist</h4>
+              <p data-t="clofit-exp">Spearheaded the development of a native iOS platform using Computer Vision to
+                revolutionize personal
+                fashion.</p>
             </div>
           </div>
-
-          <!-- 2025 -->
-          <div class="timeline-year-group">
-            <h3 class="year-label" data-t="lab-2025">2025 — Innovation & Awards</h3>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="clofit-exp">Clofit — Digital Wardrobe & AI Stylist</h4>
-                <p data-t="clofit-exp">Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal
-                  fashion.</p>
-              </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
             </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="hack-win">1st Place — HackDécouverte (Concordia University)</h4>
-                <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions
-                  rapidly.</p>
-              </div>
+            <div class="timeline-content">
+              <h4 data-t="hack-win">1st Place — HackDécouverte (Concordia University)</h4>
+              <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build
+                high-stakes solutions
+                rapidly.</p>
             </div>
-          </div>
-
-          <!-- 2024 -->
-          <div class="timeline-year-group">
-            <h3 class="year-label" data-t="lab-2024">2024 — Foundation & Robotics</h3>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4>
-                <p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection
-                  project that won Best Sales Pitch.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="robotics">FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
-                <p data-t="robotics">Joined the programming team, developing control systems for competitive robots and contributing to
-                  team strategy.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2020-2023 -->
-          <div class="timeline-year-group">
-            <h3 class="year-label" data-t="lab-2020">2020 – 2023 — The Builder's Roots</h3>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="edu-found">EduMaths — Founder & Developer</h4>
-                <p data-t="edu-found">Created a full-stack mathematics learning platform at age 12. Directed a small team of friends to
-                  record video lessons, integrated PDF exports, and managed a MySQL database for user profiles.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="learn-coding">Learn to Code Platform</h4>
-                <p data-t="learn-coding">Launched an educational hub to teach others how to build websites, emphasizing community learning
-                  from the very start.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="ologra">My First Website & OLOGRA OS</h4>
-                <p data-t="ologra">Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A fundamental dive
-                  into UI design and logic.</p>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-left">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="timeline-content">
-                <h4 data-t="hardware-roots">Hardware Engineering & Integrated Systems</h4>
-                <p data-t="hardware-roots">From age 9: Built a custom high-performance PC, a handmade gaming console, and a working portable VR
-                  headset from scratch.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <section id="skills" class="scrolly">
-        <div class="section-title text-solid" style="margin-bottom: 40px;">MY<br><span
-            class="text-outline">SKILLS</span></div>
-        <div class="skills-grid">
-          <!-- AI & Core Software -->
-          <div class="skill-card">
-            <div class="skill-brand">✦</div>
-            <div class="skill-name">SwiftUI</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">K</div>
-            <div class="skill-name">Kotlin</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">⚡</div>
-            <div class="skill-name">React Native</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">TS</div>
-            <div class="skill-name">TypeScript</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">◩</div>
-            <div class="skill-name">Python</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">✿</div>
-            <div class="skill-name">LLMs & AI</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">◉</div>
-            <div class="skill-name">Computer Vision</div>
-          </div>
-
-          <!-- Hardware & Robotics -->
-          <div class="skill-card">
-            <div class="skill-brand">🔌</div>
-            <div class="skill-name">Arduino / ESP32</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🍓</div>
-            <div class="skill-name">Raspberry Pi</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🧊</div>
-            <div class="skill-name">3D Design & Blender</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">⚡</div>
-            <div class="skill-name">IoT & Sensors</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">☕</div>
-            <div class="skill-name">Java / C++</div>
-          </div>
-
-          <!-- Modern Web & Data -->
-          <div class="skill-card">
-            <div class="skill-brand">▲</div>
-            <div class="skill-name">Next.js / React</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">◎</div>
-            <div class="skill-name">Node.js</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">&lt;/&gt;</div>
-            <div class="skill-name">HTML / CSS</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">{ }</div>
-            <div class="skill-name">JavaScript</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🐘</div>
-            <div class="skill-name">PHP</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">≋</div>
-            <div class="skill-name">Tailwind CSS</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">▣</div>
-            <div class="skill-name">PostgreSQL</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">⎇</div>
-            <div class="skill-name">Git / GitHub</div>
-          </div>
-
-          <!-- Systems & Strategy -->
-          <div class="skill-card">
-            <div class="skill-brand">🐧</div>
-            <div class="skill-name">Linux / Docker</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🎯</div>
-            <div class="skill-name" data-t="skill-strategy">IT Strategy</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">📢</div>
-            <div class="skill-name" data-t="skill-leadership">Leadership</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🇫🇷</div>
-            <div class="skill-name" data-t="skill-french">French</div>
-          </div>
-          <div class="skill-card">
-            <div class="skill-brand">🇬🇧</div>
-            <div class="skill-name" data-t="skill-english">English</div>
           </div>
         </div>
-      </section>
 
-      <section id="about" class="scrolly">
-        <div class="section-title text-solid" style="margin-bottom: 60px;">ABOUT<br><span class="text-outline">ME</span>
+        <!-- 2024 -->
+        <div class="timeline-year-group">
+          <h3 class="year-label" data-t="lab-2024">2024 — Foundation & Robotics</h3>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4>
+              <p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant
+                protection
+                project that won Best Sales Pitch.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="robotics">FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
+              <p data-t="robotics">Joined the programming team, developing control systems for competitive robots and
+                contributing to
+                team strategy.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="ai-launch-card" onclick="openAiModal()"
-          style="position: relative; overflow: hidden; background: #ffffff; border-radius: 32px; padding: 60px 40px; text-align: center; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.1); min-height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+        <!-- 2020-2023 -->
+        <div class="timeline-year-group">
+          <h3 class="year-label" data-t="lab-2020">2020 – 2023 — The Builder's Roots</h3>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="edu-found">EduMaths — Founder & Developer</h4>
+              <p data-t="edu-found">Created a full-stack mathematics learning platform at age 12. Directed a small team
+                of friends to
+                record video lessons, integrated PDF exports, and managed a MySQL database for user profiles.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="learn-coding">Learn to Code Platform</h4>
+              <p data-t="learn-coding">Launched an educational hub to teach others how to build websites, emphasizing
+                community learning
+                from the very start.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="ologra">My First Website & OLOGRA OS</h4>
+              <p data-t="ologra">Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A
+                fundamental dive
+                into UI design and logic.</p>
+            </div>
+          </div>
 
-          <!-- Interactive WebGL Canvas for interactive ripples -->
-          <canvas id="card-fluid-canvas"></canvas>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="hardware-roots">Hardware Engineering & Integrated Systems</h4>
+              <p data-t="hardware-roots">From age 9: Built a custom high-performance PC, a handmade gaming console, and
+                a working portable VR
+                headset from scratch.</p>
+            </div>
+          </div>
+        </div>
 
+      </div>
+    </section>
+
+    <section id="skills" class="scrolly">
+      <div class="section-title text-solid" style="margin-bottom: 40px;"><span data-t="section-skills-1">MY</span><br><span
+          class="text-outline" data-t="section-skills-2">SKILLS</span>
+      </div>
+      <div class="skills-grid">
+        <!-- AI & Core Software -->
+        <div class="skill-card">
+          <div class="skill-brand">✦</div>
+          <div class="skill-name">SwiftUI</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">K</div>
+          <div class="skill-name">Kotlin</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">⚡</div>
+          <div class="skill-name">React Native</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">TS</div>
+          <div class="skill-name">TypeScript</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">◩</div>
+          <div class="skill-name">Python</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">✿</div>
+          <div class="skill-name">LLMs & AI</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">◉</div>
+          <div class="skill-name">Computer Vision</div>
+        </div>
+
+        <!-- Hardware & Robotics -->
+        <div class="skill-card">
+          <div class="skill-brand">🔌</div>
+          <div class="skill-name">Arduino / ESP32</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🍓</div>
+          <div class="skill-name">Raspberry Pi</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🧊</div>
+          <div class="skill-name">3D Design & Blender</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">⚡</div>
+          <div class="skill-name">IoT & Sensors</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">☕</div>
+          <div class="skill-name">Java / C++</div>
+        </div>
+
+        <!-- Modern Web & Data -->
+        <div class="skill-card">
+          <div class="skill-brand">▲</div>
+          <div class="skill-name">Next.js / React</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">◎</div>
+          <div class="skill-name">Node.js</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">&lt;/&gt;</div>
+          <div class="skill-name">HTML / CSS</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">{ }</div>
+          <div class="skill-name">JavaScript</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🐘</div>
+          <div class="skill-name">PHP</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">≋</div>
+          <div class="skill-name">Tailwind CSS</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">▣</div>
+          <div class="skill-name">PostgreSQL</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">⎇</div>
+          <div class="skill-name">Git / GitHub</div>
+        </div>
+
+        <!-- Systems & Strategy -->
+        <div class="skill-card">
+          <div class="skill-brand">🐧</div>
+          <div class="skill-name">Linux / Docker</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🎯</div>
+          <div class="skill-name" data-t="skill-strategy">IT Strategy</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">📢</div>
+          <div class="skill-name" data-t="skill-leadership">Leadership</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🇫🇷</div>
+          <div class="skill-name" data-t="skill-french">French</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🇬🇧</div>
+          <div class="skill-name" data-t="skill-english">English</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="scrolly">
+      <div class="section-title text-solid" style="margin-bottom: 60px;"><span data-t="section-about-1">ABOUT</span><br><span
+          class="text-outline" data-t="section-about-2">ME</span>
+      </div>
+
+      <div class="ai-launch-card" onclick="openAiModal()"
+        style="position: relative; overflow: hidden; background: #ffffff; border-radius: 32px; padding: 60px 40px; text-align: center; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.1); min-height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
+
+        <!-- Interactive WebGL Canvas for interactive ripples -->
+        <canvas id="card-fluid-canvas"></canvas>
+
+        <div
+          style="position: relative; z-index: 2; pointer-events: none; width: 100%; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+          <div data-t="about-hey"
+            style="font-weight: 700; color: #333; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em;">
+            Hey, I'm Nayl 👋</div>
+          <h3 data-t="about-role"
+            style="font-family: var(--font-display); font-size: 48px; font-weight: 800; color: #111; margin-bottom: 30px; letter-spacing: -0.04em; line-height: 1;">
+            Systems Developer</h3>
+
+          <!-- Avatar -->
           <div
-            style="position: relative; z-index: 2; pointer-events: none; width: 100%; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-            <div data-t="about-hey" style="font-weight: 700; color: #333; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em;">
-              Hey, I'm Nayl 👋</div>
-            <h3 data-t="about-role"
-              style="font-family: var(--font-display); font-size: 48px; font-weight: 800; color: #111; margin-bottom: 30px; letter-spacing: -0.04em; line-height: 1;">
-              Systems Developer</h3>
+            style="width: 140px; height: 140px; margin: 0 auto 40px; border-radius: 50%; background-color: var(--bg-dark); background-image: url('assets/img/nayl.jpeg'); background-size: cover; background-position: center 15%; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: relative; z-index: 2;">
+          </div>
 
-            <!-- Avatar -->
+          <!-- Fake Input Bar -->
+          <div
+            style="width: 100%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 50px; padding: 6px 6px 6px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+            <span data-t="about-placeholder" style="color: #888; font-size: 14px; font-weight: 500;">Ask me
+              anything...</span>
             <div
-              style="width: 140px; height: 140px; margin: 0 auto 40px; border-radius: 50%; background-color: var(--bg-dark); background-image: url('assets/img/nayl.jpeg'); background-size: cover; background-position: center 15%; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: relative; z-index: 2;">
-            </div>
-
-            <!-- Fake Input Bar -->
-            <div
-              style="width: 100%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 50px; padding: 6px 6px 6px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
-              <span data-t="about-placeholder" style="color: #888; font-size: 14px; font-weight: 500;">Ask me anything...</span>
-              <div
-                style="width: 36px; height: 36px; background: #60a5fa; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-            </div>
-
-            <!-- Action Pills -->
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-              <span
-                style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #4ade80;">●</span> <span data-t="about-me">Me</span>
-              </span>
-              <span
-                style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #38bdf8;">●</span> <span data-t="about-projects">Projects</span>
-              </span>
-              <span
-                style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #a855f7;">●</span> <span data-t="about-skills">Skills</span>
-              </span>
-              <span
-                style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #f472b6;">●</span> <span data-t="about-fun">Fun</span>
-              </span>
-              <span
-                style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-                <span style="color: #fbbf24;">●</span> <span data-t="about-contact">Contact</span>
-              </span>
+              style="width: 36px; height: 36px; background: #60a5fa; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </div>
           </div>
-        </div>
-      </section>
 
-      <footer class="site-footer scrolly"
-        style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
-        <p style="color: var(--text-gray); font-size: 14px; font-weight: 400;" data-t="footer-passion">© 2026 Nayl Lahlou. Built with passion.
-        </p>
-        <div style="display: flex; gap: 24px;">
-          <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank"
-            style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
-            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">LinkedIn</a>
-          <a href="https://github.com/floragel" target="_blank"
-            style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
-            onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">GitHub</a>
-        </div>
-      </footer>
-
-    </main>
-  </div>
-
-  <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeModal(event)">&times;</button>
-
-      <div class="modal-scroll-area">
-        <div class="modal-image-banner" id="modal-image-banner"></div>
-        <div id="modal-hardware-simulator"
-          style="display: none; width: 100%; height: 380px; background: #0a0a0a; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);">
-          <!-- HTML Reset Button (Truly Fixed) -->
-          <button onclick="if(window.CircuitSimulator) CircuitSimulator.reset()"
-            style="position: absolute; top: 15px; left: 15px; z-index: 1000; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: all 0.2s; color: white; padding: 0;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-              <path d="M21 3v5h-5"></path>
-              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-              <path d="M3 21v-5h5"></path>
-            </svg>
-          </button>
-        </div>
-        <div id="modal-terminal-simulator"
-          style="display: none; width: 100%; height: 380px; background: #0a0a0a; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);">
-        </div>
-        <div class="modal-inner-content">
-          <div class="modal-header">
-            <div
-              style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 24px;">
-              <div>
-                <span class="modal-type" id="modal-type">APP</span>
-                <h3 class="modal-title" id="modal-title">Project Title</h3>
-              </div>
-              <span id="modal-year"
-                style="font-family: var(--font-display); font-weight: 700; color: var(--accent-orange); font-size: 1.2rem; margin-top: 5px; flex-shrink: 0;">2024</span>
-            </div>
+          <!-- Action Pills -->
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <span
+              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
+              <span style="color: #4ade80;">●</span> <span data-t="about-me">Me</span>
+            </span>
+            <span
+              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
+              <span style="color: #38bdf8;">●</span> <span data-t="about-projects">Projects</span>
+            </span>
+            <span
+              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
+              <span style="color: #a855f7;">●</span> <span data-t="about-skills">Skills</span>
+            </span>
+            <span
+              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
+              <span style="color: #f472b6;">●</span> <span data-t="about-fun">Fun</span>
+            </span>
+            <span
+              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
+              <span style="color: #fbbf24;">●</span> <span data-t="about-contact">Contact</span>
+            </span>
           </div>
-          <div class="modal-body">
-            <p id="modal-desc">Detailed description of the project goes here.</p>
-            <div class="tech-stack" id="modal-techs"></div>
+        </div>
+      </div>
+    </section>
 
-            <div id="modal-gallery-section"
-              style="margin-top: 2rem; display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-              <h4
-                style="color: var(--text-white); margin-bottom: 1rem; font-family: var(--font-display); font-size: 1.1rem;">
-                Gallery & Screenshots</h4>
-              <div id="modal-gallery-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
+    <footer class="site-footer scrolly"
+      style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
+      <p style="color: var(--text-gray); font-size: 14px; font-weight: 400;" data-t="footer-passion">© 2026 Nayl Lahlou.
+        Built with passion.
+      </p>
+      <div style="display: flex; gap: 24px;">
+        <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank"
+          style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
+          onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">LinkedIn</a>
+        <a href="https://github.com/floragel" target="_blank"
+          style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
+          onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">GitHub</a>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal(event)">&times;</button>
+
+    <div class="modal-scroll-area">
+      <div class="modal-image-banner" id="modal-image-banner"></div>
+      <div id="modal-hardware-simulator"
+        style="display: none; width: 100%; height: 380px; background: #0a0a0a; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);">
+        <!-- HTML Reset Button (Truly Fixed) -->
+        <button onclick="if(window.CircuitSimulator) CircuitSimulator.reset()"
+          style="position: absolute; top: 15px; left: 15px; z-index: 1000; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: all 0.2s; color: white; padding: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+            <path d="M3 21v-5h5"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="modal-terminal-simulator"
+        style="display: none; width: 100%; height: 380px; background: #0a0a0a; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1);">
+      </div>
+      <div class="modal-inner-content">
+        <div class="modal-header">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 24px;">
+            <div>
+              <span class="modal-type" id="modal-type">APP</span>
+              <h3 class="modal-title" id="modal-title">Project Title</h3>
             </div>
-
-            <div id="modal-link-container" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;"></div>
+            <span id="modal-year"
+              style="font-family: var(--font-display); font-weight: 700; color: var(--accent-orange); font-size: 1.2rem; margin-top: 5px; flex-shrink: 0;">2024</span>
           </div>
+        </div>
+        <div class="modal-body">
+          <p id="modal-desc">Detailed description of the project goes here.</p>
+          <div class="tech-stack" id="modal-techs"></div>
+
+          <div id="modal-gallery-section"
+            style="margin-top: 2rem; display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+            <h4
+              style="color: var(--text-white); margin-bottom: 1rem; font-family: var(--font-display); font-size: 1.1rem;">
+              Gallery & Screenshots</h4>
+            <div id="modal-gallery-grid"
+              style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
+          </div>
+
+          <div id="modal-link-container" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;"></div>
         </div>
       </div>
     </div>
   </div>
-  </div>
+</div>
+</div>
 
-  <div class="ai-modal-overlay" id="ai-modal" onclick="closeAiModal(event)">
+<div class="ai-modal-overlay" id="ai-modal" onclick="closeAiModal(event)">
 
-    <canvas id="fluid-bg"></canvas>
+  <canvas id="fluid-bg"></canvas>
 
-    <div class="ai-glass-content" onclick="event.stopPropagation()">
-      <div class="ai-modal-header">
-        <div class="ai-modal-title"><span data-t="ai-title">Nayl's AI</span> <span class="status-badge" data-t="ai-status">Online</span></div>
-        <button class="ai-close-btn" onclick="closeAiModal(event)">&times;</button>
-      </div>
+  <div class="ai-glass-content" onclick="event.stopPropagation()">
+    <div class="ai-modal-header">
+      <div class="ai-modal-title"><span data-t="ai-title">Nayl's AI</span> <span class="status-badge"
+          data-t="ai-status">Online</span></div>
+      <button class="ai-close-btn" onclick="closeAiModal(event)">&times;</button>
+    </div>
 
-      <div class="ai-chat-area" id="ai-chat-area">
-        <div class="chat-bubble bubble-ai" data-t="ai-welcome">
-          Hi there! I'm Nayl's AI clone. I know everything about his software development journey since 2020.
-          Feel free to ask me anything!
-        </div>
-      </div>
-
-      <div class="ai-input-area">
-        <input type="text" id="ai-modal-input" placeholder="Ask a question..." data-t-placeholder="ai-placeholder">
-        <button onclick="sendAiMessage()" data-t="ai-send">Send</button>
+    <div class="ai-chat-area" id="ai-chat-area">
+      <div class="chat-bubble bubble-ai" data-t="ai-welcome">
+        Hi there! I'm Nayl's AI clone. I know everything about his software development journey since 2020.
+        Feel free to ask me anything!
       </div>
     </div>
+
+    <div class="ai-input-area">
+      <input type="text" id="ai-modal-input" placeholder="Ask a question..." data-t-placeholder="ai-placeholder">
+      <button onclick="sendAiMessage()" data-t="ai-send">Send</button>
+    </div>
   </div>
+</div>
 
-  <script>
-    // 1. Navigation
-    function scrollToSection(id) {
-      closeMenu();
-      if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
-        const homeSpan = document.querySelector('.navbar span[onclick*="home"]');
-        if (homeSpan) homeSpan.classList.add('active');
-        return;
-      }
-
-      const section = document.getElementById(id);
-      if (section) {
-        document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
-        const activeSpan = document.querySelector(`.navbar span[onclick*="${id}"]`);
-        if (activeSpan) activeSpan.classList.add('active');
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
+<script>
+  // 1. Navigation
+  function scrollToSection(id) {
+    closeMenu();
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
+      const homeSpan = document.querySelector('.navbar span[onclick*="home"]');
+      if (homeSpan) homeSpan.classList.add('active');
+      return;
     }
 
-    function toggleMenu() {
-      const navbar = document.getElementById('main-navbar');
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      navbar.classList.toggle('active');
-      menuBtn.classList.toggle('active');
+    const section = document.getElementById(id);
+    if (section) {
+      document.querySelectorAll('.navbar span').forEach(nav => nav.classList.remove('active'));
+      const activeSpan = document.querySelector(`.navbar span[onclick*="${id}"]`);
+      if (activeSpan) activeSpan.classList.add('active');
+      section.scrollIntoView({ behavior: 'smooth' });
     }
+  }
 
-    function closeMenu() {
-      const navbar = document.getElementById('main-navbar');
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      if (navbar && navbar.classList.contains('active')) {
-        navbar.classList.remove('active');
-        menuBtn.classList.remove('active');
-      }
+  function toggleMenu() {
+    const navbar = document.getElementById('main-navbar');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    navbar.classList.toggle('active');
+    menuBtn.classList.toggle('active');
+  }
+
+  function closeMenu() {
+    const navbar = document.getElementById('main-navbar');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    if (navbar && navbar.classList.contains('active')) {
+      navbar.classList.remove('active');
+      menuBtn.classList.remove('active');
     }
+  }
 
-    function switchProjTab(tab, btn) {
-      document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
+  function switchProjTab(tab, btn) {
+    document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
 
-      document.querySelectorAll('.projects-container').forEach(c => c.classList.remove('active'));
-      document.getElementById(`${tab}-projects`).classList.add('active');
-    }
+    document.querySelectorAll('.projects-container').forEach(c => c.classList.remove('active'));
+    document.getElementById(`${tab}-projects`).classList.add('active');
+  }
 
-    // 2. Project Modal Logic
-    const projModal = document.getElementById('project-modal');
+  // 2. Project Modal Logic
+  const projModal = document.getElementById('project-modal');
 
-    function openModal(id, title, type, description, techs, link, imagePath, year = '', extra = {}) {
-      document.getElementById('modal-title').textContent = title;
-      document.getElementById('modal-type').textContent = type;
-      document.getElementById('modal-desc').textContent = description;
-      document.getElementById('modal-year').textContent = year;
+  function openModal(id, title, type, description, techs, link, imagePath, year = '', extra = {}) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-type').textContent = type;
+    document.getElementById('modal-desc').textContent = description;
+    document.getElementById('modal-year').textContent = year;
 
-      const techContainer = document.getElementById('modal-techs');
-      techContainer.innerHTML = '';
-      techs.forEach(tech => {
-        const span = document.createElement('span');
-        span.className = 'tech-tag';
-        span.textContent = tech;
-        techContainer.appendChild(span);
-      });
+    const techContainer = document.getElementById('modal-techs');
+    techContainer.innerHTML = '';
+    techs.forEach(tech => {
+      const span = document.createElement('span');
+      span.className = 'tech-tag';
+      span.textContent = tech;
+      techContainer.appendChild(span);
+    });
 
-      const linkContainer = document.getElementById('modal-link-container');
-      linkContainer.innerHTML = '';
-      if (link) {
-        if (Array.isArray(link)) {
-          link.forEach(l => {
-            const btn = document.createElement('a');
-            btn.className = 'modal-btn';
-            btn.href = l.url;
-            btn.target = '_blank';
-            btn.innerHTML = l.text + ' <span style="font-size: 16px;">↗</span>';
-            linkContainer.appendChild(btn);
-          });
-        } else if (link !== '') {
+    const linkContainer = document.getElementById('modal-link-container');
+    linkContainer.innerHTML = '';
+    if (link) {
+      if (Array.isArray(link)) {
+        link.forEach(l => {
           const btn = document.createElement('a');
           btn.className = 'modal-btn';
-          btn.href = link;
+          btn.href = l.url;
           btn.target = '_blank';
-          btn.innerHTML = 'View Project <span style="font-size: 16px;">↗</span>';
+          btn.innerHTML = l.text + ' <span style="font-size: 16px;">↗</span>';
           linkContainer.appendChild(btn);
+        });
+      } else if (link !== '') {
+        const btn = document.createElement('a');
+        btn.className = 'modal-btn';
+        btn.href = link;
+        btn.target = '_blank';
+        btn.innerHTML = 'View Project <span style="font-size: 16px;">↗</span>';
+        linkContainer.appendChild(btn);
+      }
+    }
+
+    const imgBanner = document.getElementById('modal-image-banner');
+    const gallerySection = document.getElementById('modal-gallery-section');
+    const galleryGrid = document.getElementById('modal-gallery-grid');
+
+    // Default styles
+    imgBanner.style.backgroundPosition = 'center';
+    imgBanner.style.backgroundSize = 'cover';
+    gallerySection.style.display = 'none';
+    galleryGrid.innerHTML = '';
+
+    if (imagePath && imagePath !== '') {
+      imgBanner.style.backgroundImage = `url('${imagePath}')`;
+      imgBanner.style.display = 'block';
+
+      // Apply extra config
+      if (extra && extra.bgPosition) imgBanner.style.backgroundPosition = extra.bgPosition;
+      if (extra && extra.bgSize) imgBanner.style.backgroundSize = extra.bgSize;
+    } else {
+      imgBanner.style.display = 'none';
+    }
+
+    // Handle Gallery
+    if (extra && extra.gallery && extra.gallery.length > 0) {
+      gallerySection.style.display = 'block';
+      extra.gallery.forEach(item => {
+        const wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.flexDirection = 'column';
+        wrapper.style.gap = '8px';
+
+        const img = document.createElement('div');
+        img.style.width = '100%';
+        img.style.height = '180px';
+        img.style.borderRadius = '8px';
+        img.style.backgroundImage = `url('${item.img}')`;
+        img.style.backgroundSize = item.bgSize || 'cover';
+        img.style.backgroundPosition = item.bgPosition || 'center';
+        img.style.border = '1px solid rgba(255,255,255,0.1)';
+        img.style.cursor = 'pointer';
+        img.onclick = () => window.open(item.img, '_blank');
+
+        if (item.title) {
+          const label = document.createElement('span');
+          label.style.fontSize = '12px';
+          label.style.color = 'var(--text-gray)';
+          label.style.fontFamily = 'var(--font-body)';
+          label.textContent = item.title;
+          wrapper.appendChild(img);
+          wrapper.appendChild(label);
+        } else {
+          wrapper.appendChild(img);
         }
-      }
 
-      const imgBanner = document.getElementById('modal-image-banner');
-      const gallerySection = document.getElementById('modal-gallery-section');
-      const galleryGrid = document.getElementById('modal-gallery-grid');
-
-      // Default styles
-      imgBanner.style.backgroundPosition = 'center';
-      imgBanner.style.backgroundSize = 'cover';
-      gallerySection.style.display = 'none';
-      galleryGrid.innerHTML = '';
-
-      if (imagePath && imagePath !== '') {
-        imgBanner.style.backgroundImage = `url('${imagePath}')`;
-        imgBanner.style.display = 'block';
-
-        // Apply extra config
-        if (extra && extra.bgPosition) imgBanner.style.backgroundPosition = extra.bgPosition;
-        if (extra && extra.bgSize) imgBanner.style.backgroundSize = extra.bgSize;
-      } else {
-        imgBanner.style.display = 'none';
-      }
-
-      // Handle Gallery
-      if (extra && extra.gallery && extra.gallery.length > 0) {
-        gallerySection.style.display = 'block';
-        extra.gallery.forEach(item => {
-          const wrapper = document.createElement('div');
-          wrapper.style.display = 'flex';
-          wrapper.style.flexDirection = 'column';
-          wrapper.style.gap = '8px';
-
-          const img = document.createElement('div');
-          img.style.width = '100%';
-          img.style.height = '180px';
-          img.style.borderRadius = '8px';
-          img.style.backgroundImage = `url('${item.img}')`;
-          img.style.backgroundSize = item.bgSize || 'cover';
-          img.style.backgroundPosition = item.bgPosition || 'center';
-          img.style.border = '1px solid rgba(255,255,255,0.1)';
-          img.style.cursor = 'pointer';
-          img.onclick = () => window.open(item.img, '_blank');
-
-          if (item.title) {
-            const label = document.createElement('span');
-            label.style.fontSize = '12px';
-            label.style.color = 'var(--text-gray)';
-            label.style.fontFamily = 'var(--font-body)';
-            label.textContent = item.title;
-            wrapper.appendChild(img);
-            wrapper.appendChild(label);
-          } else {
-            wrapper.appendChild(img);
-          }
-
-          galleryGrid.appendChild(wrapper);
-        });
-      }
-
-      projModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      const hwSim = document.getElementById('modal-hardware-simulator');
-      const termSim = document.getElementById('modal-terminal-simulator');
-      console.log('Modal opening for:', title);
-
-      if (id === 'expertise-hardware') {
-        hwSim.style.display = 'block';
-        termSim.style.display = 'none';
-        imgBanner.style.display = 'none';
-        const tryHw = () => {
-          if (window.CircuitSimulator) {
-            console.log('CircuitSimulator found, initializing...');
-            CircuitSimulator.init('modal-hardware-simulator');
-          } else {
-            console.log('CircuitSimulator not ready, retrying...');
-            setTimeout(tryHw, 100);
-          }
-        };
-        tryHw();
-      } else if (id === 'expertise-web') {
-        termSim.style.display = 'block';
-        hwSim.style.display = 'none';
-        imgBanner.style.display = 'none';
-        const tryTerm = () => {
-          if (window.TerminalSimulator) {
-            console.log('TerminalSimulator found, initializing...');
-            TerminalSimulator.init('modal-terminal-simulator');
-          } else {
-            console.log('TerminalSimulator not ready, retrying...');
-            setTimeout(tryTerm, 100);
-          }
-        };
-        tryTerm();
-      } else {
-        if (hwSim) hwSim.style.display = 'none';
-        if (termSim) termSim.style.display = 'none';
-      }
+        galleryGrid.appendChild(wrapper);
+      });
     }
 
-    function closeModal(event) {
-      projModal.classList.remove('active');
-      document.body.style.overflow = 'auto';
-      const hwSim = document.getElementById('modal-hardware-simulator');
-      if (hwSim) {
-        hwSim.innerHTML = '';
-        hwSim.style.display = 'none';
-      }
+    projModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    const hwSim = document.getElementById('modal-hardware-simulator');
+    const termSim = document.getElementById('modal-terminal-simulator');
+    console.log('Modal opening for:', title);
+
+    if (id === 'expertise-hardware') {
+      hwSim.style.display = 'block';
+      termSim.style.display = 'none';
+      imgBanner.style.display = 'none';
+      const tryHw = () => {
+        if (window.CircuitSimulator) {
+          console.log('CircuitSimulator found, initializing...');
+          CircuitSimulator.init('modal-hardware-simulator');
+        } else {
+          console.log('CircuitSimulator not ready, retrying...');
+          setTimeout(tryHw, 100);
+        }
+      };
+      tryHw();
+    } else if (id === 'expertise-web') {
+      termSim.style.display = 'block';
+      hwSim.style.display = 'none';
+      imgBanner.style.display = 'none';
+      const tryTerm = () => {
+        if (window.TerminalSimulator) {
+          console.log('TerminalSimulator found, initializing...');
+          TerminalSimulator.init('modal-terminal-simulator');
+        } else {
+          console.log('TerminalSimulator not ready, retrying...');
+          setTimeout(tryTerm, 100);
+        }
+      };
+      tryTerm();
+    } else {
+      if (hwSim) hwSim.style.display = 'none';
+      if (termSim) termSim.style.display = 'none';
+    }
+  }
+
+  function closeModal(event) {
+    projModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    const hwSim = document.getElementById('modal-hardware-simulator');
+    if (hwSim) {
+      hwSim.innerHTML = '';
+      hwSim.style.display = 'none';
+    }
+  }
+
+  // 3. AI Logic and WebGL Fluid Background
+  const aiModalOverlay = document.getElementById('ai-modal');
+  const aiInputField = document.getElementById('ai-modal-input');
+  const aiChatArea = document.getElementById('ai-chat-area');
+  const fluidCanvas = document.getElementById('fluid-bg');
+
+  let fluidBgInstance = null;
+
+  function openAiModal() {
+    aiModalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => aiInputField.focus(), 400);
+  }
+
+  // --- Card Fluid Instance (About Me) ---
+  window.addEventListener('load', () => {
+    const cardCanvas = document.getElementById('card-fluid-canvas');
+    if (cardCanvas) {
+      webGLFluidEnhanced({
+        canvas: cardCanvas,
+        colorPalette: ['#f0a0b8', '#c0a0e0', '#a0d8b0', '#a0c0e8', '#e8b0a0'],
+        transparent: true,
+        radius: 0.8,
+        density: 0.98,
+        velocity: 0.5,
+        pressure: 0.6,
+        curl: 15,
+        splatRadius: 0.008,
+        hover: true,
+        click: true,
+        shading: false,
+        simResolution: 128,
+        dyeResolution: 512
+      });
     }
 
-    // 3. AI Logic and WebGL Fluid Background
-    const aiModalOverlay = document.getElementById('ai-modal');
-    const aiInputField = document.getElementById('ai-modal-input');
-    const aiChatArea = document.getElementById('ai-chat-area');
-    const fluidCanvas = document.getElementById('fluid-bg');
-
-    let fluidBgInstance = null;
-
-    function openAiModal() {
-      aiModalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => aiInputField.focus(), 400);
+    const profileCanvas = document.getElementById('profile-fluid-canvas');
+    if (profileCanvas) {
+      webGLFluidEnhanced({
+        canvas: profileCanvas,
+        colorPalette: ['#f0a0b8', '#c0a0e0', '#a0d8b0', '#a0c0e8', '#e8b0a0'],
+        transparent: true,
+        radius: 0.8,
+        density: 0.98,
+        velocity: 0.5,
+        pressure: 0.6,
+        curl: 15,
+        splatRadius: 0.006,
+        hover: true,
+        click: true,
+        shading: false,
+        simResolution: 128,
+        dyeResolution: 512
+      });
     }
+  });
 
-    // --- Card Fluid Instance (About Me) ---
-    window.addEventListener('load', () => {
-      const cardCanvas = document.getElementById('card-fluid-canvas');
-      if (cardCanvas) {
-        webGLFluidEnhanced({
-          canvas: cardCanvas,
-          colorPalette: ['#f0a0b8', '#c0a0e0', '#a0d8b0', '#a0c0e8', '#e8b0a0'],
-          transparent: true,
-          radius: 0.8,
-          density: 0.98,
-          velocity: 0.5,
-          pressure: 0.6,
-          curl: 15,
-          splatRadius: 0.008,
-          hover: true,
-          click: true,
-          shading: false,
-          simResolution: 128,
-          dyeResolution: 512
-        });
-      }
+  // --- Scroll Reveal Animation Logic ---
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
 
-      const profileCanvas = document.getElementById('profile-fluid-canvas');
-      if (profileCanvas) {
-        webGLFluidEnhanced({
-          canvas: profileCanvas,
-          colorPalette: ['#f0a0b8', '#c0a0e0', '#a0d8b0', '#a0c0e8', '#e8b0a0'],
-          transparent: true,
-          radius: 0.8,
-          density: 0.98,
-          velocity: 0.5,
-          pressure: 0.6,
-          curl: 15,
-          splatRadius: 0.006,
-          hover: true,
-          click: true,
-          shading: false,
-          simResolution: 128,
-          dyeResolution: 512
-        });
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Optional: unobserve after showing once
+        // scrollObserver.unobserve(entry.target);
       }
     });
+  }, observerOptions);
 
-    // --- Scroll Reveal Animation Logic ---
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Optional: unobserve after showing once
-          // scrollObserver.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.scrolly').forEach(el => {
-        scrollObserver.observe(el);
-      });
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.scrolly').forEach(el => {
+      scrollObserver.observe(el);
     });
+  });
 
-    function closeAiModal(event) {
-      aiModalOverlay.classList.remove('active');
-      document.body.style.overflow = 'auto';
+  function closeAiModal(event) {
+    aiModalOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
 
-      // Hide the canvas to save performance when closed
-      fluidCanvas.style.opacity = '0';
-    }
+    // Hide the canvas to save performance when closed
+    fluidCanvas.style.opacity = '0';
+  }
 
-    // Chat History
-    let aiConversationHistory = [
-      {
-        role: 'system',
-        content: `You are Nayl's highly intelligent, professional, and personal AI Assistant embedded directly into his portfolio website.
+  // Chat History
+  const getSystemPrompt = () => {
+    const lang = localStorage.getItem('language') || 'en';
+    const isFr = lang === 'fr';
+    return `You are Nayl's highly intelligent AI Assistant. PLEASE RESPOND IN ${isFr ? 'FRENCH' : 'ENGLISH'}. ...`; // Simplified for now
+  };
+
+  let aiConversationHistory = [
+    {
+      role: 'system',
+      content: `You are Nayl's highly intelligent, professional, and personal AI Assistant embedded directly into his portfolio website.
 Your ONLY purpose is to answer questions about Nayl, his skills, projects, background, academics, and goals.
 
 ### STRICT RULES:
@@ -2480,258 +2526,239 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 8. **Floragel (JA Québec Mini-Enterprise):** Website for Floragel, that indicate every plant's needs and how to take care of them with the floragel product and with a real time chatbot that helps people get their plants the best care possible [https://floragel.github.io/floragel-web/].
 
 Whenever someone asks "Who is Nayl", "What can he do", or similar, use this context to answer intelligently.`
-      }
-    ];
-
-    // --- DYNAMIC GITHUB README INJECTION ---
-    async function injectGithubContext() {
-      const repos = ['Trakant', 'Scouting-App', 'site-de-ouf', 'floragel-web', 'My-first-website'];
-      const baseRawUrl = 'https://raw.githubusercontent.com/floragel';
-
-      let extraContext = "\\n\\n### DETAILED GITHUB PROJECT READMEs (Dynamically Fetched):\\n";
-      let addedAny = false;
-
-      for (const repo of repos) {
-        try {
-          // Attempt to fetch from 'main', fallback to 'master'
-          let response = await fetch(`${baseRawUrl}/${repo}/main/README.md`);
-          if (!response.ok) {
-            response = await fetch(`${baseRawUrl}/${repo}/master/README.md`);
-          }
-          if (!response.ok) {
-            response = await fetch(`${baseRawUrl}/${repo}/Nayl/README.md`);
-          }
-
-          if (response.ok) {
-            const readmeText = await response.text();
-            extraContext += `\\n--- Project: ${repo} ---\\n${readmeText.substring(0, 1500)}...\\n`;
-            addedAny = true;
-          }
-        } catch (e) {
-          console.warn('Could not fetch README for', repo, e);
-        }
-      }
-
-      if (addedAny) {
-        aiConversationHistory[0].content += extraContext;
-      }
     }
+  ];
 
-    // Trigger injection in the background as soon as page loads
-    injectGithubContext();
+  // --- DYNAMIC GITHUB README INJECTION ---
+  async function injectGithubContext() {
+    const repos = ['Trakant', 'Scouting-App', 'site-de-ouf', 'floragel-web', 'My-first-website'];
+    const baseRawUrl = 'https://raw.githubusercontent.com/floragel';
 
-    aiInputField.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') sendAiMessage();
-    });
+    let extraContext = "\\n\\n### DETAILED GITHUB PROJECT READMEs (Dynamically Fetched):\\n";
+    let addedAny = false;
 
-    async function sendAiMessage() {
-      const text = aiInputField.value.trim();
-      if (!text) return;
-
-      appendAiMessage(text, 'user');
-      aiInputField.value = '';
-
-      aiConversationHistory.push({ role: 'user', content: text });
-
-      const loadingId = 'loading-' + Date.now();
-      appendAiMessage("...", 'ai', loadingId);
-
+    for (const repo of repos) {
       try {
-        const localApiKey = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_API_KEY) ? CONFIG.GROQ_API_KEY : '';
-        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-
-        // Use proxy if in production or if local key is placeholder
-        const useProxy = isProduction || !localApiKey || localApiKey.includes('YOUR_KEY');
-
-        let response;
-        if (useProxy) {
-          // PROXY MODE (Recommended for Production)
-          response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              messages: aiConversationHistory,
-              language: localStorage.getItem('language') || 'en'
-            })
-          });
-        } else {
-          // DIRECT MODE (Local Development)
-          response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localApiKey}`
-            },
-            body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
-              messages: [
-                {
-                  role: 'system',
-                  content: `Current language: ${localStorage.getItem('language') || 'en'}. Please respond in this language.`
-                },
-                ...aiConversationHistory
-              ],
-              temperature: 0.7,
-              max_tokens: 1024
-            })
-          });
-        }
-
+        // Attempt to fetch from 'main', fallback to 'master'
+        let response = await fetch(`${baseRawUrl}/${repo}/main/README.md`);
         if (!response.ok) {
-          if (useProxy && response.status === 404) {
-            throw new Error("Proxy script /api/chat not found. If you are local, add your key to config.js. If you are in production, see deployment_security.md.");
-          }
-          throw new Error(`API error: ${response.status}`);
+          response = await fetch(`${baseRawUrl}/${repo}/master/README.md`);
+        }
+        if (!response.ok) {
+          response = await fetch(`${baseRawUrl}/${repo}/Nayl/README.md`);
         }
 
-        const data = await response.json();
-        const aiText = data.choices[0].message.content;
-
-        aiConversationHistory.push({ role: 'assistant', content: aiText });
-        updateAiMessage(loadingId, aiText);
-      } catch (error) {
-        console.error("Chat Error:", error);
-        updateAiMessage(loadingId, `<b>Error:</b> ${error.message}`);
+        if (response.ok) {
+          const readmeText = await response.text();
+          extraContext += `\\n--- Project: ${repo} ---\\n${readmeText.substring(0, 1500)}...\\n`;
+          addedAny = true;
+        }
+      } catch (e) {
+        console.warn('Could not fetch README for', repo, e);
       }
     }
 
-    function appendAiMessage(text, sender, id = null) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `chat-bubble bubble-${sender}`;
+    if (addedAny) {
+      aiConversationHistory[0].content += extraContext;
+    }
+  }
 
-      if (sender === 'ai' && typeof marked !== 'undefined') {
-        msgDiv.innerHTML = marked.parse(text);
+  // Trigger injection in the background as soon as page loads
+  injectGithubContext();
+
+  aiInputField.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendAiMessage();
+  });
+
+  async function sendAiMessage() {
+    const text = aiInputField.value.trim();
+    if (!text) return;
+
+    appendAiMessage(text, 'user');
+    aiInputField.value = '';
+
+    aiConversationHistory.push({ role: 'user', content: text });
+
+    const loadingId = 'loading-' + Date.now();
+    appendAiMessage("...", 'ai', loadingId);
+
+    try {
+      const localApiKey = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_API_KEY) ? CONFIG.GROQ_API_KEY : '';
+      const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+
+      // Use proxy if in production or if local key is placeholder
+      const useProxy = isProduction || !localApiKey || localApiKey.includes('YOUR_KEY');
+
+      let response;
+      if (useProxy) {
+        // PROXY MODE (Recommended for Production)
+        response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: aiConversationHistory,
+            language: localStorage.getItem('language') || 'en'
+          })
+        });
       } else {
-        msgDiv.textContent = text;
+        // DIRECT MODE (Local Development)
+        response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localApiKey}`
+          },
+          body: JSON.stringify({
+            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+            messages: [
+              {
+                role: 'system',
+                content: `Current language: ${localStorage.getItem('language') || 'en'}. Please respond in this language.`
+              },
+              ...aiConversationHistory
+            ],
+            temperature: 0.7,
+            max_tokens: 1024
+          })
+        });
       }
 
-      if (id) msgDiv.id = id;
-      aiChatArea.appendChild(msgDiv);
-      aiChatArea.scrollTo({ top: aiChatArea.scrollHeight, behavior: 'smooth' });
-    }
-
-    function updateAiMessage(id, text) {
-      const el = document.getElementById(id);
-      if (el) {
-        if (typeof marked !== 'undefined') {
-          el.innerHTML = marked.parse(text);
-        } else {
-          el.textContent = text;
+      if (!response.ok) {
+        if (useProxy && response.status === 404) {
+          throw new Error("Proxy script /api/chat not found. If you are local, add your key to config.js. If you are in production, see deployment_security.md.");
         }
+        throw new Error(`API error: ${response.status}`);
       }
+
+      const data = await response.json();
+      const aiText = data.choices[0].message.content;
+
+      aiConversationHistory.push({ role: 'assistant', content: aiText });
+      updateAiMessage(loadingId, aiText);
+    } catch (error) {
+      console.error("Chat Error:", error);
+      updateAiMessage(loadingId, `<b>Error:</b> ${error.message}`);
+    }
+  }
+
+  function appendAiMessage(text, sender, id = null) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-bubble bubble-${sender}`;
+
+    if (sender === 'ai' && typeof marked !== 'undefined') {
+      msgDiv.innerHTML = marked.parse(text);
+    } else {
+      msgDiv.textContent = text;
     }
 
-    // Close on Escape
-    document.addEventListener('keydown', function (event) {
-      if (event.key === "Escape") {
-        closeModal();
-        closeAiModal();
-      }
-    });
+    if (id) msgDiv.id = id;
+    aiChatArea.appendChild(msgDiv);
+    aiChatArea.scrollTo({ top: aiChatArea.scrollHeight, behavior: 'smooth' });
+  }
 
-  </script>
-  <script>
-    const TerminalSimulator = (function () {
-      let container, output, input, prompt;
-      let history = [];
-      let historyIndex = -1;
-      let currentPath = '/';
-      const FILESYSTEM = {
-        'projects': {
-          'type': 'dir',
-          'children': {
-            'trakant.txt': 'Trakant: 1st place application built during HackDécouverte 2025. Designed for rapid deployment and efficient problem-solving under pressure. I focused on creating a clean architecture and integrating real-time data processing.',
-            'edumaths.txt': 'EduMaths: A full-stack mathematics learning platform built at age 12 using PHP and MySQL. Features video lessons, automated PDF generation, and class-based content delivery.',
-            'clofit.txt': 'Clofit: Modern native iOS app acting as a digital wardrobe, personal AI stylist, and fashion social network. Uses Computer Vision for background removal and LLMs for personalized outfit recommendations (OOTD).',
-            'floragel.txt': 'Floragel: Mission-driven enterprise dedicated to protecting plants as living beings. 2nd Place provincial ranking and Best Sales Pitch winner at JA Québec. Led the technical vision as 2nd Best VP IT in the province.',
-            'frc-scout.txt': 'FRC Scouting App: Comprehensive full-stack scouting application for Team 6622 StanRobotix. Features offline data collection, cloud sync, and predictive analytics for match strategy.',
-            'jarvis-os.txt': 'Jarvis OS: Ultra-fast voice-to-voice AI assistant (Python). Uses LiteLLM proxy and sub-50ms local TTS. Integrates with Notion, Google Calendar, and IoT devices.',
-            'learn-to-code.txt': 'Learn to Code Platform: Educational platform designed to help others create their own websites. One of my early initiatives to share technical knowledge back in 4th grade.',
-            'ologra-os.txt': 'OLOGRA OS & First Website: Custom operating system built in Visual Basic at age 9, featuring user guides and custom settings. My very first deep dive into programming.'
+  function updateAiMessage(id, text) {
+    const el = document.getElementById(id);
+    if (el) {
+      if (typeof marked !== 'undefined') {
+        el.innerHTML = marked.parse(text);
+      } else {
+        el.textContent = text;
+      }
+    }
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', function (event) {
+    if (event.key === "Escape") {
+      closeModal();
+      closeAiModal();
+    }
+  });
+
+</script>
+<script>
+  const TerminalSimulator = (function () {
+    let container, output, input, prompt;
+    let history = [];
+    let historyIndex = -1;
+    let currentPath = '/';
+
+    function getFileSystem() {
+      const lang = localStorage.getItem('language') || 'en';
+      return translations[lang]['terminal-fs'] || {};
+    }
+
+    function getHelpText() {
+      const lang = localStorage.getItem('language') || 'en';
+      return translations[lang]['terminal-help'] || '';
+    }
+
+    const COMMANDS = {
+      'help': () => getHelpText(),
+      'ls': () => {
+        const fs = getFileSystem();
+        let dir = getDir(currentPath, fs);
+        if (!dir) return '';
+        const children = dir.type === 'dir' ? Object.keys(dir.children) : Object.keys(dir);
+        return children.map(name => {
+          const item = getItem(currentPath, name, fs);
+          return (item && typeof item === 'object' && !Array.isArray(item) && !item.type) || (item && item.type === 'dir') 
+            ? `<span style="color:#3b82f6; font-weight:bold;">${name}/</span>` 
+            : name;
+        }).join('  ');
+      },
+      'cat': (args) => {
+        if (!args[0]) return localStorage.getItem('language') === 'fr' ? 'Utilisation: cat [fichier]' : 'Usage: cat [file]';
+        const fs = getFileSystem();
+        let item = getItem(currentPath, args[0], fs);
+        if (!item) return `cat: ${args[0]}: ${localStorage.getItem('language') === 'fr' ? 'Aucun fichier de ce nom' : 'No such file'}`;
+        if (item && typeof item === 'object') return `cat: ${args[0]}: ${localStorage.getItem('language') === 'fr' ? 'Est un répertoire' : 'Is a directory'}`;
+        return item;
+      },
+      'cd': (args) => {
+        if (!args[0] || args[0] === '/') { currentPath = '/'; return ''; }
+        if (args[0] === '..') {
+          if (currentPath !== '/') {
+            const parts = currentPath.split('/').filter(p => p);
+            parts.pop();
+            currentPath = '/' + parts.join('/');
           }
-        },
-        'hardware': {
-          'type': 'dir',
-          'children': {
-            'vr-headset.txt': 'VR Headset: Independent portable system built with RPi 4, Arduino Leonardo, and MPU9250. Features 9-axis tracking, integrated screen, and custom optics.',
-            'frc-robot.txt': 'FRC Competition Robot: Strategy, hardware assembly, and wiring for Team 6622 (2024-ongoing). Industrial electronics and pneumatic systems.',
-            'custom-laptop.txt': 'Custom Laptop: Portable station built at age 9 using a Raspberry Pi 4, housed in a plastic food box with a mini keyboard.',
-            'retro-console.txt': 'Retro Console (2021): Physical gaming system powered by a Raspberry Pi 3. Uses 3D printing for housing and custom controller mappings.',
-            'iot-bridge.txt': 'Jarvis IoT Bridge (2026): Multi-protocol bridge (ESP32, Arduino, Raspberry Pi) with 3D printed housing for home automation.'
-          }
-        },
-        'skills': {
-          'type': 'dir',
-          'children': {
-            'frontend': 'SwiftUI, React Native, Next.js, TypeScript, Three.js, Tailwind CSS, Kotlin, HTML, CSS, JS.',
-            'backend': 'Node.js, Python, PostgreSQL, Supabase, FastAPI, PHP, MySQL.',
-            'systems': 'C++, Linux, Docker, Git, Embedded Systems, IoT, Arduino, Raspberry Pi.',
-            'ai': 'LLM Integration, Computer Vision, Voice-to-Voice AI, Predictive Analytics, Image Generation, Embeddings.'
-          }
-        },
-        'about.txt': 'Nayl Lahlou: Software & Systems Developer based in Montreal. Coding since age 9. Passionate about bridging hardware and web.',
-        'contact.txt': 'Email: lahlou@nayl.ca | GitHub: @floragel | LinkedIn: nayl-lahlou'
-      };
-      const COMMANDS = {
-        'help': () => `<b>Available commands:</b>
-  ls        - List directory contents
-  cd [dir]  - Change directory
-  cat [file]- Display file content
-  clear     - Clear terminal screen
-  whoami    - Display detailed professional profile
-  neofetch  - Display system/profile summary
-  hackathons- View hackathon wins & awards
-  extracurriculars - View my activities
-  theme [name] - Change terminal theme
-  circus    - Watch an ASCII somersault!
-  exit      - Close terminal
-  
-<b>Tips:</b>
-  - Available themes: <b>matrix</b>, <b>retro</b>, <b>light</b>, <b>dark</b>
-  - Use <b>Tab</b> to autocomplete.
-  - Use <b>Up/Down</b> for history.`,
-        'ls': () => {
-          let dir = getDir(currentPath);
-          const children = dir.type === 'dir' ? Object.keys(dir.children) : Object.keys(dir);
-          return children.map(name => {
-            const item = getItem(currentPath, name);
-            return (item && item.type === 'dir') ? `<span style="color:#3b82f6; font-weight:bold;">${name}/</span>` : name;
-          }).join('  ');
-        },
-        'cat': (args) => {
-          if (!args[0]) return 'Usage: cat [file]';
-          let item = getItem(currentPath, args[0]);
-          if (!item) return `cat: ${args[0]}: No such file`;
-          if (item && typeof item === 'object') return `cat: ${args[0]}: Is a directory`;
-          return item;
-        },
-        'cd': (args) => {
-          if (!args[0] || args[0] === '/') { currentPath = '/'; return ''; }
-          if (args[0] === '..') {
-            if (currentPath !== '/') {
-              const parts = currentPath.split('/').filter(p => p);
-              parts.pop();
-              currentPath = '/' + parts.join('/');
-            }
-            return '';
-          }
-          let item = getItem(currentPath, args[0]);
-          if (!item) return `cd: ${args[0]}: No such directory`;
-          if (item.type !== 'dir') return `cd: ${args[0]}: Not a directory`;
-          currentPath = (currentPath === '/' ? '' : currentPath) + '/' + args[0];
           return '';
-        },
-        'clear': () => { output.innerHTML = ''; return ''; },
-        'whoami': () => `<b>Nayl Lahlou</b>
+        }
+        const fs = getFileSystem();
+        let item = getItem(currentPath, args[0], fs);
+        if (!item) return `cd: ${args[0]}: ${localStorage.getItem('language') === 'fr' ? 'Aucun répertoire de ce nom' : 'No such directory'}`;
+        if (typeof item !== 'object') return `cd: ${args[0]}: ${localStorage.getItem('language') === 'fr' ? 'N\'est pas un répertoire' : 'Not a directory'}`;
+        currentPath = (currentPath === '/' ? '' : currentPath) + '/' + args[0];
+        return '';
+      },
+      'clear': () => { output.innerHTML = ''; return ''; },
+      'whoami': () => {
+        const lang = localStorage.getItem('language') || 'en';
+        if (lang === 'fr') {
+          return `<b>Nayl Lahlou</b>
+-------------------------
+Rôle: Développeur Systèmes & Full-Stack
+Parcours: Code depuis l'âge de 9 ans. A tout construit, des environnements OS personnalisés aux applications iOS de production.
+Points forts:
+- 1ère Place @ HackDécouverte '25
+- 2ème Meilleur VP IT @ JA Québec (Floragel)
+- Stratégie & Développeur @ StanRobotix (2024-présent)
+Focus: Interfaces ultra-interactives, intégrations IA et systèmes embarqués.`;
+        }
+        return `<b>Nayl Lahlou</b>
 -------------------------
 Role: Full-Stack & Systems Developer
 Background: Coding since age 9. Built everything from custom OS environments to production-ready iOS apps.
 Highlights:
 - 1st Place @ HackDécouverte '25
-- 2nd Best VP IT @ JA Québec
-- Strategy & Developer @ StanRobotix (2024-ongoing)
-Focus: Highly interactive UIs, AI integrations, and embedded systems.`,
-        'neofetch': () => `<div style="display:flex; gap:15px;">
+- 2nd Best VP IT @ JA Québec (Floragel)
+- Strategy & Developer @ StanRobotix (2024-present)
+Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
+      },
+      'neofetch': () => {
+        const lang = localStorage.getItem('language') || 'en';
+        return `<div style="display:flex; gap:15px;">
 <pre style="color:#c5ff41; font-size:10px; margin:0; line-height: 1.1;">
       .---.
      /     \\
@@ -2745,114 +2772,139 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`,
   OS: Portfolio OS (V4.2.0)<br>
   Kernel: Linux 6.1.12-nayl-custom<br>
   Shell: zsh (simulated)<br>
-  Uptime: Built to last<br>
+  Uptime: ${lang === 'fr' ? 'Conçu pour durer' : 'Built to last'}<br>
   Education: Collège Stanislas, Montreal
-</div></div>`,
-        'hackathons': () => `<b>Hackathons & Achievements</b>
+</div></div>`;
+      },
+      'hackathons': () => {
+        const lang = localStorage.getItem('language') || 'en';
+        if (lang === 'fr') {
+          return `<b>Hackathons & Récompenses</b>
+----------------------------
+- <b>HackDécouverte 2025:</b> 1ère Place (Concordia)
+- <b>ConUHacks 2026:</b> Participant
+- <b>Gala JA Québec:</b> Gagnant Meilleur Pitch`;
+        }
+        return `<b>Hackathons & Achievements</b>
 ----------------------------
 - <b>HackDécouverte 2025:</b> 1st Place (Concordia University)
 - <b>ConUHacks 2026:</b> Participant
-- <b>JA Québec Gala:</b> Best Sales Pitch Winner`,
-        'extracurriculars': () => `<b>Extracurricular Activities</b>
+- <b>JA Québec Gala:</b> Best Sales Pitch Winner`;
+      },
+      'extracurriculars': () => {
+        const lang = localStorage.getItem('language') || 'en';
+        if (lang === 'fr') {
+          return `<b>Activités Parascolaires</b>
 ----------------------------
-- <b>StanRobotix (FRC 6622):</b> Strategy, Programming & Build Team (2024-ongoing)
-- <b>MUN:</b> Model United Nations (COP OCEANS '25 & DESMNU Rabat '26)
-- <b>Floragel:</b> VP IT for JA Quebec Mini-Enterprise
-- <b>Sport:</b> Bodybuilding, Running & Badminton`,
-        'theme': (args) => {
-          const themes = {
-            'matrix': { bg: '#000', text: '#00ff41', prompt: '#00ff41' },
-            'retro': { bg: '#282828', text: '#ebdbb2', prompt: '#b8bb26' },
-            'light': { bg: '#f0f0f0', text: '#333', prompt: '#005fcc' },
-            'dark': { bg: '#000', text: '#fff', prompt: '#10b981' }
-          };
-          if (!args[0] || !themes[args[0]]) return `Available themes: ${Object.keys(themes).join(', ')}`;
-          const t = themes[args[0]];
-          const termContainer = container.querySelector('div');
-          termContainer.style.background = t.bg;
-          termContainer.style.color = t.text;
-          input.style.color = t.text;
-          output.style.color = t.text;
-          // Note: Prompt color update will happen on next updatePrompt() or we can force it
-          COMMANDS._currentTheme = t;
-          updatePrompt();
-          return `Theme changed to: ${args[0]}`;
-        },
-        'circus': () => {
-          const frames = [
-            "  O  \n /|\\ \n / \\ ", // Standing
-            "     \n  O  \n /|\\ ", // Crouch
-            "  _  \n (O) \n  |  ", // Ball
-            " / \\ \n  |  \n \\O/ ", // Upside down
-            "  _  \n (O) \n  |  ", // Ball
-            "     \n  O  \n /|\\ ", // Crouch
-            "  O  \n /|\\ \n / \\ "  // Standing
-          ];
-          const line = writeLine("");
-          let i = 0;
-          const interval = setInterval(() => {
-            if (i >= 21) { // 3 full flips
-              clearInterval(interval);
-              line.innerHTML = "<span style='color:#c5ff41;'>Ta-da! Acrobatics complete.</span>";
-              return;
-            }
-            line.innerHTML = `<pre style="color:#f46c38; font-family:inherit; line-height:1.2; margin:15px 0; font-weight:bold;">${frames[i % frames.length]}</pre>`;
-            i++;
-          }, 150);
-          return "<b>Step aside, the acrobat is here!</b>";
-        },
-        'exit': () => { if (window.closeModal) window.closeModal(); return 'Closing session...'; }
-      };
-
-      function getItem(path, name) {
-        let dir = getDir(path);
-        const children = dir.type === 'dir' ? dir.children : dir;
-        return children[name];
-      }
-
-      function getDir(path) {
-        if (path === '/') return FILESYSTEM;
-        const parts = path.split('/').filter(p => p);
-        let current = FILESYSTEM;
-        for (const p of parts) {
-          current = current[p];
-          if (current && current.type === 'dir') current = current.children;
+- <b>StanRobotix (FRC 6622):</b> Stratégie, Programmation & Construction (2024-présent)
+- <b>Musculation & Course:</b> Discipline personnelle et marathons (10km)
+- <b>Mun (Modèle des Nations Unies):</b> Engagement diplomatique et leadership`;
         }
-        return current;
+        return `<b>Extracurricular Activities</b>
+----------------------------
+- <b>StanRobotix (FRC 6622):</b> Strategy, Programming & Build Team (2024-present)
+- <b>Bodybuilding & Running:</b> Personal discipline and marathons (10km)
+- <b>MUN (Model United Nations):</b> Diplomatic engagement and leadership`;
+      },
+      'theme': (args) => {
+        const themes = {
+          'matrix': { bg: '#000', text: '#00ff41', prompt: '#00ff41' },
+          'retro': { bg: '#282828', text: '#ebdbb2', prompt: '#b8bb26' },
+          'light': { bg: '#f0f0f0', text: '#333', prompt: '#005fcc' },
+          'dark': { bg: '#000', text: '#fff', prompt: '#10b981' }
+        };
+        if (!args[0] || !themes[args[0]]) return `Available themes: ${Object.keys(themes).join(', ')}`;
+        const t = themes[args[0]];
+        const termContainer = container.querySelector('div');
+        termContainer.style.background = t.bg;
+        termContainer.style.color = t.text;
+        input.style.color = t.text;
+        output.style.color = t.text;
+        // Note: Prompt color update will happen on next updatePrompt() or we can force it
+        COMMANDS._currentTheme = t;
+        updatePrompt();
+        return `Theme changed to: ${args[0]}`;
+      },
+      'circus': () => {
+        const lang = localStorage.getItem('language') || 'en';
+        const frames = [
+          "  O  \n /|\\ \n / \\ ", // Standing
+          "     \n  O  \n /|\\ ", // Crouch
+          "  _  \n (O) \n  |  ", // Ball
+          " / \\ \n  |  \n \\O/ ", // Upside down
+          "  _  \n (O) \n  |  ", // Ball
+          "     \n  O  \n /|\\ ", // Crouch
+          "  O  \n /|\\ \n / \\ "  // Standing
+        ];
+        const line = writeLine("");
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i >= 21) {
+            clearInterval(interval);
+            line.innerHTML = `<span style='color:#c5ff41;'>${lang === 'fr' ? 'Ta-da ! Acrobatie terminée.' : 'Ta-da! Acrobatics complete.'}</span>`;
+            return;
+          }
+          line.innerHTML = `<pre style="color:#f46c38; font-family:inherit; line-height:1.2; margin:15px 0; font-weight:bold;">${frames[i % frames.length]}</pre>`;
+          i++;
+        }, 150);
+        return `<b>${lang === 'fr' ? 'Poussez-vous, l\'acrobate est là !' : 'Step aside, the acrobat is here!'}</b>`;
+      },
+      'exit': () => { 
+        const lang = localStorage.getItem('language') || 'en';
+        if (window.closeModal) window.closeModal(); 
+        return lang === 'fr' ? 'Fermeture de la session...' : 'Closing session...'; 
+      }
+    };
+
+    function getItem(path, name) {
+      let dir = getDir(path);
+      const children = dir.type === 'dir' ? dir.children : dir;
+      return children[name];
+    }
+
+    function getDir(path) {
+      if (path === '/') return FILESYSTEM;
+      const parts = path.split('/').filter(p => p);
+      let current = FILESYSTEM;
+      for (const p of parts) {
+        current = current[p];
+        if (current && current.type === 'dir') current = current.children;
+      }
+      return current;
+    }
+
+    function updatePrompt() {
+      const displayPath = currentPath === '/' ? '~' : currentPath;
+      const theme = COMMANDS._currentTheme || { prompt: '#10b981' };
+      prompt.innerHTML = `<span style="color:${theme.prompt};">nayl@portfolio</span>:<span style="color:#3b82f6;">${displayPath}</span>$`;
+    }
+
+    function handleTab() {
+      const val = input.value.trim();
+      const parts = val.split(' ');
+      const lastPart = parts[parts.length - 1];
+
+      let options = [];
+      if (parts.length === 1) {
+        options = Object.keys(COMMANDS);
+      } else {
+        let dir = getDir(currentPath);
+        options = (dir.type === 'dir' ? Object.keys(dir.children) : Object.keys(dir));
       }
 
-      function updatePrompt() {
-        const displayPath = currentPath === '/' ? '~' : currentPath;
-        const theme = COMMANDS._currentTheme || { prompt: '#10b981' };
-        prompt.innerHTML = `<span style="color:${theme.prompt};">nayl@portfolio</span>:<span style="color:#3b82f6;">${displayPath}</span>$`;
+      const matches = options.filter(o => o.startsWith(lastPart));
+      if (matches.length === 1) {
+        parts[parts.length - 1] = matches[0];
+        input.value = parts.join(' ');
+      } else if (matches.length > 1) {
+        writeLine(matches.join('  '));
       }
+    }
 
-      function handleTab() {
-        const val = input.value.trim();
-        const parts = val.split(' ');
-        const lastPart = parts[parts.length - 1];
-
-        let options = [];
-        if (parts.length === 1) {
-          options = Object.keys(COMMANDS);
-        } else {
-          let dir = getDir(currentPath);
-          options = (dir.type === 'dir' ? Object.keys(dir.children) : Object.keys(dir));
-        }
-
-        const matches = options.filter(o => o.startsWith(lastPart));
-        if (matches.length === 1) {
-          parts[parts.length - 1] = matches[0];
-          input.value = parts.join(' ');
-        } else if (matches.length > 1) {
-          writeLine(matches.join('  '));
-        }
-      }
-
-      function init(containerId) {
-        container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = `
+    function init(containerId) {
+      container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = `
           <div style="height:100%; display:flex; flex-direction:column; padding:15px; background:#000; color:#fff; font-family:'Fira Code', monospace; box-sizing:border-box; font-size:14px;">
             <div id="term-out" style="flex:1; overflow-y:auto; white-space:pre-wrap; scrollbar-width: thin; scrollbar-color: #333 #000;"></div>
             <div style="display:flex; gap:8px; margin-top:5px;">
@@ -2860,107 +2912,108 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`,
               <input type="text" id="term-in" spellcheck="false" autocomplete="off" style="flex:1; background:transparent; border:none; outline:none; color:#fff; font-family:inherit; font-size:inherit; padding:0;">
             </div>
           </div>`;
-        output = document.getElementById('term-out');
-        input = document.getElementById('term-in');
-        prompt = document.getElementById('term-prompt');
+      output = document.getElementById('term-out');
+      input = document.getElementById('term-in');
+      prompt = document.getElementById('term-prompt');
 
-        updatePrompt();
+      updatePrompt();
 
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            const val = input.value.trim();
-            writeLine(`${prompt.textContent} ${input.value}`);
-            if (val) {
-              history.push(input.value);
-              historyIndex = history.length;
-              const parts = val.split(' ');
-              const cmd = parts[0].toLowerCase();
-              if (COMMANDS[cmd]) {
-                const res = COMMANDS[cmd](parts.slice(1));
-                if (res) writeLine(res);
-                if (cmd === 'cd') updatePrompt();
-              } else {
-                writeLine('Command not found: ' + cmd);
-              }
-            }
-            input.value = '';
-            output.scrollTop = output.scrollHeight;
-          } else if (e.key === 'Tab') {
-            e.preventDefault();
-            handleTab();
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (historyIndex > 0) {
-              historyIndex--;
-              input.value = history[historyIndex];
-            }
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (historyIndex < history.length - 1) {
-              historyIndex++;
-              input.value = history[historyIndex];
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = input.value.trim();
+          writeLine(`${prompt.textContent} ${input.value}`);
+          if (val) {
+            history.push(input.value);
+            historyIndex = history.length;
+            const parts = val.split(' ');
+            const cmd = parts[0].toLowerCase();
+            if (COMMANDS[cmd]) {
+              const res = COMMANDS[cmd](parts.slice(1));
+              if (res) writeLine(res);
+              if (cmd === 'cd') updatePrompt();
             } else {
-              historyIndex = history.length;
-              input.value = '';
+              writeLine('Command not found: ' + cmd);
             }
           }
-        });
+          input.value = '';
+          output.scrollTop = output.scrollHeight;
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          handleTab();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (historyIndex > 0) {
+            historyIndex--;
+            input.value = history[historyIndex];
+          }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIndex < history.length - 1) {
+            historyIndex++;
+            input.value = history[historyIndex];
+          } else {
+            historyIndex = history.length;
+            input.value = '';
+          }
+        }
+      });
 
-        container.addEventListener('click', () => input.focus());
-        writeLine('<span style="color:#10b981;">[OK]</span> Portfolio Shell session started.');
-        writeLine('Type <b>help</b> for command list.\\n');
-        input.focus();
-      }
-
-      function writeLine(text) {
-        const line = document.createElement('div');
-        line.innerHTML = text;
-        line.style.marginBottom = '2px';
-        output.appendChild(line);
-        output.scrollTop = output.scrollHeight;
-        return line;
-      }
-
-      return { init };
-    })();
-    window.TerminalSimulator = TerminalSimulator;
-  </script>
-  <script src="js/webgl-fluid.js"></script>
-  <script src="js/circuit-simulator.js?v=11"></script>
-  <script>
-    // --- LANGUAGE MANAGEMENT ---
-    function setLanguage(lang) {
-      localStorage.setItem('language', lang);
-      if (window.applyTranslations) {
-        applyTranslations(lang);
-      }
-      const splash = document.getElementById('language-splash');
-      if (splash) splash.classList.add('hidden');
-
-      // Update toggle buttons
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById('btn-' + lang);
-      if (activeBtn) activeBtn.classList.add('active');
+      container.addEventListener('click', () => input.focus());
+      const lang = localStorage.getItem('language') || 'en';
+      writeLine(lang === 'fr' ? '<span style="color:#10b981;">[OK]</span> Session NaylOS démarrée.' : '<span style="color:#10b981;">[OK]</span> Portfolio Shell session started.');
+      writeLine(lang === 'fr' ? 'Tapez <b>help</b> pour la liste des commandes.\\n' : 'Type <b>help</b> for command list.\\n');
+      input.focus();
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedLang = localStorage.getItem('language');
-      if (savedLang) {
-        if (window.applyTranslations) {
-          applyTranslations(savedLang);
-        }
-        const splash = document.getElementById('language-splash');
-        if (splash) splash.style.display = 'none';
-        
-        // Update toggle buttons on load
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        const activeBtn = document.getElementById('btn-' + savedLang);
-        if (activeBtn) activeBtn.classList.add('active');
-      }
-    });
+    function writeLine(text) {
+      const line = document.createElement('div');
+      line.innerHTML = text;
+      line.style.marginBottom = '2px';
+      output.appendChild(line);
+      output.scrollTop = output.scrollHeight;
+      return line;
+    }
 
-    // Project Modal Interaction logic is handled in the openModal/closeModal functions
-  </script>
+    return { init };
+  })();
+  window.TerminalSimulator = TerminalSimulator;
+</script>
+<script src="js/webgl-fluid.js"></script>
+<script src="js/circuit-simulator.js?v=11"></script>
+<script>
+  // --- LANGUAGE MANAGEMENT ---
+  function setLanguage(lang) {
+    localStorage.setItem('language', lang);
+    if (window.applyTranslations) {
+      applyTranslations(lang);
+    }
+    const splash = document.getElementById('language-splash');
+    if (splash) splash.classList.add('hidden');
+
+    // Update toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById('btn-' + lang);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+      if (window.applyTranslations) {
+        applyTranslations(savedLang);
+      }
+      const splash = document.getElementById('language-splash');
+      if (splash) splash.style.display = 'none';
+
+      // Update toggle buttons on load
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btn-' + savedLang);
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+  });
+
+  // Project Modal Interaction logic is handled in the openModal/closeModal functions
+</script>
 </body>
 
 </html>
