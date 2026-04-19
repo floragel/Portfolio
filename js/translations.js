@@ -127,6 +127,15 @@ const translations = {
                 "systems.txt": "C++, Linux, Docker, Git, Embedded Systems, IoT, Arduino, Raspberry Pi.",
                 "ai.txt": "LLM Integration, Computer Vision, Voice AI, Predictive Analytics, Image Generation."
             },
+            "extracurriculars": {
+                "mcgill-camp.txt": "McGill Computer Science Camp (June 2026): Selected participant for the competitive programming branch. Focusing on advanced algorithms at the McGill School of Computer Science.",
+                "shad-canada.txt": "SHAD Canada 2026: Selected as a SHAD Scholar for this prestigious STEM & Entrepreneurship excellence program. Completed at Western University in London, Ontario.",
+                "mun": {
+                    "massmun_2023.txt": "MASSMUN 2023: First MUN experience at Lycée Français International Louis Massignon (7th grade/5ème).",
+                    "cop_ocean_2025.txt": "COP OCEAN 2025: Held at ICAO Montreal (10th grade/2nde). Represented the UK in the BBNJ/High Seas Treaty committee.",
+                    "desmnu_2026.txt": "10th DESMNU Rabat: Travelled from Canada to Lycée Descartes in Morocco. Represented China in the Security Council."
+                }
+            },
             "about.txt": "Nayl Lahlou: Software & Systems Developer based in Montreal. Coding since age 9. Passionate about bridging hardware and web.",
             "contact.txt": "Email: lahlou@nayl.ca | GitHub: @floragel | LinkedIn: nayl-lahlou"
         }
@@ -246,6 +255,15 @@ const translations = {
                 "systemes.txt": "C++, Linux, Docker, Git, Systèmes Embarqués, IoT, Arduino, Raspberry Pi.",
                 "ia.txt": "Intégration LLM, Vision par Ordi, IA Vocale, Analyses Prédictives, Génération d'Images."
             },
+            "extracurriculaires": {
+                "camp-mcgill.txt": "Camp d'informatique McGill (Juin 2026) : Participant sélectionné pour la branche Programmation Compétitive. Focus sur les algorithmes avancés à l'École d'informatique de McGill.",
+                "shad-canada.txt": "SHAD Canada 2026 : Sélectionné en tant que boursier SHAD pour ce programme d'excellence prestigieux en STEAM et entrepreneuriat. Effectué à l'Université Western à London, Ontario.",
+                "mun": {
+                    "massmun_2023.txt": "MASSMUN 2023 : Première expérience MUN au Lycée Français International Louis Massignon (classe de 5ème).",
+                    "cop_ocean_2025.txt": "COP OCEAN 2025 : Organisée à l'OACI à Montréal (classe de 2nde). Représentant du Royaume-Uni dans le comité BBNJ (Traité de la Haute Mer).",
+                    "desmnu_2026.txt": "10ème DESMNU Rabat : Voyage depuis le Canada vers le Lycée Descartes au Maroc. Représentant de la Chine au Conseil de Sécurité."
+                }
+            },
             "a-propos.txt": "Nayl Lahlou : Développeur Logiciel & Systèmes basé à Montréal. Code depuis ses 9 ans. Passionné par le lien hardware/web.",
             "contact.txt": "Email : lahlou@nayl.ca | GitHub : @floragel | LinkedIn : nayl-lahlou"
         }
@@ -295,7 +313,8 @@ const timelineData = {
         "lab-2025": "2025 — Innovation & Awards",
         "lab-2024": "2024 — Foundation & Robotics",
         "lab-2020": "2020 – 2023 — The Builder's Roots",
-        "shad": { title: "SHAD Canada Scholar", desc: "Selected for this prestigious STEM leadership incubator. Engaging with the next generation of Canadian innovators." },
+        "mcgill-camp": { title: "McGill Computer Science Camp", desc: "Selected for this prestigious competitive programming and game development camp at McGill University. Diving into advanced algorithms and game logic." },
+        "shad": { title: "SHAD Canada Scholar", desc: "Selected as a SHAD Scholar for this prestigious STEM & Entrepreneurship excellence program, held at Western University (London, Ontario)." },
         "frc-scout": { title: "FRC Scouting App Development", desc: "Architected and built a full-stack scouting platform for match strategy, predictive analytics, and team optimization." },
         "hack": { title: "Hackathon Competitor (ConUHacks)", desc: "Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h pressure." },
         "clofit-exp": { title: "Clofit — Digital Wardrobe & AI Stylist", desc: "Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal fashion." },
@@ -312,7 +331,8 @@ const timelineData = {
         "lab-2025": "2025 — Innovation & Prix",
         "lab-2024": "2024 — Fondations & Robotique",
         "lab-2020": "2020 – 2023 — Les Racines de Bâtisseur",
-        "shad": { title: "Boursier SHAD Canada", desc: "Sélectionné pour cet incubateur de leadership STEM prestigieux. Échange avec la prochaine génération d'innovateurs canadiens." },
+        "mcgill-camp": { title: "Camp d'informatique McGill", desc: "Sélectionné pour ce camp prestigieux de programmation compétitive et développement de jeux à l'Université McGill. Immersion dans les algorithmes avancés." },
+        "shad": { title: "Boursier SHAD Canada", desc: "Sélectionné comme boursier SHAD pour ce programme d'excellence prestigieux en STEAM et entrepreneuriat, effectué à l'Université Western (London, Ontario)." },
         "frc-scout": { title: "Développement App Scouting FRC", desc: "Conception d'une plateforme full-stack pour la stratégie de match, l'analyse prédictive et l'optimisation d'équipe." },
         "hack": { title: "Compétition Hackathon (ConUHacks)", desc: "Repoussé les limites à ConUHacks 2026, création de solutions logicielles interactives sous pression." },
         "clofit-exp": { title: "Clofit — Styliste IA personnel", desc: "Pilotage du développement d'une plateforme iOS native utilisant la Vision par Ordi pour la mode." },
