@@ -599,6 +599,19 @@
       position: relative;
     }
 
+    .timeline-item.clickable {
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      border-radius: 8px;
+      padding: 10px;
+      margin: -10px;
+    }
+
+    .timeline-item.clickable:hover {
+      background: rgba(255, 255, 255, 0.03);
+      transform: translateX(4px);
+    }
+
     .timeline-left {
       flex-shrink: 0;
       position: relative;
@@ -1825,32 +1838,22 @@
                 Canadian innovators.</p>
             </div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item clickable" onclick="openProjectModal('gala-mc-2026')">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
               <h4 data-t="gala-mc-2026">Gala Master of Ceremonies (MC)</h4>
               <p data-t="gala-mc-2026">Hosted the prestigious Collège Stanislas recognition gala, animating the evening in front of 800 guests.</p>
-              <div class="timeline-gallery">
-                <img src="assets/img/maitre-de-ceremonie-1.jpg" alt="MC 1" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-                <img src="assets/img/maitre-de-ceremonie-2.jpg" alt="MC 2" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-                <img src="assets/img/maitre-de-ceremonie-3.jpg" alt="MC 3" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-                <img src="assets/img/maitre-de-ceremonie-4.jpeg" alt="MC 4" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-              </div>
             </div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item clickable" onclick="openProjectModal('rhetoric-award-2026')">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
               <h4 data-t="rhetoric-award-2026">Rhetoric & Humanities Award</h4>
               <p data-t="rhetoric-award-2026">Honored with the Rhetoric and Humanities Award at the 2026 Collège Stanislas recognition gala.</p>
-              <div class="timeline-gallery">
-                <img src="assets/img/prix-rhetorique-humanite.jpg" alt="Award Document" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-                <img src="assets/img/medaille-rhetorique-humanite.jpeg" alt="Award Medal" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-              </div>
             </div>
           </div>
           <div class="timeline-item">
@@ -1911,29 +1914,22 @@
                 rapidly.</p>
             </div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item clickable" onclick="openProjectModal('osentreprendre-2025')">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
               <h4 data-t="osentreprendre-2025">Défi OSEntreprendre 2025 Winner</h4>
               <p data-t="osentreprendre-2025">Recognized for outstanding student entrepreneurship and innovative project development.</p>
-              <div class="timeline-gallery">
-                <img src="assets/img/oseentreprendre.jpg" alt="Defi OSEntreprendre 2025" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-              </div>
             </div>
           </div>
-          <div class="timeline-item">
+          <div class="timeline-item clickable" onclick="openProjectModal('gala-awards-2025')">
             <div class="timeline-left">
               <div class="timeline-dot"></div>
             </div>
             <div class="timeline-content">
               <h4 data-t="gala-awards-2025">Academic & Merit Awards 2025</h4>
               <p data-t="gala-awards-2025">Awarded both the Prix du Mérite and the Réussite Scolaire (3ème grade) at the Collège Stanislas recognition gala.</p>
-              <div class="timeline-gallery">
-                <img src="assets/img/prix-merite.jpg" alt="Prix du Mérite" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-                <img src="assets/img/reussite-scolaire.jpg" alt="Réussite Scolaire" onclick="window.open(this.src, '_blank')" title="Click to view full size">
-              </div>
             </div>
           </div>
           <div class="timeline-item">
@@ -2130,6 +2126,10 @@
         <div class="skill-card">
           <div class="skill-brand">📢</div>
           <div class="skill-name" data-t="skill-leadership">Leadership</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-brand">🗣️</div>
+          <div class="skill-name" data-t="skill-debating">Debating & Rhetoric</div>
         </div>
         <div class="skill-card">
           <div class="skill-brand">🇫🇷</div>
@@ -2610,7 +2610,7 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 - **Name:** Nayl Lahlou
 - **Age:** 15 years old (Born in Casablanca, Morocco; moved to Canada at 13, Montreal at 14).
 - **Academic Status:** 10th Grade (Seconde 2025-2026) at Collège Stanislas de Montréal.
-- **Key Skills:** Software Arch., Go, React, LLMs, Computer Vision, Swift, Python, Node.js, Next.js, C++, HTML, CSS, JS, PHP.
+- **Key Skills:** Software Arch., Go, React, LLMs, Computer Vision, Swift, Python, Node.js, Next.js, C++, HTML, CSS, JS, PHP, Debating & Rhetoric, Leadership, IT Strategy.
 - **Languages:** Native French & Native English.
 - **Hobbies:** Bodybuilding, Running (aiming for Beneva 10km Marathon), Fashion.
 - **Contact:** Email: lahlou@nayl.ca, GitHub: https://github.com/floragel, LinkedIn: https://www.linkedin.com/in/nayl-lahlou/.

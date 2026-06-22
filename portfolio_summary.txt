@@ -76,6 +76,7 @@ TECHNICAL SKILLS
 - Specialized: LLMs & AI Integration, Computer Vision, Embedded Systems, IoT.
 - Hardware: Arduino, ESP32/ESP8266, Raspberry Pi, Industrial Sensors, Competition Robotics (FRC).
 - Design: 3D Modeling (Blender, GLB/GLTF), Sweet Home 3D.
+- Leadership & Communication: IT Strategy, Team Management, Public Speaking, Debating & Rhetoric.
 
 INTERACTIVE PORTFOLIO FEATURES
 ------------------------------
