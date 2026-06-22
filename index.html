@@ -2398,6 +2398,8 @@
     // Default styles
     imgBanner.style.backgroundPosition = 'center';
     imgBanner.style.backgroundSize = 'cover';
+    imgBanner.style.backgroundRepeat = 'no-repeat';
+    imgBanner.style.backgroundColor = 'transparent';
     gallerySection.style.display = 'none';
     galleryGrid.innerHTML = '';
 
@@ -2408,6 +2410,8 @@
       // Apply extra config
       if (extra && extra.bgPosition) imgBanner.style.backgroundPosition = extra.bgPosition;
       if (extra && extra.bgSize) imgBanner.style.backgroundSize = extra.bgSize;
+      if (extra && extra.bgRepeat) imgBanner.style.backgroundRepeat = extra.bgRepeat;
+      if (extra && extra.bgColor) imgBanner.style.backgroundColor = extra.bgColor;
     } else {
       imgBanner.style.display = 'none';
     }
@@ -2428,6 +2432,8 @@
         img.style.backgroundImage = `url('${item.img}')`;
         img.style.backgroundSize = item.bgSize || 'cover';
         img.style.backgroundPosition = item.bgPosition || 'center';
+        img.style.backgroundRepeat = item.bgRepeat || 'no-repeat';
+        img.style.backgroundColor = item.bgColor || 'transparent';
         img.style.border = '1px solid rgba(255,255,255,0.1)';
         img.style.cursor = 'pointer';
         img.onclick = () => window.open(item.img, '_blank');
