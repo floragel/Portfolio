@@ -11,12 +11,15 @@ Background: A builder since age 9, passionate about full-stack integration, robo
 
 "Code is just a tool; the real magic is what you build with it to help others or push the boundaries of what's possible."
 
-EDUCATION & LEADERSHIP
-----------------------
+EDUCATION, AWARDS & LEADERSHIP
+------------------------------
 - SHAD Canada Scholar (2026): Selected for a prestigious STEM leadership incubator.
 - Collège Stanislas, Montreal (2024 - Present): High-level academics and FRC leadership.
 - Lycée Claudel, Ottawa (2023 - 2024): Focus on mathematics and sciences.
 - Lycée Français Louis Massignon, Casablanca (2016 - 2023): International academic foundation.
+- Gala de reconnaissance 2026 (Collège Stanislas): Served as Master of Ceremonies (MC), hosting the event for 800 attendees.
+- Model United Nations (MUN): COP Sécurité Alimentaire 2027 (President), DESMNU 2026 (China, Security Council), COP Ocean 2025 (UK, BBNJ), MASSMUN 2023.
+- Awards & Achievements: Défi OSEntreprendre 2025 Winner, Prix du Mérite 2025 (3ème), Réussite Scolaire 2025 (3ème), Prix Rhétorique et Humanités (2026).
 
 KEY SOFTWARE PROJECTS
 ----------------------
@@ -76,7 +79,6 @@ TECHNICAL SKILLS
 
 INTERACTIVE PORTFOLIO FEATURES
 ------------------------------
-- 3D Interactive Room: A browser-rendered workspace where digital and physical builds converge.
 - AI Technical Assistant: A custom-trained AI clone that shares the details of Nayl's technical journey.
 - Terminal Simulator: A functional in-browser shell allowing users to explore the portfolio via CLI commands.
 - Hardware Simulator: Real-time virtual circuit interaction directly in the web UI.

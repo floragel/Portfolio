@@ -25,7 +25,6 @@ Welcome to my personal portfolio. This project represents six years of software 
 - **Terminal Simulator**: A fully functional, in-browser shell with tab-completion and command history that tells my story through a command-line interface.
 - **AI Assistant**: A custom AI clone trained on my technical journey, capable of answering detailed questions about my projects.
 - **Interactive Hardware Simulator**: Real-time circuit simulation integration that allows users to interact with virtual microcontroller components directly in the browser.
-- **3D Interactive Room**: Explore a virtual workspace where my physical builds come to life in a browser-rendered environment.
 - **Mobile-Responsive Navigation**: Hand-crafted hamburger menu system with custom animations and fluid, blurred transitions optimized for the mobile web.
 
 ## 🛠️ Tech Stack

@@ -654,6 +654,28 @@
       max-width: 90%;
     }
 
+    .timeline-gallery {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-gallery img {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .timeline-gallery img:hover {
+      transform: scale(1.05);
+      border-color: var(--accent-orange);
+    }
+
     /* --- 9. PROJECT MODAL SYSTEM --- */
     .modal-overlay {
       position: fixed;
@@ -1442,8 +1464,6 @@
     <span style="opacity: 0.3;">/</span>
     <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
   </div>
-  <span onclick="window.location.href='3d.html'" style="color: var(--accent-lime) !important;" data-t="nav-3d">✦ Explore
-    in 3D</span>
 </nav>
 
 <div class="bento-container">
@@ -1483,11 +1503,6 @@
         I have been coding and building systems since I was 9. From assembling my first PC to winning
         hackathons with custom apps and managing IT infrastructure for award-winning ventures.
       </p>
-      <div style="margin-top: 30px;">
-        <a href="3d.html" class="ai-launch-btn" data-t="nav-3d">
-          ✦ Explore in 3D
-        </a>
-      </div>
     </div>
 
     <div class="scrolly" style="animation-delay: 0.3s;">
@@ -1772,6 +1787,20 @@
 
       <div class="experience-timeline">
 
+        <!-- 2027 -->
+        <div class="timeline-year-group">
+          <h3 class="year-label" data-t="lab-2027">2027 — Upcoming Leadership</h3>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="cop-food-2027">COP Food Security 2027 (Model UN)</h4>
+              <p data-t="cop-food-2027">Appointed President of the 'Food Justice and North-South Equity' committee for the upcoming 2027 conference.</p>
+            </div>
+          </div>
+        </div>
+
         <!-- 2026 -->
         <div class="timeline-year-group">
           <h3 class="year-label" data-t="lab-2026">2026 — Leadership & Excellence</h3>
@@ -1794,6 +1823,43 @@
               <p data-t="shad">Selected for this prestigious STEM leadership incubator. Engaging with the next
                 generation of
                 Canadian innovators.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="gala-mc-2026">Gala Master of Ceremonies (MC)</h4>
+              <p data-t="gala-mc-2026">Hosted the prestigious Collège Stanislas recognition gala, animating the evening in front of 800 guests.</p>
+              <div class="timeline-gallery">
+                <img src="assets/img/maitre-de-ceremonie-1.jpg" alt="MC 1" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+                <img src="assets/img/maitre-de-ceremonie-2.jpg" alt="MC 2" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+                <img src="assets/img/maitre-de-ceremonie-3.jpg" alt="MC 3" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+                <img src="assets/img/maitre-de-ceremonie-4.jpeg" alt="MC 4" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="rhetoric-award-2026">Rhetoric & Humanities Award</h4>
+              <p data-t="rhetoric-award-2026">Honored with the Rhetoric and Humanities Award at the 2026 Collège Stanislas recognition gala.</p>
+              <div class="timeline-gallery">
+                <img src="assets/img/prix-rhetorique-humanite.jpg" alt="Award Document" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+                <img src="assets/img/medaille-rhetorique-humanite.jpeg" alt="Award Medal" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="desmnu-2026">DESMNU 2026 (Model UN)</h4>
+              <p data-t="desmnu-2026">Represented China in the UN Security Council at the DESMNU simulation at Lycée Descartes.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1843,6 +1909,40 @@
               <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build
                 high-stakes solutions
                 rapidly.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="osentreprendre-2025">Défi OSEntreprendre 2025 Winner</h4>
+              <p data-t="osentreprendre-2025">Recognized for outstanding student entrepreneurship and innovative project development.</p>
+              <div class="timeline-gallery">
+                <img src="assets/img/oseentreprendre.jpg" alt="Defi OSEntreprendre 2025" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="gala-awards-2025">Academic & Merit Awards 2025</h4>
+              <p data-t="gala-awards-2025">Awarded both the Prix du Mérite and the Réussite Scolaire (3ème grade) at the Collège Stanislas recognition gala.</p>
+              <div class="timeline-gallery">
+                <img src="assets/img/prix-merite.jpg" alt="Prix du Mérite" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+                <img src="assets/img/reussite-scolaire.jpg" alt="Réussite Scolaire" onclick="window.open(this.src, '_blank')" title="Click to view full size">
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <h4 data-t="cop-ocean-2025">COP Océan 2025 (Model UN)</h4>
+              <p data-t="cop-ocean-2025">Represented the United Kingdom in the BBNJ (Biodiversity Beyond National Jurisdiction) committee at Collège Stanislas.</p>
             </div>
           </div>
         </div>
@@ -2518,14 +2618,19 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 #### HONORS:
 - **SHAD Canada 2026:** Selected as a SHAD Scholar for this highly competitive STEM & entrepreneurship excellence program, held at Western University in London, Ontario.
 - **McGill Computer Science Camp (2026):** Selected participant for the prestigious competitive programming and game development camp at McGill University.
+- **Defi OSEntreprendre 2025:** Winner of the entrepreneurship challenge.
+- **Gala de reconnaissance 2025 (Collège Stanislas):** Prix du Mérite 2025 in 3ème and Réussite Scolaire 2025 in 3ème.
+- **Gala de reconnaissance 2026 (Collège Stanislas):** Prix Rhétorique et Humanités.
 - **Model United Nations (MUN) Experience:** 
   - **MASSMUN 2023:** First MUN at Lycée Français International Louis Massignon (grade 7/5ème).
-  - **COP OCEAN 2025:** Held at ICAO Montreal (grade 10/2nde). Represented the UK in the BBNJ/High Seas Treaty committee.
-  - **10th DESMNU Rabat:** Travelled from Canada to Morocco for this Security Council simulation at Lycée Descartes, representing China.
+  - **COP OCEAN 2025:** Held at Collège Stanislas. Represented the UK in the BBNJ committee.
+  - **10th DESMNU Rabat (2026):** Travelled from Canada to Morocco for this Security Council simulation at Lycée Descartes, representing China.
+  - **COP Sécurité Alimentaire 2027:** Selected to serve as President of the "Justice alimentaire et équité Nord-Sud" committee.
 
 #### EXTRACURRICULARS:
+- **Gala de reconnaissance 2026 MC:** Master of Ceremonies (MC), hosted the recognition gala in front of 800 people at Collège Stanislas.
 - **FRC Team 6622 (StanRobotix):** Programmer, Builder, Media Team.
-- **Model United Nations (MUN):** COP Oceans, DESMNU Rabat 2026.
+- **Model United Nations (MUN):** COP Food Security 2027 (President), DESMNU Rabat 2026, COP Oceans 2025.
 - **Floragel (JA Québec Mini-Enterprise):** Vice-President IT. Mission-driven to "save lives" by treating plants as living beings.
   - **Awards:** 2nd Best VP IT in all of Quebec. Floragel also won "Best Sales Pitch" at the provincial gala.
   - **Philosophy:** Plants are not just objects; they are living souls. Built the IT infrastructure to help them thrive.
@@ -2820,36 +2925,42 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
         if (lang === 'fr') {
           return `<b>Hackathons & Récompenses</b>
 ----------------------------
-- <b>HackDécouverte 2025:</b> 1ère Place (Concordia)
-- <b>ConUHacks 2026:</b> Participant
-- <b>Gala JA Québec:</b> Gagnant Meilleur Pitch`;
+- <b>HackDécouverte 2025 :</b> 1ère Place (Concordia)
+- <b>ConUHacks 2026 :</b> Participant
+- <b>Gala JA Québec :</b> Gagnant Meilleur Pitch
+- <b>Défi OSEntreprendre 2025 :</b> Lauréat
+- <b>Gala de reconnaissance 2025 :</b> Prix du Mérite & Réussite Scolaire (3ème, Collège Stanislas)
+- <b>Gala de reconnaissance 2026 :</b> Prix Rhétorique et Humanités (Collège Stanislas)`;
         }
         return `<b>Hackathons & Achievements</b>
 ----------------------------
 - <b>HackDécouverte 2025:</b> 1st Place (Concordia University)
 - <b>ConUHacks 2026:</b> Participant
-- <b>JA Québec Gala:</b> Best Sales Pitch Winner`;
+- <b>JA Québec Gala:</b> Best Sales Pitch Winner
+- <b>Défi OSEntreprendre 2025:</b> Winner
+- <b>Gala de Reconnaissance 2025:</b> Prix du Mérite & Réussite Scolaire (3ème grade, Collège Stanislas)
+- <b>Gala de Reconnaissance 2026:</b> Rhetoric & Humanities Award (Collège Stanislas)`;
       },
       'extracurriculars': () => {
         const lang = localStorage.getItem('language') || 'en';
         if (lang === 'fr') {
           return `<b>Activités Parascolaires</b>
 ----------------------------
-- <b>SHAD Canada (Western University):</b> Programme d'excellence en STEAM et entrepreneuriat (2026)
-- <b>Camp d'informatique McGill:</b> Sélectionné pour la branche Programmation Compétitive (2026)
-- <b>MUN (Modèle des Nations Unies):</b> DESMNU (Rabat), COP OCEAN (OACI Montréal), MASSMUN
-- <b>StanRobotix (FRC 6622):</b> Stratégie, Programmation & Construction (2024-présent)
-- <b>Musculation & Course:</b> Discipline personnelle et marathons (10km)
-- <b>Mun (Modèle des Nations Unies):</b> Engagement diplomatique et leadership`;
+- <b>Gala de reconnaissance 2026 :</b> Maître de cérémonie, animation de la soirée (800 personnes, Collège Stanislas)
+- <b>SHAD Canada (Western University) :</b> Programme d'excellence en STEAM et entrepreneuriat (2026)
+- <b>Camp d'informatique McGill :</b> Sélectionné pour la branche Programmation Compétitive (2026)
+- <b>MUN (Modèle des Nations Unies) :</b> COP Sécurité Alimentaire 2027 (Président), DESMNU 2026 (Chine au Conseil de Sécurité), COP OCEAN 2025 (Royaume-Uni au comité BBNJ), MASSMUN 2023
+- <b>StanRobotix (FRC 6622) :</b> Stratégie, Programmation & Construction (2024-présent)
+- <b>Musculation & Course :</b> Discipline personnelle et marathons (10km)`;
         }
         return `<b>Extracurricular Activities</b>
 ----------------------------
+- <b>Gala de Reconnaissance 2026:</b> Master of Ceremonies (MC) for 800 attendees (Collège Stanislas)
 - <b>SHAD Canada (Western University):</b> STEM & Entrepreneurship excellence program (2026)
 - <b>McGill Computer Science Camp:</b> Selected for the Competitive Programming branch (2026)
-- <b>MUN (Model United Nations):</b> DESMNU (Rabat), COP OCEAN (ICAO), MASSMUN
+- <b>MUN (Model United Nations):</b> COP Food Security 2027 (President), DESMNU 2026 (China in Security Council), COP OCEAN 2025 (UK in BBNJ), MASSMUN 2023
 - <b>StanRobotix (FRC 6622):</b> Strategy, Programming & Build Team (2024-present)
-- <b>Bodybuilding & Running:</b> Personal discipline and marathons (10km)
-- <b>MUN (Model United Nations):</b> Diplomatic engagement and leadership`;
+- <b>Bodybuilding & Running:</b> Personal discipline and marathons (10km)`;
       },
       'theme': (args) => {
         const themes = {

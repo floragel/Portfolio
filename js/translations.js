@@ -130,10 +130,12 @@ const translations = {
             "extracurriculars": {
                 "mcgill-camp.txt": "McGill Computer Science Camp (June 2026): Selected participant for the competitive programming branch. Focusing on advanced algorithms at the McGill School of Computer Science.",
                 "shad-canada.txt": "SHAD Canada 2026: Selected as a SHAD Scholar for this prestigious STEM & Entrepreneurship excellence program. Completed at Western University in London, Ontario.",
+                "gala_reconnaissance_2026.txt": "Gala de Reconnaissance 2026: Served as Master of Ceremonies (MC) and hosted the event for 800 attendees at Collège Stanislas.",
                 "mun": {
                     "massmun_2023.txt": "MASSMUN 2023: First MUN experience at Lycée Français International Louis Massignon (7th grade/5ème).",
-                    "cop_ocean_2025.txt": "COP OCEAN 2025: Held at ICAO Montreal (10th grade/2nde). Represented the UK in the BBNJ/High Seas Treaty committee.",
-                    "desmnu_2026.txt": "10th DESMNU Rabat: Travelled from Canada to Lycée Descartes in Morocco. Represented China in the Security Council."
+                    "cop_ocean_2025.txt": "COP OCEAN 2025: Held at Collège Stanislas. Represented the UK in the BBNJ committee.",
+                    "desmnu_2026.txt": "10th DESMNU Rabat: Travelled from Canada to Lycée Descartes in Morocco. Represented China in the Security Council.",
+                    "cop_securite_alimentaire_2027.txt": "COP Food Security 2027: Appointed President of the 'Food Justice and North-South Equity' committee."
                 }
             },
             "about.txt": "Nayl Lahlou: Software & Systems Developer based in Montreal. Coding since age 9. Passionate about bridging hardware and web.",
@@ -258,10 +260,12 @@ const translations = {
             "extracurriculaires": {
                 "camp-mcgill.txt": "Camp d'informatique McGill (Juin 2026) : Participant sélectionné pour la branche Programmation Compétitive. Focus sur les algorithmes avancés à l'École d'informatique de McGill.",
                 "shad-canada.txt": "SHAD Canada 2026 : Sélectionné en tant que boursier SHAD pour ce programme d'excellence prestigieux en STEAM et entrepreneuriat. Effectué à l'Université Western à London, Ontario.",
+                "gala_reconnaissance_2026.txt": "Gala de Reconnaissance 2026 : Maître de cérémonie, animation de la soirée devant 800 personnes au Collège Stanislas.",
                 "mun": {
                     "massmun_2023.txt": "MASSMUN 2023 : Première expérience MUN au Lycée Français International Louis Massignon (classe de 5ème).",
-                    "cop_ocean_2025.txt": "COP OCEAN 2025 : Organisée à l'OACI à Montréal (classe de 2nde). Représentant du Royaume-Uni dans le comité BBNJ (Traité de la Haute Mer).",
-                    "desmnu_2026.txt": "10ème DESMNU Rabat : Voyage depuis le Canada vers le Lycée Descartes au Maroc. Représentant de la Chine au Conseil de Sécurité."
+                    "cop_ocean_2025.txt": "COP OCEAN 2025 : Organisée au Collège Stanislas. Représentant du Royaume-Uni dans le comité BBNJ (Traité de la Haute Mer).",
+                    "desmnu_2026.txt": "10ème DESMNU Rabat : Voyage depuis le Canada vers le Lycée Descartes au Maroc. Représentant de la Chine au Conseil de Sécurité.",
+                    "cop_securite_alimentaire_2027.txt": "COP Sécurité Alimentaire 2027 : Président du comité 'Justice alimentaire et équité Nord-Sud'."
                 }
             },
             "a-propos.txt": "Nayl Lahlou : Développeur Logiciel & Systèmes basé à Montréal. Code depuis ses 9 ans. Passionné par le lien hardware/web.",
@@ -309,16 +313,24 @@ const projectData = {
 
 const timelineData = {
     en: {
+        "lab-2027": "2027 — Upcoming Leadership",
+        "cop-food-2027": { title: "COP Food Security 2027 (Model UN)", desc: "Appointed President of the 'Food Justice and North-South Equity' committee for the upcoming 2027 conference." },
         "lab-2026": "2026 — Leadership & Excellence",
         "lab-2025": "2025 — Innovation & Awards",
         "lab-2024": "2024 — Foundation & Robotics",
         "lab-2020": "2020 – 2023 — The Builder's Roots",
         "mcgill-camp": { title: "McGill Computer Science Camp", desc: "Selected for this prestigious competitive programming and game development camp at McGill University. Diving into advanced algorithms and game logic." },
         "shad": { title: "SHAD Canada Scholar", desc: "Selected as a SHAD Scholar for this prestigious STEM & Entrepreneurship excellence program, held at Western University (London, Ontario)." },
+        "gala-mc-2026": { title: "Gala Master of Ceremonies (MC)", desc: "Hosted the prestigious Collège Stanislas recognition gala, animating the evening in front of 800 guests." },
+        "rhetoric-award-2026": { title: "Rhetoric & Humanities Award", desc: "Honored with the Rhetoric and Humanities Award at the 2026 Collège Stanislas recognition gala." },
+        "desmnu-2026": { title: "DESMNU 2026 (Model UN)", desc: "Represented China in the UN Security Council at the DESMNU simulation at Lycée Descartes." },
         "frc-scout": { title: "FRC Scouting App Development", desc: "Architected and built a full-stack scouting platform for match strategy, predictive analytics, and team optimization." },
         "hack": { title: "Hackathon Competitor (ConUHacks)", desc: "Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h pressure." },
         "clofit-exp": { title: "Clofit — Digital Wardrobe & AI Stylist", desc: "Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal fashion." },
         "hack-win": { title: "1st Place — HackDécouverte (Concordia University)", desc: "Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions rapidly." },
+        "osentreprendre-2025": { title: "Défi OSEntreprendre 2025 Winner", desc: "Recognized for outstanding student entrepreneurship and innovative project development." },
+        "gala-awards-2025": { title: "Academic & Merit Awards 2025", desc: "Awarded both the Prix du Mérite and the Réussite Scolaire (3ème grade) at the Collège Stanislas recognition gala." },
+        "cop-ocean-2025": { title: "COP Océan 2025 (Model UN)", desc: "Represented the United Kingdom in the BBNJ (Biodiversity Beyond National Jurisdiction) committee at Collège Stanislas." },
         "vpit": { title: "Vice President IT — Floragel (JA Québec)", desc: "Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection project." },
         "robotics": { title: "FIRST Robotics — StanRobotix (FRC 6622)", desc: "Joined the programming team, developing control systems for robots and contributing to strategy." },
         "edu-found": { title: "EduMaths — Founder & Developer", desc: "Created a full-stack learning platform at age 12. Directed a team to record lessons and managed database profiles." },
@@ -327,16 +339,24 @@ const timelineData = {
         "hardware-roots": { title: "Hardware Engineering & Systems", desc: "From age 9: Built a custom PC, a handmade gaming console, and a working portable VR headset from scratch." }
     },
     fr: {
+        "lab-2027": "2027 — Leadership Futur",
+        "cop-food-2027": { title: "COP Sécurité Alimentaire 2027 (ONU Modèle)", desc: "Nommé Président du comité 'Justice alimentaire et équité Nord-Sud' pour l'édition 2027." },
         "lab-2026": "2026 — Leadership & Excellence",
         "lab-2025": "2025 — Innovation & Prix",
         "lab-2024": "2024 — Fondations & Robotique",
         "lab-2020": "2020 – 2023 — Les Racines de Bâtisseur",
         "mcgill-camp": { title: "Camp d'informatique McGill", desc: "Sélectionné pour ce camp prestigieux de programmation compétitive et développement de jeux à l'Université McGill. Immersion dans les algorithmes avancés." },
         "shad": { title: "Boursier SHAD Canada", desc: "Sélectionné comme boursier SHAD pour ce programme d'excellence prestigieux en STEAM et entrepreneuriat, effectué à l'Université Western (London, Ontario)." },
+        "gala-mc-2026": { title: "Maître de Cérémonie - Gala 2026", desc: "Animateur principal du Gala de reconnaissance du Collège Stanislas devant plus de 800 personnes." },
+        "rhetoric-award-2026": { title: "Prix Rhétorique et Humanités", desc: "Lauréat du prestigieux prix de Rhétorique et Humanités au Gala de reconnaissance du Collège Stanislas 2026." },
+        "desmnu-2026": { title: "DESMNU 2026 (ONU Modèle)", desc: "Représentant officiel de la Chine au Conseil de Sécurité lors de la simulation DESMNU au Lycée Descartes." },
         "frc-scout": { title: "Développement App Scouting FRC", desc: "Conception d'une plateforme full-stack pour la stratégie de match, l'analyse prédictive et l'optimisation d'équipe." },
         "hack": { title: "Compétition Hackathon (ConUHacks)", desc: "Repoussé les limites à ConUHacks 2026, création de solutions logicielles interactives sous pression." },
         "clofit-exp": { title: "Clofit — Styliste IA personnel", desc: "Pilotage du développement d'une plateforme iOS native utilisant la Vision par Ordi pour la mode." },
         "hack-win": { title: "1ère Place — HackDécouverte (Université Concordia)", desc: "Récompensé pour Trakant, prouvant mon agilité technique sur des solutions critiques." },
+        "osentreprendre-2025": { title: "Lauréat Défi OSEntreprendre 2025", desc: "Récompensé pour l'excellence entrepreneuriale étudiante et le développement de projet innovant." },
+        "gala-awards-2025": { title: "Prix du Mérite & Réussite Scolaire 2025", desc: "Doublé d'honneurs en classe de 3ème au Gala de reconnaissance 2025 du Collège Stanislas." },
+        "cop-ocean-2025": { title: "COP Océan 2025 (ONU Modèle)", desc: "Représentant du Royaume-Uni au comité BBNJ (Haute Mer) au Collège Stanislas." },
         "vpit": { title: "Vice-Président IT — Floragel (JA Québec)", desc: "Classé 2ème Meilleur VP IT au Québec. Création de l'âme technologique d'un projet de protection des plantes." },
         "robotics": { title: "FIRST Robotics — StanRobotix (FRC 6622)", desc: "Division programmation, développement de systèmes de contrôle pour robots industriels." },
         "edu-found": { title: "EduMaths — Fondateur & Dév", desc: "Plateforme éducative full-stack créée à 12 ans. Direction d'équipe, cours vidéos et gestion de base de données." },
