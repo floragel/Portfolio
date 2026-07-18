@@ -42,8 +42,8 @@ export default async function handler(req, res) {
           ...(systemText && { systemInstruction: { parts: [{ text: systemText }] } }),
           contents,
           generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 1024
+            maxOutputTokens: 2048,
+            thinkingConfig: { thinkingLevel: 'minimal' }
           }
         })
       }
