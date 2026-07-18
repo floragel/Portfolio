@@ -2753,7 +2753,7 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
             'Authorization': `Bearer ${localApiKey}`
           },
           body: JSON.stringify({
-            model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+            model: 'openai/gpt-oss-120b',
             messages: [
               {
                 role: 'system',
@@ -2768,10 +2768,9 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
       }
 
       if (!response.ok) {
-        if (useProxy && response.status === 404) {
-          throw new Error("Proxy script /api/chat not found. If you are local, add your key to config.js. If you are in production, see deployment_security.md.");
-        }
-        throw new Error(`API error: ${response.status}`);
+        const errorData = await response.json().catch(() => null);
+        const apiMessage = errorData?.error?.message || errorData?.error || errorData?.message;
+        throw new Error(apiMessage || `API error: ${response.status}`);
       }
 
       const data = await response.json();

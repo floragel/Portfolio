@@ -5,8 +5,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
   
-  const { messages } = req.body;
+  const { messages } = req.body || {};
   const apiKey = process.env.GROQ_API_KEY;
+
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return res.status(400).json({ error: 'A non-empty messages array is required.' });
+  }
 
   if (!apiKey) {
     return res.status(500).json({ error: 'GROQ_API_KEY environment variable is not set on the server.' });
@@ -20,7 +24,8 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        // Llama 4 Scout was retired by Groq on July 17, 2026.
+        model: 'openai/gpt-oss-120b',
         messages: messages,
         temperature: 0.7,
         max_tokens: 1024
@@ -28,7 +33,7 @@ export default async function handler(req, res) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await response.json().catch(() => ({ error: 'Groq request failed.' }));
       return res.status(response.status).json(errorData);
     }
 
