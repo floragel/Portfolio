@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nayl | Systems Developer & Builder</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="js/config.js"></script>
   <script src="js/translations.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2727,45 +2726,11 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
     appendAiMessage("...", 'ai', loadingId);
 
     try {
-      const localApiKey = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_API_KEY) ? CONFIG.GROQ_API_KEY : '';
-      const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-
-      // Use proxy if in production or if local key is placeholder
-      const useProxy = isProduction || !localApiKey || localApiKey.includes('YOUR_KEY');
-
-      let response;
-      if (useProxy) {
-        // PROXY MODE (Recommended for Production)
-        response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: aiConversationHistory,
-            language: localStorage.getItem('language') || 'en'
-          })
-        });
-      } else {
-        // DIRECT MODE (Local Development)
-        response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localApiKey}`
-          },
-          body: JSON.stringify({
-            model: 'openai/gpt-oss-120b',
-            messages: [
-              {
-                role: 'system',
-                content: `Current language: ${localStorage.getItem('language') || 'en'}. Please respond in this language.`
-              },
-              ...aiConversationHistory
-            ],
-            temperature: 0.7,
-            max_tokens: 1024
-          })
-        });
-      }
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: aiConversationHistory })
+      });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);

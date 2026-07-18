@@ -30,9 +30,16 @@ Welcome to my personal portfolio. This project represents six years of software 
 ## 🛠️ Tech Stack
 
 - **Frontend**: HTML5, Vanilla CSS, JavaScript (ES6+), SwiftUI.
-- **Backend/Backend-as-a-Service**: Python, Node.js, Supabase, Groq API (LLMs).
+- **Backend/Backend-as-a-Service**: Python, Node.js, Supabase, Gemini API (LLMs).
 - **Mechanics & Electronics**: C++, Arduino, Raspberry Pi, ESP32, Computer Vision.
 - **Design**: Sweet Home 3D, Blender (GLB/GLTF).
+
+## AI deployment
+
+The assistant uses the free-tier `gemini-2.5-flash-lite` model through a Vercel
+serverless function. Add `GEMINI_API_KEY` to the Vercel project's environment
+variables for Production, Preview, and Development. Never expose the key in
+client-side JavaScript.
 
 ---
 
