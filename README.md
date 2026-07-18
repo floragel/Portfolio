@@ -36,7 +36,7 @@ Welcome to my personal portfolio. This project represents six years of software 
 
 ## AI deployment
 
-The assistant uses the free-tier `gemini-2.5-flash-lite` model through a Vercel
+The assistant uses the free-tier `gemini-3.5-flash` model through a Vercel
 serverless function. Add `GEMINI_API_KEY` to the Vercel project's environment
 variables for Production, Preview, and Development. Never expose the key in
 client-side JavaScript.

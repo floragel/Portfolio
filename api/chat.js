@@ -1,5 +1,5 @@
 // Vercel Serverless Function for the Gemini API.
-const GEMINI_MODEL = 'gemini-2.5-flash-lite';
+const GEMINI_MODEL = 'gemini-3.5-flash';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
