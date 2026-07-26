@@ -29,6 +29,7 @@ KEY SOFTWARE PROJECTS
 
 2. Clofit (2025 - 2026)
    - Tech: SwiftUI, Supabase, LLMs, Computer Vision.
+   - Website: https://clofit.app
    - Description: A modern native iOS app acting as a digital wardrobe and AI stylist. Uses Computer Vision for background removal and LLMs for personalized "Outfit Of The Day" (OOTD) generation based on weather and style.
 
 3. FloraGel (2024 - 2025)
