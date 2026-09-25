@@ -1,5 +1,11 @@
 // Vercel Serverless Function for the Gemini API.
-const GEMINI_MODEL = 'gemini-3.5-flash';
+const GEMINI_MODELS = [
+  'gemini-3.5-flash-lite',
+  'gemini-3.1-flash-lite',
+  'gemini-3.5-flash'
+];
+
+const RETRYABLE_STATUSES = new Set([408, 429, 500, 502, 503, 504]);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -30,31 +36,49 @@ export default async function handler(req, res) {
     }));
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey
-        },
-        body: JSON.stringify({
-          ...(systemText && { systemInstruction: { parts: [{ text: systemText }] } }),
-          contents,
-          generationConfig: {
-            maxOutputTokens: 2048,
-            thinkingConfig: { thinkingLevel: 'minimal' }
-          }
-        })
+    const requestBody = JSON.stringify({
+      ...(systemText && { systemInstruction: { parts: [{ text: systemText }] } }),
+      contents,
+      generationConfig: {
+        maxOutputTokens: 2048,
+        thinkingConfig: { thinkingLevel: 'minimal' }
       }
-    );
+    });
 
-    const data = await response.json().catch(() => ({}));
+    let data;
+    let lastStatus = 503;
+    let lastError = 'Gemini is temporarily unavailable.';
 
-    if (!response.ok) {
-      return res.status(response.status).json({
-        error: data.error?.message || 'Gemini request failed.'
-      });
+    for (const model of GEMINI_MODELS) {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+          },
+          body: requestBody
+        }
+      );
+
+      data = await response.json().catch(() => ({}));
+
+      if (response.ok) break;
+
+      lastStatus = response.status;
+      lastError = data.error?.message || `Gemini model ${model} failed.`;
+      console.warn(`Gemini model ${model} failed with ${response.status}.`);
+
+      if (!RETRYABLE_STATUSES.has(response.status) && response.status !== 404) {
+        return res.status(response.status).json({ error: lastError });
+      }
+
+      data = null;
+    }
+
+    if (!data) {
+      return res.status(lastStatus).json({ error: lastError });
     }
 
     const text = data.candidates?.[0]?.content?.parts
