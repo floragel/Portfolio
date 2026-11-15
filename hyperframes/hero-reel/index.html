@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  HyperFrames composition: "hero-reel" (12 s, 1920x1080, silent loop)
+  Code lines (software, cyan) turn into copper traces (hardware, amber)
+  that route into a chip, which powers on. Used as the portfolio hero background.
+
+  Render to MP4 with the HyperFrames CLI:   npx hyperframes render hyperframes/hero-reel
+  In a normal browser (or iframe) it autoplays and loops; with ?render it stays paused
+  so the renderer can seek the registered timeline frame by frame.
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A1014'/%3E%3Cpath d='M6 6h20L6 26z' fill='%2338E1FF'/%3E%3Cpath d='M26 6v20H6z' fill='%23FFB341'/%3E%3Crect x='11' y='11' width='10' height='10' rx='2' fill='%230A1014'/%3E%3C/svg%3E">
+  <title>hero-reel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; height: 100%; background: #0A1014; overflow: hidden; }
+    #stage-wrap { position: fixed; inset: 0; overflow: hidden; }
+    #root {
+      position: absolute; left: 50%; top: 50%;
+      width: 1920px; height: 1080px;
+      transform-origin: 50% 50%;
+      background:
+        radial-gradient(1100px 700px at 74% 58%, rgba(56, 225, 255, .07), transparent 60%),
+        linear-gradient(#1A2A31 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, #1A2A31 1px, transparent 1px) 0 0 / 48px 48px,
+        #0A1014;
+      background-blend-mode: normal;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    /* soften the grid */
+    #root::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(1200px 900px at 72% 55%, transparent 30%, rgba(10, 16, 20, .82) 75%);
+      pointer-events: none;
+    }
+    .code {
+      position: absolute; left: 980px; font-size: 24px; line-height: 1; color: #38E1FF;
+      white-space: pre; text-shadow: 0 0 18px rgba(56, 225, 255, .45);
+    }
+    .code .k { color: #9BEFFF; }
+    .code .c { color: #4C6A73; }
+    svg { position: absolute; inset: 0; overflow: visible; }
+    .trace { fill: none; stroke: #FFB341; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+             filter: drop-shadow(0 0 6px rgba(255, 179, 65, .55)); }
+    .trace-dim { fill: none; stroke: #1F343C; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .pad { fill: #0A1014; stroke: #FFB341; stroke-width: 3; }
+    .pulse { fill: #FFF2D6; filter: drop-shadow(0 0 10px #FFB341); }
+    .chip-body { fill: #111C21; stroke: #2B434C; stroke-width: 3; }
+    .pin { fill: #C9A25B; }
+    .led { fill: #5CFF9D; filter: drop-shadow(0 0 8px #5CFF9D); }
+    .label { position: absolute; color: #8FA6AD; font-size: 20px; letter-spacing: .02em; }
+  </style>
+</head>
+<body>
+  <div id="stage-wrap">
+    <div id="root" data-composition-id="hero-reel" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+
+      <!-- Track 1: code (software) -->
+      <div class="code clip" id="l1" data-start="0" data-duration="7" data-track-index="1" style="top:300px"><span class="k">void</span> loop() {</div>
+      <div class="code clip" id="l2" data-start="0.4" data-duration="6.6" data-track-index="1" style="top:390px">  motor.drive(speed);</div>
+      <div class="code clip" id="l3" data-start="0.8" data-duration="6.2" data-track-index="1" style="top:480px"><span class="k">const</span> ai = model.run(x);</div>
+      <div class="code clip" id="l4" data-start="1.2" data-duration="5.8" data-track-index="1" style="top:570px">  sensor.read(<span class="c">/* imu */</span>);</div>
+      <div class="code clip" id="l5" data-start="1.6" data-duration="5.4" data-track-index="1" style="top:660px">deploy(<span class="k">"jarvis"</span>);</div>
+
+      <!-- Track 2: board (hardware) -->
+      <svg class="clip" id="board" data-start="0" data-duration="12" data-track-index="2" viewBox="0 0 1920 1080" width="1920" height="1080">
+        <g id="dim">
+          <path class="trace-dim" d="M980 313 H1180 L1260 393 V520 H1370" />
+          <path class="trace-dim" d="M980 403 H1150 L1220 473 V560 H1370" />
+          <path class="trace-dim" d="M980 493 H1120 L1180 553 V600 H1370" />
+          <path class="trace-dim" d="M980 583 H1130 L1170 623 V640 H1370" />
+          <path class="trace-dim" d="M980 673 H1180 L1240 680 H1370" />
+          <path class="trace-dim" d="M1590 560 H1700 L1760 500 V320 L1800 280 H1940" />
+          <path class="trace-dim" d="M1590 640 H1720 L1780 700 V860 L1820 900 H1940" />
+          <path class="trace-dim" d="M1480 780 V900 L1440 940 V1100" />
+        </g>
+        <g id="lit">
+          <path class="trace" id="t1" d="M980 313 H1180 L1260 393 V520 H1370" />
+          <path class="trace" id="t2" d="M980 403 H1150 L1220 473 V560 H1370" />
+          <path class="trace" id="t3" d="M980 493 H1120 L1180 553 V600 H1370" />
+          <path class="trace" id="t4" d="M980 583 H1130 L1170 623 V640 H1370" />
+          <path class="trace" id="t5" d="M980 673 H1180 L1240 680 H1370" />
+          <path class="trace" id="t6" d="M1590 560 H1700 L1760 500 V320 L1800 280 H1940" />
+          <path class="trace" id="t7" d="M1590 640 H1720 L1780 700 V860 L1820 900 H1940" />
+          <path class="trace" id="t8" d="M1480 780 V900 L1440 940 V1100" />
+        </g>
+        <g id="pads">
+          <circle class="pad" cx="1260" cy="393" r="9" />
+          <circle class="pad" cx="1220" cy="473" r="9" />
+          <circle class="pad" cx="1760" cy="500" r="9" />
+          <circle class="pad" cx="1780" cy="700" r="9" />
+          <circle class="pad" cx="1440" cy="940" r="9" />
+        </g>
+        <!-- chip -->
+        <g id="chip">
+          <g id="pins">
+            <rect class="pin" x="1352" y="512" width="22" height="12" rx="2" />
+            <rect class="pin" x="1352" y="552" width="22" height="12" rx="2" />
+            <rect class="pin" x="1352" y="592" width="22" height="12" rx="2" />
+            <rect class="pin" x="1352" y="632" width="22" height="12" rx="2" />
+            <rect class="pin" x="1352" y="672" width="22" height="12" rx="2" />
+            <rect class="pin" x="1586" y="552" width="22" height="12" rx="2" />
+            <rect class="pin" x="1586" y="632" width="22" height="12" rx="2" />
+            <rect class="pin" x="1474" y="776" width="12" height="22" rx="2" />
+          </g>
+          <rect class="chip-body" id="chip-body" x="1370" y="490" width="220" height="290" rx="16" />
+          <text x="1480" y="625" text-anchor="middle" fill="#E6F1F2" font-size="44" font-weight="600" font-family="JetBrains Mono, monospace">NL</text>
+          <text x="1480" y="665" text-anchor="middle" fill="#4C6A73" font-size="18" font-family="JetBrains Mono, monospace">SW × HW</text>
+          <circle class="led" id="led1" cx="1410" cy="530" r="7" />
+          <circle class="led" id="led2" cx="1436" cy="530" r="7" />
+          <circle class="led" id="led3" cx="1462" cy="530" r="7" />
+        </g>
+        <g id="pulses">
+          <circle class="pulse" id="p1" r="8" /><circle class="pulse" id="p2" r="8" />
+          <circle class="pulse" id="p3" r="8" /><circle class="pulse" id="p4" r="8" />
+          <circle class="pulse" id="p5" r="8" /><circle class="pulse" id="p6" r="8" />
+          <circle class="pulse" id="p7" r="8" />
+        </g>
+      </svg>
+
+      <div class="label clip" id="status" data-start="8" data-duration="3" data-track-index="3" style="left:1370px; top:810px">status: <span style="color:#5CFF9D">online</span></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+  <script>
+    gsap.registerPlugin(MotionPathPlugin);
+
+    // Fit the 1920x1080 stage to cover any viewport (iframe in the hero).
+    const root = document.getElementById('root');
+    function fit() {
+      const s = Math.max(innerWidth / 1920, innerHeight / 1080);
+      root.style.transform = `translate(-50%, -50%) scale(${s})`;
+    }
+    addEventListener('resize', fit); fit();
+
+    const traces = gsap.utils.toArray('#lit .trace');
+    traces.forEach(p => { const L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+    const lines = gsap.utils.toArray('.code');
+
+    const tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.inOut' } });
+
+    // 0–2.6 s: code types in (clip-path wipe, staggered)
+    gsap.set(lines, { clipPath: 'inset(0 100% 0 0)', opacity: 1 });
+    gsap.set(['#pulses circle', '#status', '#pads circle'], { opacity: 0 });
+    gsap.set('.led', { opacity: .12 });
+    gsap.set('#chip', { opacity: .35, transformOrigin: '1480px 635px' });
+    tl.to(lines, { clipPath: 'inset(0 0% 0 0)', duration: 1, stagger: .4, ease: 'steps(18)' }, 0);
+
+    // 3–5 s: code shifts to copper and slides into the traces
+    tl.to(lines, { color: '#FFB341', textShadow: '0 0 18px rgba(255,179,65,.5)', duration: .8, stagger: .08 }, 3);
+    tl.to(lines, { clipPath: 'inset(0 0 0 100%)', x: 140, duration: 1.1, stagger: .1, ease: 'power2.in' }, 3.6);
+    tl.to(traces.slice(0, 5), { strokeDashoffset: 0, duration: 1.6, stagger: .12 }, 3.7);
+    tl.to('#pads circle', { opacity: 1, duration: .3, stagger: .1 }, 4.6);
+
+    // signal pulses ride the traces into the chip
+    ['#t1', '#t2', '#t3', '#t4', '#t5'].forEach((t, i) => {
+      const p = `#p${i + 1}`;
+      tl.set(p, { opacity: 1 }, 4.4 + i * .14);
+      tl.to(p, { motionPath: { path: t, align: t, alignOrigin: [.5, .5] }, duration: 1.3, ease: 'power1.inOut' }, 4.4 + i * .14);
+      tl.to(p, { opacity: 0, duration: .15 }, 5.7 + i * .14);
+    });
+
+    // 6.4–8 s: chip powers on, output traces fire
+    tl.to('#chip', { opacity: 1, scale: 1.02, duration: .35, ease: 'power2.out' }, 6.4);
+    tl.to('#chip', { scale: 1, duration: .5, ease: 'power2.inOut' }, 6.75);
+    tl.to('#chip-body', { stroke: '#38E1FF', duration: .4 }, 6.4);
+    tl.to('.led', { opacity: 1, duration: .12, stagger: .12, ease: 'none' }, 6.6);
+    tl.to(traces.slice(5), { strokeDashoffset: 0, duration: 1.3, stagger: .15 }, 6.8);
+    ['#t6', '#t7'].forEach((t, i) => {
+      const p = `#p${i + 6}`;
+      tl.set(p, { opacity: 1 }, 7 + i * .2);
+      tl.to(p, { motionPath: { path: t, align: t, alignOrigin: [.5, .5] }, duration: 1.2, ease: 'power1.in' }, 7 + i * .2);
+      tl.to(p, { opacity: 0, duration: .1 }, 8.2 + i * .2);
+    });
+    tl.to('#status', { opacity: 1, duration: .4 }, 8);
+    tl.to('#led2', { opacity: .2, duration: .1, yoyo: true, repeat: 5, ease: 'none' }, 8.4);
+
+    // 10.4–12 s: dim back to the bare grid so the loop restarts cleanly
+    tl.to(['#lit', '#pads', '#status'], { opacity: 0, duration: 1.2, ease: 'power2.inOut' }, 10.4);
+    tl.to('#chip', { opacity: .35, duration: 1.2 }, 10.4);
+    tl.to('#chip-body', { stroke: '#2B434C', duration: 1.2 }, 10.4);
+    tl.to('.led', { opacity: .12, duration: 1 }, 10.6);
+    tl.set({}, {}, 12);
+
+    // HyperFrames contract: register the timeline under the composition id.
+    window.__timelines = window.__timelines || {};
+    window.__timelines['hero-reel'] = tl;
+
+    const params = new URLSearchParams(location.search);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!params.has('render')) {
+      if (reduce) { tl.progress(0.62).pause(); }        // static frame: chip on, traces lit
+      else {
+        tl.eventCallback('onComplete', () => {           // reset the drawn state and loop
+          gsap.set(['#lit', '#pads'], { opacity: 1 });
+          tl.restart();
+        });
+        tl.play();
+      }
+    }
+  </script>
+</body>
+
+</html>

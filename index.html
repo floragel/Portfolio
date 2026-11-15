@@ -4,1454 +4,1529 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nayl | Systems Developer & Builder</title>
+  <title>Nayl Lahlou | Software × Hardware</title>
+  <meta name="description" content="Nayl Lahlou, Montreal. Software, AI and hardware projects since 2020.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A1014'/%3E%3Cpath d='M6 6h20L6 26z' fill='%2338E1FF'/%3E%3Cpath d='M26 6v20H6z' fill='%23FFB341'/%3E%3Crect x='11' y='11' width='10' height='10' rx='2' fill='%230A1014'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#0A1014">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="js/translations.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap"
     rel="stylesheet">
 
   <style>
-    /* --- 1. SAWAD EXACT PALETTE --- */
+    /* ------------------------------------------------------------------
+       Tokens. Two domain colors carry meaning everywhere on the page:
+       cyan = software (code, apps, AI), amber = hardware (copper, robots).
+       ------------------------------------------------------------------ */
     :root {
-      --bg-dark: #151312;
-      --text-white: #ffffff;
-      --text-gray: #998f8f;
-      --border-light: rgba(182, 180, 189, 0.2);
-      --accent-orange: #f46c38;
-      --accent-lime: #c5ff41;
+      --bg: #0A1014;
+      --bg-2: #0F181D;
+      --bg-3: #142229;
+      --line: #1A2A31;
+      --line-2: #26404A;
+      --ink: #E6F1F2;
+      --ink-dim: #8FA6AD;
+      --sw: #38E1FF;
+      --hw: #FFB341;
+      --led: #5CFF9D;
 
-      --font-display: 'Poppins', sans-serif;
-      --font-body: 'Inter', sans-serif;
+      --font: 'Archivo', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
 
-      --radius: 16px;
+      --gutter: clamp(20px, 5vw, 72px);
+      --max: 1320px;
+
+      /* legacy names used by inline styles in the modals */
+      --bg-dark: var(--bg);
+      --text-white: var(--ink);
+      --text-gray: var(--ink-dim);
+      --accent-orange: var(--hw);
+      --accent-lime: var(--sw);
+      --font-display: var(--font);
+      --font-body: var(--font);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-padding-top: 80px; }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-white);
-      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      font-variation-settings: "wdth" 100;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      padding-bottom: 100px;
     }
 
-    /* --- MOBILE MENU TOGGLE --- */
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 24px;
-      left: 24px;
-      cursor: pointer;
-      z-index: 2005;
-      flex-direction: column;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: 0.3s;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 2px;
-      background: var(--text-white);
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* --- 2. FLOATING NAVBAR --- */
-    .navbar {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 6px 20px;
-      border-radius: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      z-index: 1000;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      max-width: 90vw;
-    }
-
-    .navbar span {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-family: var(--font-display);
-      cursor: pointer;
-      color: var(--text-gray);
-      transition: all 0.3s;
-    }
-
-    .navbar span:hover {
-      color: var(--text-white);
-    }
-
-    .navbar span.active {
-      color: var(--accent-orange);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    /* --- 3. LAYOUT BENTO GRID --- */
-    .bento-container {
-      max-width: 1100px;
-      margin: 120px auto 0;
-      padding: 0 30px;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 30px;
-    }
-
-    /* --- 4. PROFILE CARD (LEFT) --- */
-    .profile-card {
-      background-color: var(--text-white);
-      border-radius: var(--radius);
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      position: sticky;
-      top: 100px;
-      height: fit-content;
-      z-index: 10;
-      overflow: hidden;
-      /* For fluid bg */
-    }
-
-    #profile-fluid-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0.55;
-      pointer-events: auto;
-    }
-
-    #card-fluid-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0.7;
-      pointer-events: auto;
-      border-radius: inherit;
-    }
-
-    .profile-card>* {
-      position: relative;
-      z-index: 2;
-    }
-
-    .profile-img-placeholder {
-      width: 100%;
-      max-width: 260px;
-      aspect-ratio: 4/5;
-      background-color: var(--bg-dark);
-      background-image: url('assets/img/nayl.jpeg');
-      background-size: cover;
-      background-position: center 15%;
-      border-radius: var(--radius);
-      margin-bottom: 24px;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-name {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--bg-dark);
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .profile-bio {
-      font-size: 15px;
-      color: #6a6b6e;
-      line-height: 1.4;
-      max-width: 280px;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-
-    .location {
-      font-size: 13px;
-      color: var(--accent-orange);
-      font-weight: 600;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .social-icon {
-      width: 24px;
-      height: 24px;
-      background-color: var(--accent-orange);
-      cursor: pointer;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .social-icon:hover {
-      transform: scale(1.1);
-    }
-
-    .github-icon {
-      mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>') no-repeat center / contain;
-      -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>') no-repeat center / contain;
-    }
-
-    .linkedin-icon {
-      mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>') no-repeat center / contain;
-      -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>') no-repeat center / contain;
-    }
-
-    .insta-icon {
-      mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>') no-repeat center / contain;
-      -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>') no-repeat center / contain;
-    }
-
-    /* --- 5. RIGHT COLUMN (CONTENT) --- */
-    .content-col {
-      display: flex;
-      flex-direction: column;
-      gap: 110px;
-    }
-
-    .hero-title,
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 94px;
-      font-weight: 900;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .text-solid {
-      color: var(--text-white);
-    }
-
-    .text-outline {
-      color: transparent;
-      -webkit-text-stroke: 1.5px rgba(182, 180, 189, 0.2);
-    }
-
-    .hero-desc {
-      margin-top: 40px;
-      font-size: 16px;
-      max-width: 600px;
-      color: var(--text-gray);
-      line-height: 1.6;
-    }
-
-    /* --- 6. STATS & COLOR BLOCKS --- */
-    .stats-row {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-
-    .stat-item h3 {
-      font-family: var(--font-display);
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .stat-item p {
-      font-size: 12px;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-family: var(--font-display);
-    }
-
-    .color-blocks-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .color-block {
-      border-radius: var(--radius);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      min-height: 180px;
-      color: var(--bg-dark);
-      position: relative;
-      overflow: hidden;
-      font-family: var(--font-display);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .color-block:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .bg-orange {
-      background: linear-gradient(135deg, var(--accent-orange) 0%, #ff8c5a 100%);
-    }
-
-    .bg-lime {
-      background: linear-gradient(135deg, var(--accent-lime) 0%, #d4ff70 100%);
-    }
-
-    .color-block h3 {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 80%;
-      text-transform: uppercase;
-      transition: transform 0.3s ease;
-    }
-
-    .color-block:hover h3 {
-      transform: translateX(5px);
-    }
-
-    .icon-box {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      width: 42px;
-      height: 42px;
-      border: 1.5px solid rgba(0, 0, 0, 0.15);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .color-block:hover .icon-box {
-      transform: scale(1.1) rotate(5deg);
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .arrow-out {
-      position: absolute;
-      bottom: 30px;
-      right: 30px;
-      width: 40px;
-      height: 40px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .color-block:hover .arrow-out {
-      transform: translateX(5px) scale(1.1);
-      background: var(--bg-dark);
-      color: var(--text-white);
-      border-color: transparent;
-    }
-
-    /* --- 7. PROJECTS SECTION --- */
-    .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .proj-item {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      padding: 24px;
-      background-color: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      text-decoration: none;
-    }
-
-    .proj-item:hover {
-      background-color: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .proj-thumb {
-      width: 100px;
-      height: 100px;
-      border-radius: 12px;
-      background-color: rgba(255, 255, 255, 0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border-light);
-      font-family: var(--font-display);
-      flex-shrink: 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .proj-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .proj-year {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-top: 4px;
-      font-weight: 500;
-    }
-
-    .proj-type {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--text-white);
-    }
-
-    .thumb-orange {
-      background: linear-gradient(135deg, rgba(244, 108, 56, 0.2), transparent);
-    }
-
-    .thumb-lime {
-      background: linear-gradient(135deg, rgba(197, 255, 65, 0.2), transparent);
-    }
-
-    .thumb-gray {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-    }
-
-    .proj-details h4 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--text-white);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-tag {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 4px;
-      border: 1px solid var(--accent-lime);
-      color: var(--accent-lime);
-      font-family: var(--font-body);
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-
-    .proj-details p {
-      font-size: 14px;
-      color: var(--text-gray);
-      font-weight: 400;
-      line-height: 1.5;
-      max-width: 90%;
-    }
-
-    .proj-arrow {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-    }
-
-    /* --- 7.5 PROJECT TABS --- */
-    .project-tabs {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
-
-    .proj-tab {
-      padding: 10px 24px;
-      border-radius: 100px;
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 1px solid var(--border-light);
-      color: var(--text-gray);
-      background: transparent;
-    }
-
-    .proj-tab.active {
-      background: var(--accent-orange);
-      color: var(--text-white);
-      border-color: var(--accent-orange);
-      box-shadow: 0 8px 20px rgba(244, 108, 56, 0.2);
-    }
-
-    .proj-tab:hover:not(.active) {
-      border-color: rgba(255, 255, 255, 0.3);
-      color: var(--text-white);
-    }
-
-    .projects-container {
-      display: none;
-    }
-
-    .projects-container.active {
-      display: flex;
-    }
-
-    /* --- 8. EXPERIENCE TIMELINE --- */
-    .experience-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .year-label {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin: 40px 0 20px 0;
-      letter-spacing: -0.02em;
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .year-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    .timeline-year-group:first-child .year-label {
-      margin-top: 0;
-    }
-
-    .timeline-item {
-      display: flex;
-      gap: 30px;
-      position: relative;
-    }
-
-    .timeline-item.clickable {
-      cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s;
-      border-radius: 8px;
-      padding: 10px;
-      margin: -10px;
-    }
-
-    .timeline-item.clickable:hover {
-      background: rgba(255, 255, 255, 0.03);
-      transform: translateX(4px);
-    }
-
-    .timeline-left {
-      flex-shrink: 0;
-      position: relative;
-      padding-top: 4px;
-    }
-
-    .timeline-dot {
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--accent-orange);
-      border-radius: 50%;
-      background-color: var(--bg-dark);
-      position: relative;
-      z-index: 2;
-    }
-
-    .timeline-item:not(:last-child) .timeline-left::after {
-      content: '';
-      position: absolute;
-      top: 24px;
-      bottom: -40px;
-      left: 6px;
-      width: 2px;
-      background-color: var(--border-light);
-      z-index: 1;
-    }
-
-    .timeline-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .timeline-content h4 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-white);
-    }
-
-    .timeline-content .date {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--accent-orange);
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .timeline-content p {
-      font-size: 15px;
-      color: var(--text-gray);
-      line-height: 1.6;
-      max-width: 90%;
-    }
-
-    .timeline-gallery {
-      display: flex;
-      gap: 12px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .timeline-gallery img {
-      width: 120px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .timeline-gallery img:hover {
-      transform: scale(1.05);
-      border-color: var(--accent-orange);
-    }
-
-    /* --- 9. PROJECT MODAL SYSTEM --- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-content {
-      background-color: var(--bg-dark);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      width: 95%;
-      max-width: 650px;
-      padding: 0;
-      /* Changed to 0 to allow flush image banner */
-      position: relative;
-      transform: translateY(20px) scale(0.95);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-scroll-area {
-      overflow-y: auto;
-      flex: 1;
-      width: 100%;
-    }
-
-    .modal-image-banner {
-      width: 100%;
-      height: 250px;
-      background-color: #222;
-      background-size: cover;
-      background-position: center;
-      display: none;
-      /* Hidden by default */
-    }
-
-    .modal-inner-content {
-      padding: 40px;
-    }
-
-    .modal-overlay.active .modal-content {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: rgba(0, 0, 0, 0.4);
-      border: none;
-      color: var(--text-white);
-      font-size: 24px;
-      cursor: pointer;
-      transition: all 0.2s;
-      z-index: 2005;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .modal-close:hover {
-      background: var(--accent-orange);
-      transform: scale(1.1);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .modal-type {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--bg-dark);
-      background-color: var(--accent-orange);
-      padding: 4px 10px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    .modal-title {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text-white);
-      line-height: 1.1;
-    }
-
-    .modal-body p {
-      color: var(--text-gray);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .tech-tag {
-      border: 1px solid var(--border-light);
-      color: var(--text-white);
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 50px;
-      font-family: var(--font-body);
-    }
-
-    .modal-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background-color: var(--text-white);
-      color: var(--bg-dark);
-      font-family: var(--font-display);
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .modal-btn:hover {
-      background-color: var(--accent-orange);
-      color: var(--text-white);
-    }
-
-    /* --- 10. SCROLLYTELLING ANIMATIONS --- */
-    .scrolly {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .scrolly.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- 11. AI LAUNCH CARD (Minimalist) --- */
-    .ai-launch-card {
-      background-color: transparent;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 40px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      text-align: center;
-    }
-
-    .ai-launch-card:hover {
-      background-color: rgba(255, 255, 255, 0.02);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .ai-launch-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .ai-launch-card h3 {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--text-white);
-    }
-
-    .ai-launch-card p {
-      font-size: 15px;
-      color: var(--text-gray);
-      font-weight: 300;
-      max-width: 60%;
-      margin-bottom: 10px;
-    }
-
-    .ai-launch-btn {
-      position: relative;
-      color: var(--bg-dark);
-      background: var(--accent-orange);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 15px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(244, 108, 56, 0.3);
-      text-decoration: none;
-    }
-
-    .ai-launch-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 40px rgba(244, 108, 56, 0.5);
-      background: #ff8c5a;
-    }
-
-    .ai-launch-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 50px;
-      background: var(--accent-orange);
-      z-index: -1;
-      animation: pulse-ring 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-    }
-
-    @keyframes pulse-ring {
-      0% {
-        transform: scale(0.95);
-        opacity: 0.8;
-      }
-
-      50% {
-        transform: scale(1.15);
-        opacity: 0;
-      }
-
-      100% {
-        transform: scale(0.95);
-        opacity: 0;
-      }
-    }
-
-    /* --- SKILLS GRID --- */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 16px;
-    }
-
-    .skill-card {
-      background-color: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 24px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      cursor: crosshair;
-    }
-
-    .skill-card:hover {
-      background-color: rgba(255, 255, 255, 0.06);
-      border-color: var(--accent-orange);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .skill-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-gray);
-      text-align: center;
-      font-family: var(--font-display);
-      transition: color 0.3s;
-    }
-
-    .skill-brand {
-      font-size: 24px;
-      color: var(--text-white);
-      margin-bottom: 4px;
-    }
-
-    .skill-card:hover .skill-name {
-      color: var(--text-white);
-    }
-
-    /* --- 12. AI MODAL & FLUID BACKGROUND --- */
-    .ai-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    .ai-modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* The WebGL Canvas that will be generated by the script */
-    #fluid-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      opacity: 0;
-      /* Hidden by default */
-      transition: opacity 0.5s ease;
-    }
-
-    .ai-glass-content {
-      background-color: rgba(21, 19, 18, 0.6);
-      /* Transparent enough to see the fluid */
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      width: 95%;
-      max-width: 700px;
-      height: 80vh;
-      max-height: 700px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 10;
-      transform: translateY(30px) scale(0.95);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    }
-
-    .ai-modal-overlay.active .ai-glass-content {
-      transform: translateY(0) scale(1);
-    }
-
-    .ai-modal-header {
-      padding: 24px 32px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ai-modal-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--text-white);
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-badge {
-      font-size: 10px;
-      color: var(--bg-dark);
-      background-color: var(--accent-lime);
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 50px;
-      text-transform: uppercase;
-    }
-
-    .ai-close-btn {
-      background: none;
-      border: none;
-      color: var(--text-gray);
-      font-size: 24px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .ai-close-btn:hover {
-      color: var(--text-white);
-    }
-
-    .ai-chat-area {
-      flex: 1;
-      padding: 32px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .ai-chat-area::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .ai-chat-area::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-    }
-
-    .chat-bubble {
-      padding: 14px 18px;
-      border-radius: 16px;
-      font-size: 14px;
-      max-width: 80%;
-      line-height: 1.5;
-      font-family: var(--font-body);
-    }
-
-    .chat-bubble p {
-      margin: 0 0 8px 0;
-    }
-
-    .chat-bubble p:last-child {
-      margin-bottom: 0;
-    }
-
-    .chat-bubble ul,
-    .chat-bubble ol {
-      margin: 0 0 8px 0;
-      padding-left: 20px;
-    }
-
-    .chat-bubble li {
-      margin-bottom: 4px;
-    }
-
-    .bubble-ai {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      color: var(--text-white);
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-
-    .bubble-user {
-      background-color: var(--text-white);
-      color: var(--bg-dark);
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-      font-weight: 500;
-    }
-
-    .ai-input-area {
-      padding: 24px 32px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      gap: 12px;
-    }
-
-    .ai-input-area input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 16px 20px;
-      color: var(--text-white);
-      font-family: inherit;
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    .ai-input-area input:focus {
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .ai-input-area button {
-      background: var(--text-white);
-      color: var(--bg-dark);
-      border: none;
-      border-radius: 8px;
-      padding: 0 24px;
-      font-family: var(--font-body);
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .ai-input-area button:hover {
-      opacity: 0.8;
-    }
-
-    @media (max-width: 1080px) {
-      .bento-container {
-        grid-template-columns: 1fr;
-        margin-top: 80px;
-        padding: 0 20px;
-      }
-
-      .profile-card {
-        position: static;
-        margin-bottom: 40px;
-        width: 100%;
-        max-width: none;
-      }
-
-      .hero-title,
-      .section-title {
-        font-size: 52px;
-      }
-
-      .color-blocks-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-row {
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      .stat-item h3 {
-        font-size: 32px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .menu-toggle {
-        display: flex;
-      }
-
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: rgba(15, 14, 13, 0.98);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: none;
-        border-radius: 0;
-        transform: none;
-        gap: 40px;
-        padding: 0;
-      }
-
-      .navbar.active {
-        left: 0;
-      }
-
-      .navbar span {
-        font-size: 24px;
-        font-weight: 600;
-        letter-spacing: 2px;
-      }
-
-      .nav-lang-toggle {
-        padding: 8px 16px;
-        border-radius: 50px;
-        gap: 8px;
-      }
-
-      .lang-btn {
-        font-size: 16px;
-        padding: 4px 8px;
-      }
-
-      .hero-title,
-      .section-title {
-        font-size: 42px;
-      }
-
-      .proj-item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-      }
-
-      .proj-thumb {
-        width: 100%;
-        height: 120px;
-      }
-
-      .modal-inner-content {
-        padding: 24px;
-      }
-
-      .modal-title {
-        font-size: 22px;
-      }
-
-      .color-block {
-        min-height: 150px;
-      }
-    }
-
-    /* --- LANGUAGE SPLASH SCREEN --- */
-    #language-splash {
+    /* engineering grid, fixed behind everything */
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      background: #0a0a0a;
-      z-index: 9999;
+      z-index: -1;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 48px;
+      opacity: .45;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+      mask-image: radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    ::selection { background: var(--sw); color: var(--bg); }
+    :focus-visible { outline: 2px solid var(--sw); outline-offset: 3px; border-radius: 4px; }
+
+    .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+    .scrolly {}
+    .sw { color: var(--sw); }
+    .hw { color: var(--hw); }
+
+    .wide { font-variation-settings: "wdth" 125; }
+
+    /* ---------------- Nav ---------------- */
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      transition: background-color .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .topbar.scrolled {
+      background: rgba(10, 16, 20, .82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--line);
+    }
+
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
-    }
-
-    #language-splash.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .splash-content {
-      animation: fadeIn 1s ease-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-    }
-
-    .splash-welcome {
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      color: var(--accent-lime);
-      margin-bottom: 24px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .splash-logo {
-      font-family: var(--font-display);
-      font-size: clamp(48px, 10vw, 84px);
-      line-height: 1;
+      gap: 10px;
+      text-decoration: none;
       font-weight: 800;
-      color: white;
-      margin-bottom: 48px;
-      text-transform: uppercase;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      font-size: 1.125rem;
+      font-variation-settings: "wdth" 125;
+      letter-spacing: -.01em;
     }
 
-    .splash-logo span {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      color: rgba(255, 255, 255, 0.3);
-      font-weight: 400;
+    .brand i {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, var(--sw) 0 50%, var(--hw) 50% 100%);
+      position: relative;
     }
 
-    .splash-btns {
-      display: flex;
-      gap: 16px;
+    .brand i::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 2px;
+      background: var(--bg);
     }
 
-    .splash-btn {
-      padding: 12px 32px;
-      border-radius: 100px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(255, 255, 255, 0.03);
-      color: white;
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 600;
+    .navbar { display: flex; align-items: center; gap: 4px; }
+
+    .navbar>span {
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: var(--ink-dim);
+      font-size: .9375rem;
+      font-weight: 500;
+      transition: color .2s;
+      position: relative;
     }
 
-    .splash-btn:hover {
-      background: white;
-      color: #0a0a0a;
-      transform: translateY(-4px);
-      border-color: white;
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    .navbar>span:hover { color: var(--ink); }
+    .navbar>span.active { color: var(--ink); }
+
+    .navbar>span.active::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 2px;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--sw), var(--hw));
     }
 
-    .splash-btn.fr:hover {
-      border-color: var(--accent-lime);
-    }
-
-    /* New Language Toggle Styles */
     .nav-lang-toggle {
       display: flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 4px 8px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 2px;
+      margin-left: 10px;
+      padding: 3px;
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
     }
+
+    .nav-lang-toggle>span { display: none; }
 
     .lang-btn {
       background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.4);
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
+      border: 0;
+      color: var(--ink-dim);
+      font: 700 .8125rem var(--font);
+      padding: 5px 9px;
+      border-radius: 5px;
       cursor: pointer;
-      padding: 2px 4px;
-      transition: all 0.3s;
-      letter-spacing: 0.05em;
     }
 
-    .lang-btn.active {
-      color: var(--accent-orange);
+    .lang-btn.active { background: var(--ink); color: var(--bg); }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      background: rgba(10, 16, 20, .6);
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
     }
 
-    .lang-btn:hover {
-      color: #fff;
+    .menu-toggle span { width: 20px; height: 2px; background: var(--ink); transition: transform .25s, opacity .25s; }
+    .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ---------------- Hero ---------------- */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 0 72px;
+      overflow: hidden;
+      isolation: isolate;
     }
 
-    .lang-btn.active {
-      color: var(--accent-orange);
+    .hero-reel {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      opacity: .55;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(10, 16, 20, .96) 0%, rgba(10, 16, 20, .78) 38%, rgba(10, 16, 20, 0) 70%),
+        linear-gradient(0deg, var(--bg) 0%, rgba(10, 16, 20, 0) 30%);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: .875rem;
+      color: var(--ink-dim);
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--led);
+      box-shadow: 0 0 10px var(--led);
+      animation: blink 2.4s steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: .25; } }
+
+    .hero-name {
+      margin-top: 18px;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(3.4rem, 10.5vw, 10.5rem);
+      line-height: .84;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+    }
+
+    .hero-name span { display: block; overflow: hidden; }
+
+    .hero-name span b {
+      display: block;
+      font-weight: inherit;
+      transform: translateY(105%);
+      animation: rise 1s cubic-bezier(.2, .8, .2, 1) .3s forwards;
+    }
+
+    .hero-name span+span b { animation-delay: .42s; }
+
+    @keyframes rise { to { transform: none; } }
+
+    .hero-split {
+      margin-top: 22px;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .25em .4em;
+      font-weight: 700;
+      font-variation-settings: "wdth" 112;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      line-height: 1.1;
+      opacity: 0;
+      animation: fade .8s ease .9s forwards;
+    }
+
+    .hero-split .x { color: var(--ink-dim); font-weight: 400; }
+
+    @keyframes fade { to { opacity: 1; } }
+
+    .hero-desc {
+      margin-top: 14px;
+      max-width: 54ch;
+      color: var(--ink-dim);
+      font-size: 1.1875rem;
+      opacity: 0;
+      animation: fade .8s ease 1.05s forwards;
+    }
+
+    .ports {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: fade .8s ease 1.2s forwards;
+    }
+
+    .port {
+      --c: var(--sw);
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px 14px 14px;
+      border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+      background: color-mix(in srgb, var(--c) 8%, rgba(10, 16, 20, .7));
+      color: var(--ink);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: background-color .2s, border-color .2s, transform .2s;
+    }
+
+    .port.hwp { --c: var(--hw); }
+
+    .port:hover {
+      border-color: var(--c);
+      background: color-mix(in srgb, var(--c) 16%, rgba(10, 16, 20, .7));
+      transform: translateY(-2px);
+    }
+
+    .port-icon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--c);
+      color: var(--bg);
+      flex: none;
+    }
+
+    .port strong { display: block; font-size: 1.0625rem; font-weight: 700; line-height: 1.2; }
+    .port small { display: block; color: var(--ink-dim); font-size: .875rem; }
+
+    .socials { display: flex; gap: 18px; margin-top: 28px; opacity: 0; animation: fade .8s ease 1.35s forwards; }
+    .socials a { color: var(--ink-dim); text-decoration: none; font-size: .9375rem; font-weight: 500; }
+    .socials a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+    .scroll-cue {
+      position: absolute;
+      right: var(--gutter);
+      bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: .8125rem;
+      color: var(--ink-dim);
+    }
+
+    .scroll-cue i {
+      width: 2px;
+      height: 44px;
+      background: var(--line-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-cue i::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -40%;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(var(--sw), var(--hw));
+      animation: drip 1.8s cubic-bezier(.6, 0, .4, 1) infinite;
+    }
+
+    @keyframes drip { to { top: 100%; } }
+
+    /* ---------------- Section heads ---------------- */
+    .section { padding: clamp(80px, 11vw, 150px) 0; }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px 40px;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(2.5rem, 6.4vw, 5.5rem);
+      line-height: .9;
+      letter-spacing: -.03em;
+    }
+
+    .section-note { color: var(--ink-dim); max-width: 46ch; }
+
+    /* ---------------- Story (pinned) ---------------- */
+    .story { position: relative; height: 560vh; }
+
+    .story-sticky {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: clamp(24px, 4vw, 64px);
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px var(--gutter) 40px;
+    }
+
+    .story-title {
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      color: var(--ink-dim);
+      letter-spacing: -.01em;
+    }
+
+    .chapters { position: relative; min-height: 360px; margin-top: 18px; }
+
+    .chapter {
+      position: absolute;
+      inset: 0 0 auto 0;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .5s ease, transform .6s cubic-bezier(.2, .8, .2, 1);
+      pointer-events: none;
+    }
+
+    .chapter.on { opacity: 1; transform: none; pointer-events: auto; }
+    .chapter.past { transform: translateY(-24px); }
+
+    .chapter .yr {
+      display: block;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(4.5rem, 10vw, 9rem);
+      line-height: .85;
+      letter-spacing: -.04em;
+      background: linear-gradient(90deg, var(--c1, var(--sw)), var(--c2, var(--hw)));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .chapter h3 {
+      margin-top: 14px;
+      font-weight: 800;
+      font-variation-settings: "wdth" 112;
+      font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+      line-height: 1.1;
+    }
+
+    .chapter p { margin-top: 12px; color: var(--ink-dim); max-width: 46ch; font-size: 1.125rem; }
+
+    .tags { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px 5px 9px;
+      border-radius: 999px;
+      font-size: .8125rem;
+      font-weight: 700;
+      border: 1px solid currentColor;
+    }
+
+    .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .tag.sw { color: var(--sw); }
+    .tag.hw { color: var(--hw); }
+
+    .story-progress {
+      display: flex;
+      gap: 6px;
+      margin-top: 28px;
+    }
+
+    .story-progress span {
+      flex: 1;
+      max-width: 72px;
+      height: 3px;
+      border-radius: 3px;
+      background: var(--line-2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .story-progress span i {
+      position: absolute;
+      inset: 0;
+      transform-origin: left;
+      transform: scaleX(var(--f, 0));
+      background: linear-gradient(90deg, var(--sw), var(--hw));
+    }
+
+    .board { width: 100%; height: auto; max-height: 78svh; overflow: visible; }
+    .board .bt { fill: none; stroke: var(--line-2); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .board .bt-lit { fill: none; stroke: url(#swhw); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(56, 225, 255, .35)); }
+    .board .node rect.body { fill: var(--bg-2); stroke: var(--line-2); stroke-width: 2; transition: stroke .4s, fill .4s; }
+    .board .node text { font-family: var(--mono); fill: var(--ink-dim); transition: fill .4s; }
+    .board .node .pinrow rect { fill: var(--line-2); transition: fill .4s; }
+    .board .node.on rect.body { stroke: var(--nc); fill: color-mix(in srgb, var(--nc) 10%, var(--bg-2)); }
+    .board .node.on text { fill: var(--ink); }
+    .board .node.on .pinrow rect { fill: var(--nc); }
+    .board .node.on .ledd { fill: var(--led); filter: drop-shadow(0 0 5px var(--led)); }
+    .board .ledd { fill: var(--line-2); transition: fill .3s; }
+    .board .head { fill: #fff; filter: drop-shadow(0 0 8px var(--sw)); }
+    .board .ghost-code { font-family: var(--mono); font-size: 13px; fill: var(--line-2); }
+
+    /* ---------------- Projects (horizontal pin) ---------------- */
+    .projects-intro { padding-bottom: 0; }
+
+    .filters {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+    }
+
+    .filters button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 0;
+      color: var(--ink-dim);
+      font: 700 .9375rem var(--font);
+      padding: 9px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .filters button[data-f="sw"]::before,
+    .filters button[data-f="hw"]::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sw); }
+    .filters button[data-f="hw"]::before { background: var(--hw); }
+    .filters button.active { background: var(--ink); color: var(--bg); }
+
+    .hscroll { position: relative; }
+    .hscroll-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+
+    .track {
+      display: flex;
+      gap: 20px;
+      padding: 0 var(--gutter);
+      will-change: transform;
+    }
+
+    .proj-item {
+      --c: var(--sw);
+      position: relative;
+      flex: none;
+      width: clamp(300px, 30vw, 420px);
+      border-radius: 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .proj-item[data-domain="hw"] { --c: var(--hw); }
+
+    .proj-item::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: var(--c);
+      z-index: 2;
+    }
+
+    .proj-item:hover, .proj-item:focus-visible { border-color: var(--c); transform: translateY(-4px); }
+    .proj-item.hidden { display: none; }
+
+    .proj-thumb {
+      aspect-ratio: 16 / 10;
+      background: var(--bg-3);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .proj-item:hover .proj-thumb img { transform: scale(1.05); }
+
+    .thumb-fallback { font-family: var(--mono); font-size: 1.5rem; color: var(--c); }
+
+    .proj-body { padding: 20px 22px 24px; }
+
+    .proj-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: .875rem;
+      color: var(--ink-dim);
+    }
+
+    .proj-meta .dom { color: var(--c); font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
+    .proj-meta .dom::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+
+    .proj-body h4 {
+      margin-top: 10px;
+      font-weight: 800;
+      font-variation-settings: "wdth" 112;
+      font-size: 1.75rem;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+    }
+
+    .proj-body p { margin-top: 10px; color: var(--ink-dim); font-size: 1rem; }
+
+    .status-tag {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: .8125rem;
+      font-weight: 700;
+      background: color-mix(in srgb, var(--c) 14%, transparent);
+      color: var(--c);
+    }
+
+    .status-tag.muted { background: rgba(143, 166, 173, .12); color: var(--ink-dim); }
+
+    .hbar {
+      position: absolute;
+      left: var(--gutter);
+      right: var(--gutter);
+      bottom: 6vh;
+      height: 2px;
+      background: var(--line);
+    }
+
+    .hbar i {
+      position: absolute;
+      inset: 0;
+      transform-origin: left;
+      transform: scaleX(var(--p, 0));
+      background: linear-gradient(90deg, var(--sw), var(--hw));
+    }
+
+    /* ---------------- Experience ---------------- */
+    .exp-wrap { position: relative; }
+
+    .exp-group {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      padding: 36px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .exp-year { position: sticky; top: 96px; align-self: start; }
+
+    .exp-year b {
+      display: block;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: .9;
+      letter-spacing: -.03em;
+    }
+
+    .exp-year .year-label { display: block; margin-top: 8px; color: var(--ink-dim); font-size: .9375rem; }
+
+    .timeline-item { position: relative; padding: 0 0 26px 32px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 20px;
+      bottom: -4px;
+      width: 2px;
+      background: var(--line-2);
+    }
+
+    .timeline-item:last-child::before { display: none; }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--ink-dim);
+      background: var(--bg);
+    }
+
+    .timeline-item.clickable .timeline-dot { border-color: var(--ink); background: var(--ink); box-shadow: 0 0 0 4px rgba(230, 241, 242, .1); }
+
+    .timeline-content h3, .timeline-content h4 { font-weight: 700; font-size: 1.1875rem; line-height: 1.3; }
+    .timeline-content p { margin-top: 4px; color: var(--ink-dim); max-width: 64ch; }
+    .timeline-content .date { margin-top: 2px; color: var(--ink-dim); font-size: .9375rem; }
+
+    .timeline-item.clickable { cursor: pointer; }
+
+    .timeline-item.clickable h4 {
+      text-decoration: underline;
+      text-decoration-color: var(--line-2);
+      text-underline-offset: 5px;
+      text-decoration-thickness: 2px;
+      transition: text-decoration-color .2s;
+    }
+
+    .timeline-item.clickable:hover h4, .timeline-item.clickable:focus-visible h4 { text-decoration-color: var(--sw); }
+
+    .legend { display: inline-flex; align-items: center; gap: 8px; }
+    .legend i { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); flex: none; }
+
+    .edu-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
+    .edu-list .timeline-item { padding: 22px 0 0; border-top: 2px solid var(--ink); }
+    .edu-list .timeline-item::before, .edu-list .timeline-dot { display: none; }
+    .edu-list h3 { font-weight: 800; font-variation-settings: "wdth" 110; font-size: 1.375rem; }
+
+    /* ---------------- Skills: chip pinout ---------------- */
+    .pinout {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 300px) 1fr;
+      grid-template-areas:
+        ". top ."
+        "left chip right"
+        ". bottom .";
+      gap: 28px 0;
+      align-items: center;
+    }
+
+    .pins, .pins ul { list-style: none; }
+    .pins.left { grid-area: left; }
+    .pins.right { grid-area: right; }
+    .pins.top { grid-area: top; }
+    .pins.bottom { grid-area: bottom; }
+
+    .pins h3 {
+      font-size: .875rem;
+      font-weight: 700;
+      color: var(--c);
+      margin-bottom: 10px;
+    }
+
+    .pins.left { --c: var(--sw); text-align: right; }
+    .pins.top { --c: var(--sw); }
+    .pins.right { --c: var(--hw); }
+    .pins.bottom { --c: var(--led); }
+
+    .pins li {
+      position: relative;
+      padding: 7px 0;
+      color: var(--ink-dim);
+      transition: color .4s ease calc(var(--i) * 60ms);
+    }
+
+    .pins.left li { padding-right: 64px; }
+    .pins.right li { padding-left: 64px; }
+
+    .pins.left li::after, .pins.right li::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 52px;
+      height: 2px;
+      background: var(--line-2);
+      transition: background-color .4s ease calc(var(--i) * 60ms), box-shadow .4s ease calc(var(--i) * 60ms);
+    }
+
+    .pins.left li::after { right: 0; }
+    .pins.right li::after { left: 0; }
+
+    .pins.top ul, .pins.bottom ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; list-style: none; }
+    .pins.top h3, .pins.bottom h3 { text-align: center; }
+    .pins.top li, .pins.bottom li {
+      padding: 6px 12px;
+      border: 1px solid var(--line-2);
+      border-radius: 6px;
+      transition: color .4s ease calc(var(--i) * 60ms), border-color .4s ease calc(var(--i) * 60ms);
+    }
+
+    .pinout.on .pins li { color: var(--ink); }
+    .pinout.on .pins li::after { background: var(--c); box-shadow: 0 0 8px color-mix(in srgb, var(--c) 60%, transparent); }
+    .pinout.on .pins.top li, .pinout.on .pins.bottom li { border-color: color-mix(in srgb, var(--c) 55%, transparent); }
+
+    .chip {
+      grid-area: chip;
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 18px;
+      background: var(--bg-2);
+      border: 2px solid var(--line-2);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      transition: border-color .6s, box-shadow .6s;
+    }
+
+    .pinout.on .chip {
+      border-color: transparent;
+      background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, linear-gradient(135deg, var(--sw), var(--hw)) border-box;
+      box-shadow: 0 0 60px rgba(56, 225, 255, .12), 0 0 60px rgba(255, 179, 65, .1);
+    }
+
+    .chip b {
+      display: block;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(2.6rem, 4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .chip small { display: block; margin-top: 8px; font-family: var(--mono); font-size: .8125rem; color: var(--ink-dim); }
+
+    .chip::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line-2);
+      transition: background-color .4s .6s, box-shadow .4s .6s;
+    }
+
+    .pinout.on .chip::before { background: var(--led); box-shadow: 0 0 10px var(--led); }
+
+    /* ---------------- AI terminal ---------------- */
+    .ai-panel { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+    .ai-intro p { margin-top: 16px; color: var(--ink-dim); max-width: 42ch; font-size: 1.1875rem; }
+
+    .term {
+      border-radius: 14px;
+      border: 1px solid var(--line-2);
+      background: #070C0F;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .4);
+    }
+
+    .term-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: .8125rem;
+      color: var(--ink-dim);
+    }
+
+    .term-bar img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; object-position: center 15%; }
+    .term-bar .on { margin-left: auto; color: var(--led); display: inline-flex; align-items: center; gap: 6px; }
+    .term-bar .on::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--led); box-shadow: 0 0 8px var(--led); }
+
+    .term-body { padding: 22px 20px 24px; font-family: var(--mono); font-size: .9375rem; line-height: 1.7; min-height: 150px; }
+    .term-body .prompt { color: var(--sw); }
+    .term-body .out { color: var(--ink); }
+    .term-body .dim { color: var(--ink-dim); }
+    .caret { display: inline-block; width: .6em; height: 1.1em; vertical-align: -2px; background: var(--hw); animation: blink 1s steps(1) infinite; }
+
+    .term-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 22px; }
+
+    .ai-launch-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 0;
+      background: var(--sw);
+      color: var(--bg);
+      font: 700 1rem var(--font);
+      cursor: pointer;
+      transition: filter .2s;
+    }
+
+    .ai-launch-card:hover { filter: brightness(1.1); }
+
+    .chip-q {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line-2);
+      background: none;
+      color: var(--ink-dim);
+      font: 500 .9375rem var(--font);
+      cursor: pointer;
+    }
+
+    .chip-q:hover { color: var(--ink); border-color: var(--ink-dim); }
+
+    /* ---------------- Footer ---------------- */
+    .site-footer { padding: 40px 0 56px; border-top: 1px solid var(--line); }
+    .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; color: var(--ink-dim); font-size: .9375rem; }
+    .site-footer nav { display: flex; gap: 20px; }
+    .site-footer a { text-decoration: none; }
+    .site-footer a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ---------------- Project modal ---------------- */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(4, 8, 10, .8);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity .25s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      position: relative; width: 100%; max-width: 860px; max-height: 90vh;
+      background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden;
+      transform: translateY(16px) scale(.98); transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+    }
+    .modal-overlay.active .modal-content { transform: none; }
+    .modal-scroll-area { max-height: 90vh; overflow-y: auto; }
+    .modal-image-banner { width: 100%; height: 340px; border-bottom: 1px solid var(--line); }
+    .modal-inner-content { padding: 32px 36px 36px; }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px; z-index: 1001; width: 40px; height: 40px;
+      border-radius: 8px; border: 1px solid var(--line-2); background: rgba(10, 16, 20, .85);
+      color: var(--ink); font-size: 24px; line-height: 1; cursor: pointer;
+    }
+    .modal-close:hover { border-color: var(--sw); }
+    .modal-type { color: var(--sw); font-weight: 700; font-size: .9375rem; }
+    .modal-title { font-weight: 900; font-variation-settings: "wdth" 125; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: .95; letter-spacing: -.03em; margin-top: 4px; }
+    .modal-header { padding-right: 44px; }
+    .modal-body { margin-top: 18px; }
+    .modal-body p { color: var(--ink-dim); font-size: 1.125rem; line-height: 1.6; white-space: pre-line; max-width: 66ch; }
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .tech-tag { padding: 6px 12px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line-2); font-family: var(--mono); font-size: .8125rem; color: var(--ink); }
+    .modal-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 8px;
+      background: var(--sw); color: var(--bg); font-weight: 700; text-decoration: none; transition: filter .2s;
+    }
+    .modal-btn:hover { filter: brightness(1.1); }
+    .timeline-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }
+    .timeline-gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; }
+
+    /* ---------------- AI modal ---------------- */
+    .ai-modal-overlay {
+      position: fixed; inset: 0; z-index: 2000; background: rgba(4, 8, 10, .82);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      opacity: 0; pointer-events: none; transition: opacity .25s ease;
+    }
+    .ai-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    #fluid-bg { display: none; }
+    .ai-glass-content {
+      width: 100%; max-width: 720px; height: min(80vh, 720px); display: flex; flex-direction: column;
+      background: #070C0F; border: 1px solid var(--line-2); border-radius: 16px;
+      transform: translateY(16px); transition: transform .3s cubic-bezier(.2, .8, .2, 1);
+    }
+    .ai-modal-overlay.active .ai-glass-content { transform: none; }
+    .ai-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+    .ai-modal-title { font-weight: 800; font-variation-settings: "wdth" 112; font-size: 1.375rem; display: flex; align-items: center; gap: 12px; }
+    .status-badge { font: 700 .8125rem var(--font); color: var(--led); display: inline-flex; align-items: center; gap: 6px; }
+    .status-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--led); box-shadow: 0 0 8px var(--led); }
+    .ai-close-btn { width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--line-2); background: none; color: var(--ink); font-size: 22px; cursor: pointer; }
+    .ai-close-btn:hover { border-color: var(--sw); }
+    .ai-chat-area { flex: 1; overflow-y: auto; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+    .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 12px; line-height: 1.55; font-size: 1rem; }
+    .chat-bubble p { margin-bottom: .6em; }
+    .chat-bubble p:last-child { margin-bottom: 0; }
+    .chat-bubble ul, .chat-bubble ol { padding-left: 1.2em; margin: .4em 0; }
+    .chat-bubble li { margin-bottom: .25em; }
+    .chat-bubble a { color: var(--sw); }
+    .bubble-ai { align-self: flex-start; background: var(--bg-2); border: 1px solid var(--line-2); border-bottom-left-radius: 4px; }
+    .bubble-user { align-self: flex-end; background: var(--sw); color: var(--bg); border-bottom-right-radius: 4px; }
+    .ai-input-area { display: flex; gap: 8px; padding: 16px; border-top: 1px solid var(--line); }
+    .ai-input-area input { flex: 1; min-width: 0; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--bg); color: var(--ink); font: inherit; }
+    .ai-input-area input:focus { outline: none; border-color: var(--sw); }
+    .ai-input-area button { padding: 0 18px; border: 0; border-radius: 8px; background: var(--sw); color: var(--bg); font: 700 1rem var(--font); cursor: pointer; }
+
+    /* ---------------- Splash ---------------- */
+    #language-splash {
+      position: fixed; inset: 0; z-index: 3000; background: var(--bg);
+      display: grid; place-items: center; padding: 24px;
+      transition: opacity .5s ease, visibility .5s;
+    }
+    #language-splash.hidden { opacity: 0; visibility: hidden; }
+    .splash-content { text-align: center; }
+    .splash-welcome { font-family: var(--mono); color: var(--ink-dim); font-size: .9375rem; }
+    .splash-logo {
+      font-weight: 900; font-variation-settings: "wdth" 125; font-size: clamp(4.5rem, 18vw, 11rem);
+      line-height: .85; letter-spacing: -.04em; margin: 14px 0 26px;
+      background: linear-gradient(90deg, var(--sw), var(--hw)); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .splash-choose { color: var(--ink-dim); font-size: .9375rem; }
+    .splash-btns { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+    .splash-btn {
+      min-width: 150px; padding: 14px 22px; border-radius: 10px; border: 1px solid var(--line-2);
+      background: var(--bg-2); color: var(--ink); font: 700 1rem var(--font); cursor: pointer;
+      transition: border-color .2s, background-color .2s, color .2s;
+    }
+    .splash-btn.fr:hover { background: var(--sw); border-color: var(--sw); color: var(--bg); }
+    .splash-btn.en:hover { background: var(--hw); border-color: var(--hw); color: var(--bg); }
+
+
+    /* ================= v3 overrides: smaller name, photos, featured projects ================= */
+    .hero-name { font-size: clamp(2.6rem, 6.2vw, 5.8rem); letter-spacing: -.03em; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+      gap: clamp(28px, 5vw, 80px);
+      align-items: end;
+    }
+
+    .portrait {
+      position: relative;
+      justify-self: end;
+      width: min(100%, 360px);
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(140deg, var(--sw), transparent 40%, transparent 60%, var(--hw));
+      opacity: 0;
+      animation: fade 1s ease .6s forwards;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 48% 35%;
+      border-radius: 16px;
+      background: var(--bg-2);
+    }
+
+    .portrait figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: rgba(10, 16, 20, .78);
+      backdrop-filter: blur(6px);
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--ink-dim);
+    }
+
+    .portrait figcaption::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--led); box-shadow: 0 0 8px var(--led); }
+
+    /* corner pins on the portrait frame */
+    .portrait::before, .portrait::after {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 6px;
+      border-radius: 2px;
+      background: repeating-linear-gradient(90deg, var(--c) 0 6px, transparent 6px 11px);
+    }
+    .portrait::before { --c: var(--sw); top: -10px; left: 24px; }
+    .portrait::after { --c: var(--hw); bottom: -10px; right: 24px; }
+
+    /* story: text | photo | board */
+    .story-sticky { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .72fr); gap: clamp(20px, 3vw, 48px); }
+    .chapter .yr { font-size: clamp(3.6rem, 7vw, 6.5rem); }
+    .chapters { min-height: 330px; }
+
+    .story-photo {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      max-height: 72svh;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--line-2);
+    }
+
+    .story-photo figure {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity .6s ease, transform 1.2s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .story-photo figure.on { opacity: 1; transform: none; }
+    .story-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .story-photo figure.contain img { object-fit: contain; background: #05080A; }
+
+    .story-photo figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 40px 16px 14px;
+      background: linear-gradient(transparent, rgba(5, 8, 10, .9));
+      font-size: .875rem;
+      color: var(--ink);
+    }
+
+    .story-photo .frame-c {
+      position: absolute;
+      inset: 10px;
+      border-radius: 10px;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        linear-gradient(var(--sw), var(--sw)) left top / 18px 2px no-repeat,
+        linear-gradient(var(--sw), var(--sw)) left top / 2px 18px no-repeat,
+        linear-gradient(var(--hw), var(--hw)) right bottom / 18px 2px no-repeat,
+        linear-gradient(var(--hw), var(--hw)) right bottom / 2px 18px no-repeat;
+    }
+
+    /* featured projects: big horizontal cards */
+    .feat {
+      --c: var(--sw);
+      position: relative;
+      flex: none;
+      width: min(78vw, 1040px);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: border-color .25s;
+    }
+
+    .feat[data-domain="hw"] { --c: var(--hw); }
+    .feat:hover, .feat:focus-visible { border-color: var(--c); }
+
+    .feat-media { position: relative; min-height: 440px; background: var(--bg-3); overflow: hidden; }
+    .feat-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .feat:hover .feat-media img { transform: scale(1.04); }
+    .feat-media.contain img { object-fit: contain; padding: 24px; background: #05080A; }
+
+    .feat-body { padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; }
+    .feat-num { font-family: var(--mono); font-size: .8125rem; color: var(--ink-dim); }
+
+    .feat-body h3 {
+      margin-top: 14px;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(2rem, 3.4vw, 3.2rem);
+      line-height: .95;
+      letter-spacing: -.03em;
+    }
+
+    .feat-award {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--c) 14%, transparent);
+      color: var(--c);
+      font-weight: 700;
+      font-size: .9375rem;
+    }
+
+    .feat-award svg { flex: none; }
+    .feat-body p { margin-top: 16px; color: var(--ink-dim); font-size: 1.0625rem; }
+    .feat-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+    .feat-stack span { font-family: var(--mono); font-size: .75rem; padding: 4px 9px; border-radius: 5px; border: 1px solid var(--line-2); color: var(--ink); }
+
+    .feat-cta {
+      margin-top: auto;
+      padding-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--c);
+      font-weight: 700;
+    }
+
+    .feat-cta svg { transition: transform .2s; }
+    .feat:hover .feat-cta svg { transform: translateX(4px); }
+
+    /* other projects: two lanes */
+    .others { padding-top: clamp(64px, 8vw, 110px); }
+
+    .others-title {
+      font-weight: 800;
+      font-variation-settings: "wdth" 115;
+      font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+      letter-spacing: -.02em;
+      margin-bottom: 28px;
+    }
+
+    .lanes { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
+
+    .lane h4 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--c);
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--c);
+    }
+
+    .lane h4::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
+    .lane.sw { --c: var(--sw); }
+    .lane.hw { --c: var(--hw); }
+
+    .row {
+      display: grid;
+      grid-template-columns: 76px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 10px;
+      margin: 0 -10px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color .2s;
+    }
+
+    .row:hover, .row:focus-visible { background: var(--bg-2); }
+    .row .th { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; background: var(--bg-3); display: grid; place-items: center; }
+    .row .th img { width: 100%; height: 100%; object-fit: cover; }
+    .row .th span { font-family: var(--mono); font-size: .75rem; color: var(--c); }
+    .row b { display: block; font-weight: 700; font-size: 1.0625rem; line-height: 1.25; }
+    .row p { color: var(--ink-dim); font-size: .9375rem; line-height: 1.4; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .row .yr { font-size: .875rem; color: var(--ink-dim); white-space: nowrap; }
+
+    @media (max-width: 1100px) {
+      .story-sticky { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); }
+      .story-board { position: absolute; width: 1px; height: 1px; overflow: hidden; visibility: hidden; }
+    }
+
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .portrait { justify-self: start; width: 150px; order: -1; }
+      .portrait figcaption { display: none; }
+      .story-sticky { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; gap: 16px; padding-top: 76px; }
+      .story-photo { aspect-ratio: 16 / 10; max-height: 32svh; order: -1; }
+      .chapters { min-height: 290px; }
+      .chapter .yr { font-size: clamp(3rem, 13vw, 4.5rem); }
+      .feat { width: 100%; grid-template-columns: 1fr; }
+      .feat-media { min-height: 220px; aspect-ratio: 16 / 10; }
+      .lanes { grid-template-columns: 1fr; }
+    }
+
+
+    /* ================= v4: Clofit spotlight + software / hardware blocks ================= */
+    .spot {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: clamp(32px, 5vw, 80px);
+      align-items: center;
+      padding-bottom: clamp(80px, 10vw, 140px);
+    }
+
+    .spot-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: .9375rem;
+      color: var(--sw);
+    }
+
+    .spot-label::before { content: ""; width: 26px; height: 2px; background: linear-gradient(90deg, var(--sw), var(--hw)); }
+
+    .spot-title {
+      margin-top: 14px;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(3.4rem, 8vw, 7rem);
+      line-height: .85;
+      letter-spacing: -.045em;
+    }
+
+    .spot-tagline { margin-top: 16px; font-weight: 700; font-variation-settings: "wdth" 110; font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.2; }
+    .spot-desc { margin-top: 14px; color: var(--ink-dim); font-size: 1.125rem; max-width: 50ch; }
+
+    .spot-points { list-style: none; margin-top: 20px; display: grid; gap: 10px; }
+    .spot-points li { position: relative; padding-left: 26px; color: var(--ink); }
+    .spot-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .55em;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      border: 2px solid var(--sw);
+    }
+
+    .spot .feat-stack { margin-top: 22px; }
+    .spot-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+    .spot-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 9px;
+      border: 1px solid var(--sw);
+      background: var(--sw);
+      color: var(--bg);
+      font: 700 1rem var(--font);
+      text-decoration: none;
+      cursor: pointer;
+      transition: filter .2s, background-color .2s, color .2s;
+    }
+
+    .spot-btn:hover { filter: brightness(1.1); }
+    .spot-btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-2); }
+    .spot-btn.ghost:hover { border-color: var(--sw); filter: none; }
+
+    .spot-media { position: relative; aspect-ratio: 16 / 12; }
+
+    .shot {
+      position: absolute;
+      border-radius: 14px;
+      object-fit: cover;
+      background: #fff;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .08);
+      will-change: transform;
+    }
+
+    .shot-main { left: 0; top: 0; width: 86%; aspect-ratio: 16 / 10; z-index: 1; }
+    .shot-a { right: 0; bottom: 4%; width: 46%; aspect-ratio: 16 / 10; z-index: 2; }
+    .shot-b { left: 10%; bottom: 0; width: 40%; aspect-ratio: 16 / 10; z-index: 3; }
+
+    .spot-media::before {
+      content: "";
+      position: absolute;
+      inset: 10% 5% 0 15%;
+      background: radial-gradient(closest-side, rgba(56, 225, 255, .22), transparent);
+      filter: blur(30px);
+    }
+
+    /* domain blocks */
+    .domain {
+      --c: var(--sw);
+      position: relative;
+      padding: clamp(64px, 8vw, 110px) 0;
+      border-top: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--c) 6%, transparent), transparent 420px);
+    }
+
+    .domain.hw { --c: var(--hw); }
+    .domain.sw, .domain.hw { color: var(--ink); }
+    
+    .domain-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      margin-bottom: 36px;
+    }
+
+    .domain-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 900;
+      font-variation-settings: "wdth" 125;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: .95;
+      letter-spacing: -.035em;
+      color: var(--c);
+    }
+
+    .domain-title i {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background: var(--c);
+      box-shadow: 0 0 18px var(--c);
+      flex: none;
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+    .card {
+      --c: var(--sw);
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .card[data-domain="hw"] { --c: var(--hw); }
+    .card:hover, .card:focus-visible { border-color: var(--c); transform: translateY(-4px); }
+
+    .card-media { aspect-ratio: 4 / 3; background: var(--bg-3); overflow: hidden; display: grid; place-items: center; }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .card:hover .card-media img { transform: scale(1.05); }
+    .card-media.contain img { object-fit: contain; background: #05080A; }
+
+    .card-media.logo { background: radial-gradient(circle at 50% 45%, var(--bg-3), #070C0F 75%); }
+    .card-media.logo img { width: auto; height: 58%; aspect-ratio: 1; object-fit: contain; border-radius: 22%; box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08); }
+    .card:hover .card-media.logo img { transform: scale(1.06); }
+    .card-media.trakant-logo img { image-rendering: pixelated; }
+    .card-ph { display: grid; justify-items: center; gap: 10px; color: var(--c); }
+    .card-ph small { color: var(--ink-dim); font-size: .875rem; }
+
+    .card-body { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+
+    .card-body h4 {
+      margin-top: 8px;
+      font-weight: 800;
+      font-variation-settings: "wdth" 115;
+      font-size: 1.75rem;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    .card-body .feat-award { margin-top: 12px; font-size: .875rem; }
+    .card-body p { margin-top: 12px; color: var(--ink-dim); font-size: 1rem; }
+    .card-body .feat-stack { margin-top: auto; padding-top: 16px; }
+
+    .rows {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 40px;
+    }
+
+    .domain .row b { color: var(--ink); }
+    .domain .row .th span { color: var(--c); }
+
+    @media (max-width: 1000px) {
+      .spot { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+      .rows { grid-template-columns: 1fr; }
+      .spot-media { aspect-ratio: 16 / 13; }
+    }
+
+    /* ---------------- Responsive ---------------- */
+    @media (max-width: 1000px) {
+      .ai-panel { grid-template-columns: 1fr; }
+      .exp-group { grid-template-columns: 170px 1fr; gap: 28px; }
+    }
+
+    @media (max-width: 820px) {
+      .menu-toggle { display: flex; }
+      .navbar {
+        position: fixed; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px;
+        padding: 12px var(--gutter) 20px; background: var(--bg); border-bottom: 1px solid var(--line);
+        transform: translateY(-8px); opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s;
+      }
+      .topbar.menu-open { background: var(--bg); }
+      .navbar.active { opacity: 1; transform: none; visibility: visible; }
+      .navbar>span { font-size: 1.25rem; padding: 12px; }
+      .navbar>span.active::after { display: none; }
+      .nav-lang-toggle { margin: 10px 0 0; align-self: flex-start; }
+
+      .hero::before { background: linear-gradient(0deg, var(--bg) 8%, rgba(10, 16, 20, .7) 55%, rgba(10, 16, 20, .35) 100%); }
+      .scroll-cue { display: none; }
+
+      /* projects: no horizontal pin on small screens */
+      .hscroll { height: auto !important; }
+      .hscroll-sticky { position: static; height: auto; display: block; }
+      .track { flex-direction: column; transform: none !important; }
+      .proj-item { width: 100%; }
+      .hbar { display: none; }
+
+      .edu-list { grid-template-columns: 1fr; gap: 28px; }
+
+      .pinout { grid-template-columns: 1fr; grid-template-areas: "chip" "left" "right" "top" "bottom"; gap: 28px; }
+      .chip { width: 200px; justify-self: center; }
+      .pins.left, .pins.right { text-align: left; }
+      .pins.left li, .pins.right li { padding: 6px 0 6px 40px; }
+      .pins.left li::after, .pins.right li::after { left: 0; right: auto; width: 28px; }
+      .pins.top ul, .pins.bottom ul { justify-content: flex-start; }
+      .pins.top h3, .pins.bottom h3 { text-align: left; }
+    }
+
+    @media (max-width: 640px) {
+      .exp-group { grid-template-columns: 1fr; gap: 18px; }
+      .exp-year { position: static; }
+      .modal-inner-content { padding: 24px 20px 28px; }
+      .modal-image-banner { height: 220px; }
+      .port { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
     }
   </style>
 </head>
 
+<body>
+
 <div id="language-splash">
   <div class="splash-content">
-    <div class="splash-welcome" data-t="splash-welcome">WELCOME / BIENVENUE,</div>
-    <div class="splash-logo">
-      <span style="color: var(--accent-orange); font-size: 0.45em; display: block; letter-spacing: 0.1em;" data-t="splash-name">MY NAME IS / MON NOM
-        EST</span>
-      NAYL
-    </div>
-    <p style="color: rgba(255,255,255,0.5); margin-bottom: 30px; font-size: 14px; letter-spacing: 0.05em;"
-      data-t="splash-choose">Select your preferred language / Choisissez votre langue préférée</p>
+    <div class="splash-welcome">$ hello --world</div>
+    <div class="splash-logo">NAYL</div>
+    <p class="splash-choose">Choisissez votre langue / Choose your language</p>
     <div class="splash-btns">
       <button class="splash-btn fr" onclick="setLanguage('fr')" data-t="splash-fr">Français</button>
       <button class="splash-btn en" onclick="setLanguage('en')" data-t="splash-en">English</button>
@@ -1459,769 +1534,565 @@
   </div>
 </div>
 
-<div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu()">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-<nav class="navbar" id="main-navbar">
-  <span onclick="scrollToSection('home')" class="active" data-t="nav-home">Home</span>
-  <span onclick="scrollToSection('projects')" data-t="nav-projects">Projects</span>
-  <span onclick="scrollToSection('experience')" data-t="nav-experience">Experience</span>
-  <span onclick="scrollToSection('skills')" data-t="nav-skills">Skills</span>
-  <span onclick="scrollToSection('about')" data-t="nav-ai">Ask AI</span>
-  <div class="nav-lang-toggle">
-    <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
-    <span style="opacity: 0.3;">/</span>
-    <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="#home" onclick="event.preventDefault(); scrollToSection('home')"><i aria-hidden="true"></i>Nayl Lahlou</a>
+    <nav class="navbar" id="main-navbar" aria-label="Main">
+      <span role="link" tabindex="0" onclick="scrollToSection('home')" class="active" data-t="nav-home">Home</span>
+      <span role="link" tabindex="0" onclick="scrollToSection('projects')" data-t="nav-projects">Projects</span>
+      <span role="link" tabindex="0" onclick="scrollToSection('experience')" data-t="nav-experience">Experience</span>
+      <span role="link" tabindex="0" onclick="scrollToSection('skills')" data-t="nav-skills">Skills</span>
+      <span role="link" tabindex="0" onclick="scrollToSection('about')" data-t="nav-ai">Ask AI</span>
+      <div class="nav-lang-toggle">
+        <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+        <span>/</span>
+        <button onclick="setLanguage('fr')" class="lang-btn" id="btn-fr">FR</button>
+      </div>
+    </nav>
+    <button class="menu-toggle" id="mobile-menu-btn" onclick="toggleMenu(); document.getElementById('topbar').classList.toggle('menu-open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-</nav>
+</header>
 
-<div class="bento-container">
+<main>
 
-  <aside id="home" class="profile-card scrolly" style="animation-delay: 0.1s;">
-    <canvas id="profile-fluid-canvas"></canvas>
-    <div class="profile-img-placeholder"></div>
-    <h2 class="profile-name" data-t="profile-title">Systems Developer</h2>
+  <section id="home" class="hero">
+    <!-- HyperFrames composition (hyperframes/hero-reel) playing live as the hero background -->
+    <iframe class="hero-reel" src="hyperframes/hero-reel/index.html" title="" aria-hidden="true" tabindex="-1" loading="eager"></iframe>
+    <div class="wrap hero-grid">
+      <div class="hero-main">
+      <div class="hero-kicker" data-t="hero-kicker">Montreal, building since 2020</div>
+      <h1 class="hero-name"><span><b>Nayl</b></span><span><b>Lahlou</b></span></h1>
+      <p class="hero-split"><span class="sw" data-t="hero-sw">Software</span><span class="x">×</span><span class="hw" data-t="hero-hw">Hardware</span></p>
+      <p class="hero-desc" data-t="hero-desc">I have been coding and building systems since I was 9. From assembling my first PC to winning hackathons with custom apps and managing IT infrastructure for award-winning ventures.</p>
+      <div class="ports">
+        <button class="port" onclick="openProjectModal('expertise-web')">
+          <span class="port-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5M12 19h8"/></svg></span>
+          <span><strong data-t="try-terminal">Open my terminal</strong><small data-t="try-terminal-sub">Software, apps and AI</small></span>
+        </button>
+        <button class="port hwp" onclick="openProjectModal('expertise-hardware')">
+          <span class="port-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
+          <span><strong data-t="try-circuit">Wire a circuit</strong><small data-t="try-circuit-sub">Hardware, simulated live</small></span>
+        </button>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      </div>
+      <figure class="portrait">
+        <img src="assets/img/nayl.JPG" alt="Nayl Lahlou">
+        <figcaption data-t="hero-photo">Nayl, Montreal</figcaption>
+      </figure>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span data-t="scroll-cue">Scroll</span><i></i></div>
+  </section>
 
-    <div class="location">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-        <circle cx="12" cy="10" r="3"></circle>
+  <section id="story" class="story" aria-label="Journey">
+    <div class="story-sticky">
+      <div class="story-text">
+        <h2 class="story-title" data-t="st-title">From code to copper</h2>
+        <div class="chapters">
+          <div class="chapter on" data-i="0" style="--c1: var(--sw); --c2: var(--hw)">
+            <span class="yr">2020</span>
+            <h3 data-t="st1-t">Writing my first code</h3>
+            <p data-t="st1-d">At 9, I built my first website, a homemade operating system (OLOGRA OS) in Visual Basic, and a laptop around a Raspberry Pi 4.</p>
+            <div class="tags"><span class="tag sw" data-t="tag-sw">Software</span><span class="tag hw" data-t="tag-hw">Hardware</span></div>
+          </div>
+          <div class="chapter" data-i="1" style="--c1: var(--sw); --c2: var(--hw)">
+            <span class="yr">2022</span>
+            <h3 data-t="st2-t">Building from scratch</h3>
+            <p data-t="st2-d">At 12: EduMaths, a math platform in PHP and MySQL for students, and a standalone VR headset with a Raspberry Pi 4, an Arduino Leonardo and 9-axis tracking.</p>
+            <div class="tags"><span class="tag sw" data-t="tag-sw">Software</span><span class="tag hw" data-t="tag-hw">Hardware</span></div>
+          </div>
+          <div class="chapter" data-i="2" style="--c1: var(--hw); --c2: var(--hw)">
+            <span class="yr">2024</span>
+            <h3 data-t="st3-t">Robots and real teams</h3>
+            <p data-t="st3-d">Robot builder for StanRobotix (FRC 6622) and VP IT at Floragel, ranked 2nd best VP IT in Quebec.</p>
+            <div class="tags"><span class="tag hw" data-t="tag-hw">Hardware</span><span class="tag sw" data-t="tag-sw">Software</span></div>
+          </div>
+          <div class="chapter" data-i="3" style="--c1: var(--sw); --c2: var(--sw)">
+            <span class="yr">2025</span>
+            <h3 data-t="st4-t">Winning under pressure</h3>
+            <p data-t="st4-d">1st place at HackDécouverte 1 (Concordia) with Trakant. Then Clofit, my iOS AI stylist, and Jarvis, a voice assistant that runs my home.</p>
+            <div class="tags"><span class="tag sw" data-t="tag-sw">Software</span></div>
+          </div>
+          <div class="chapter" data-i="4" style="--c1: var(--sw); --c2: var(--hw)">
+            <span class="yr">2026</span>
+            <h3 data-t="st5-t">What comes next</h3>
+            <p data-t="st5-d">2nd place at HackDécouverte 2 with Lync, SHAD 2026 Changemaker Scholar, and a mini robot for the Stanislas gala.</p>
+            <div class="tags"><span class="tag sw" data-t="tag-sw">Software</span><span class="tag hw" data-t="tag-hw">Hardware</span></div>
+          </div>
+        </div>
+        <div class="story-progress" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+      </div>
+      <div class="story-photo" aria-hidden="true">
+        <span class="frame-c"></span>
+          <figure class="on contain" data-i="0"><img src="assets/img/my-first-website.png" alt="" loading="eager"><figcaption data-t="st1-c">My first website, built at 9</figcaption></figure>
+          <figure class="" data-i="1"><img src="assets/img/hardware/VR_headset/V2_2.jpeg" alt="" loading="lazy"><figcaption data-t="st2-c">The standalone VR headset, version 2</figcaption></figure>
+          <figure class="" data-i="2"><img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="" loading="lazy"><figcaption data-t="st3-c">StanRobotix 6622 robot, 2025 season</figcaption></figure>
+          <figure class="" data-i="3"><img src="assets/img/HackDecouverte.jpg" alt="" loading="lazy"><figcaption data-t="st4-c">Trakant team, 1st place at HackDécouverte 1</figcaption></figure>
+          <figure class="" data-i="4"><img src="assets/img/shad.jpeg" alt="" loading="lazy"><figcaption data-t="st5-c">SHAD 2026 cohort</figcaption></figure>
+      </div>
+      <div class="story-visual story-board">
+      <svg class="board" id="story-board" viewBox="0 -20 620 660" aria-hidden="true">
+        <defs>
+          <linearGradient id="swhw" x1="0" y1="0" x2="620" y2="640" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#38E1FF"/><stop offset="1" stop-color="#FFB341"/>
+          </linearGradient>
+        </defs>
+        <text class="ghost-code" x="300" y="40">void setup() { Serial.begin(9600); }</text>
+        <text class="ghost-code" x="10" y="220">const model = await load("jarvis");</text>
+        <text class="ghost-code" x="300" y="300">motor.set(0.8); // frc 6622</text>
+        <text class="ghost-code" x="20" y="500">git push origin main</text>
+        <text class="ghost-code" x="330" y="630">imu.read(&amp;q);</text>
+        <path class="bt" d="M80 90 H360 L420 150 H440 V240 L390 290 H200 L160 330 V380 L200 420 H470 V500 L410 560 H260"/>
+        <path class="bt-lit" id="story-path" d="M80 90 H360 L420 150 H440 V240 L390 290 H200 L160 330 V380 L200 420 H470 V500 L410 560 H260"/>
+        <g class="node" data-i="0" style="--nc: var(--ink)">
+          <g class="pinrow"><rect x="36" y="42" width="10" height="8" rx="1.5"/><rect x="36" y="130" width="10" height="8" rx="1.5"/><rect x="58" y="42" width="10" height="8" rx="1.5"/><rect x="58" y="130" width="10" height="8" rx="1.5"/><rect x="80" y="42" width="10" height="8" rx="1.5"/><rect x="80" y="130" width="10" height="8" rx="1.5"/><rect x="102" y="42" width="10" height="8" rx="1.5"/><rect x="102" y="130" width="10" height="8" rx="1.5"/><rect x="124" y="42" width="10" height="8" rx="1.5"/><rect x="124" y="130" width="10" height="8" rx="1.5"/></g>
+          <rect class="body" x="16" y="50" width="128" height="80" rx="10"/>
+          <circle class="ledd" cx="30" cy="64" r="4"/>
+          <text x="80" y="92" text-anchor="middle" font-size="22" font-weight="600">2020</text>
+          <text x="80" y="114" text-anchor="middle" font-size="12">boot()</text>
+        </g>
+        <g class="node" data-i="1" style="--nc: var(--ink)">
+          <g class="pinrow"><rect x="396" y="102" width="10" height="8" rx="1.5"/><rect x="396" y="190" width="10" height="8" rx="1.5"/><rect x="418" y="102" width="10" height="8" rx="1.5"/><rect x="418" y="190" width="10" height="8" rx="1.5"/><rect x="440" y="102" width="10" height="8" rx="1.5"/><rect x="440" y="190" width="10" height="8" rx="1.5"/><rect x="462" y="102" width="10" height="8" rx="1.5"/><rect x="462" y="190" width="10" height="8" rx="1.5"/><rect x="484" y="102" width="10" height="8" rx="1.5"/><rect x="484" y="190" width="10" height="8" rx="1.5"/></g>
+          <rect class="body" x="376" y="110" width="128" height="80" rx="10"/>
+          <circle class="ledd" cx="390" cy="124" r="4"/>
+          <text x="440" y="152" text-anchor="middle" font-size="22" font-weight="600">2022</text>
+          <text x="440" y="174" text-anchor="middle" font-size="12">vr.build</text>
+        </g>
+        <g class="node" data-i="2" style="--nc: var(--hw)">
+          <g class="pinrow"><rect x="116" y="282" width="10" height="8" rx="1.5"/><rect x="116" y="370" width="10" height="8" rx="1.5"/><rect x="138" y="282" width="10" height="8" rx="1.5"/><rect x="138" y="370" width="10" height="8" rx="1.5"/><rect x="160" y="282" width="10" height="8" rx="1.5"/><rect x="160" y="370" width="10" height="8" rx="1.5"/><rect x="182" y="282" width="10" height="8" rx="1.5"/><rect x="182" y="370" width="10" height="8" rx="1.5"/><rect x="204" y="282" width="10" height="8" rx="1.5"/><rect x="204" y="370" width="10" height="8" rx="1.5"/></g>
+          <rect class="body" x="96" y="290" width="128" height="80" rx="10"/>
+          <circle class="ledd" cx="110" cy="304" r="4"/>
+          <text x="160" y="332" text-anchor="middle" font-size="22" font-weight="600">2024</text>
+          <text x="160" y="354" text-anchor="middle" font-size="12">frc_6622</text>
+        </g>
+        <g class="node" data-i="3" style="--nc: var(--sw)">
+          <g class="pinrow"><rect x="426" y="372" width="10" height="8" rx="1.5"/><rect x="426" y="460" width="10" height="8" rx="1.5"/><rect x="448" y="372" width="10" height="8" rx="1.5"/><rect x="448" y="460" width="10" height="8" rx="1.5"/><rect x="470" y="372" width="10" height="8" rx="1.5"/><rect x="470" y="460" width="10" height="8" rx="1.5"/><rect x="492" y="372" width="10" height="8" rx="1.5"/><rect x="492" y="460" width="10" height="8" rx="1.5"/><rect x="514" y="372" width="10" height="8" rx="1.5"/><rect x="514" y="460" width="10" height="8" rx="1.5"/></g>
+          <rect class="body" x="406" y="380" width="128" height="80" rx="10"/>
+          <circle class="ledd" cx="420" cy="394" r="4"/>
+          <text x="470" y="422" text-anchor="middle" font-size="22" font-weight="600">2025</text>
+          <text x="470" y="444" text-anchor="middle" font-size="12">hack.win</text>
+        </g>
+        <g class="node" data-i="4" style="--nc: var(--ink)">
+          <g class="pinrow"><rect x="216" y="512" width="10" height="8" rx="1.5"/><rect x="216" y="600" width="10" height="8" rx="1.5"/><rect x="238" y="512" width="10" height="8" rx="1.5"/><rect x="238" y="600" width="10" height="8" rx="1.5"/><rect x="260" y="512" width="10" height="8" rx="1.5"/><rect x="260" y="600" width="10" height="8" rx="1.5"/><rect x="282" y="512" width="10" height="8" rx="1.5"/><rect x="282" y="600" width="10" height="8" rx="1.5"/><rect x="304" y="512" width="10" height="8" rx="1.5"/><rect x="304" y="600" width="10" height="8" rx="1.5"/></g>
+          <rect class="body" x="196" y="520" width="128" height="80" rx="10"/>
+          <circle class="ledd" cx="210" cy="534" r="4"/>
+          <text x="260" y="562" text-anchor="middle" font-size="22" font-weight="600">2026</text>
+          <text x="260" y="584" text-anchor="middle" font-size="12">shad.next</text>
+        </g>
+        <circle class="head" id="story-head" r="6" cx="80" cy="90"/>
       </svg>
-      <span data-t="profile-location">Montreal, QC</span>
-    </div>
-
-    <p class="profile-bio" data-t="profile-bio">Building systems since 2020. Specializing in robotics, electronics, and
-      full-stack software
-      integration.</p>
-    <div class="social-links">
-      <a href="https://github.com/floragel" target="_blank" class="social-icon github-icon" aria-label="GitHub"></a>
-      <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" class="social-icon linkedin-icon"
-        aria-label="LinkedIn"></a>
-      <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" class="social-icon insta-icon"
-        aria-label="Instagram"></a>
-    </div>
-  </aside>
-
-  <main class="content-col">
-
-    <div class="scrolly" style="animation-delay: 0.2s;">
-      <div class="hero-title text-solid" data-t="hero-title-1">SYSTEMS</div>
-      <div class="hero-title text-outline" data-t="hero-title-2">DEVELOPER</div>
-      <p class="hero-desc" data-t="hero-desc">
-        I have been coding and building systems since I was 9. From assembling my first PC to winning
-        hackathons with custom apps and managing IT infrastructure for award-winning ventures.
-      </p>
-    </div>
-
-    <div class="scrolly" style="animation-delay: 0.3s;">
-      <div class="stats-row">
-        <div class="stat-item">
-          <h3>1st</h3>
-          <p data-t="stat-hack-label">HackDécouverte '25</p>
-        </div>
-        <div class="stat-item">
-          <h3>2nd</h3>
-          <p data-t="stat-vpit-label">Best VP IT QC</p>
-        </div>
-        <div class="stat-item">
-          <h3>10+</h3>
-          <p data-t="stat-projects-label">Projects Built</p>
-        </div>
-        <div class="stat-item">
-          <h3>2020</h3>
-          <p data-t="stat-start-label">First Project</p>
-        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="color-blocks-grid">
-        <div class="color-block bg-orange" style="cursor: pointer;" onclick="openProjectModal('expertise-web')">
-          <div class="icon-box">✦</div>
-          <h3 data-t="expertise-web">Web & App Development</h3>
-          <div class="arrow-out">→</div>
-        </div>
-        <div class="color-block bg-lime" style="cursor: pointer;" onclick="openProjectModal('expertise-hardware')">
-          <div class="icon-box">◩</div>
-          <h3 data-t="expertise-hardware">Hardware & Systems</h3>
-          <div class="arrow-out">→</div>
+  <section id="projects" class="projects scrolly">
+    <div class="section projects-intro">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="section-title" data-t="sec-projects">Projects</h2>
+          <p class="section-note" data-t="sec-projects-note2">One flagship, then software and hardware side by side. Select a project for photos and links.</p>
         </div>
       </div>
     </div>
-
-    <section id="projects" class="scrolly" style="animation-delay: 0.4s;">
-      <div class="section-title text-solid" style="margin-bottom: 40px;"><span
-          data-t="section-projects-1">RECENT</span><br><span class="text-outline"
-          data-t="section-projects-2">PROJECTS</span></div>
-
-      <div class="project-tabs">
-        <button class="proj-tab active" onclick="switchProjTab('software', this)" data-t="tab-software">SOFTWARE &
-          AI</button>
-        <button class="proj-tab" onclick="switchProjTab('hardware', this)" data-t="tab-hardware">HARDWARE &
-          ENG.</button>
-      </div>
-
-      <div id="software-projects" class="projects-container active projects-list">
-        <div class="proj-item" onclick="openProjectModal('trakant')">
-          <div class="proj-thumb thumb-orange">
-            <img src="assets/img/trakant.png" alt="Logo Trakant">
-            <span class="proj-type">APP</span>
-            <span class="proj-year">2025</span>
-          </div>
-          <div class="proj-details">
-            <h4>Trakant <span class="status-tag" data-t="tag-winner">Hackathon Winner</span></h4>
-            <p data-t="trakant-short">1st place application built during HackDécouverte for rapid deployment and
-              efficient problem-solving
-              under pressure.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('clofit')">
-          <div class="proj-thumb thumb-lime">
-            <img src="assets/img/clofit.png" alt="Clofit">
-            <span class="proj-type">APP</span>
-            <span class="proj-year">2025-26</span>
-          </div>
-          <div class="proj-details">
-            <h4>Clofit <span class="status-tag" data-t="tag-soon"
-                style="border-color: var(--text-gray); color: var(--text-gray);">Deploying Soon</span>
-            </h4>
-            <p data-t="clofit-short">Native iOS app acting as a digital wardrobe, personal AI stylist, and fashion
-              social network using
-              Computer Vision and LLMs.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('floragel')">
-          <div class="proj-thumb thumb-gray">
-            <img src="assets/img/floragel.png" alt="Floragel">
-            <span class="proj-type">WEB</span>
-            <span class="proj-year">2024-25</span>
-          </div>
-          <div class="proj-details">
-            <h4>Floragel <span class="status-tag" data-t="tag-pitch">Best Sales Pitch</span></h4>
-            <p data-t="floragel-short">Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for
-              building the
-              technological soul of this plant-survival project.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('frc-scouting')">
-          <div class="proj-thumb thumb-gray">
-            <img src="assets/img/frc-scouting-app.png" alt="FRC Scouting App">
-            <span class="proj-type">APP</span>
-            <span class="proj-year">2026</span>
-          </div>
-          <div class="proj-details">
-            <h4>FRC Scouting App</h4>
-            <p data-t="frc-short">Full-stack offline and online first scouting application for FIRST Robotics
-              Competition with predictive
-              analytics.
-            </p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('jarvis')">
-          <div class="proj-thumb thumb-orange">
-            <img src="assets/img/jarvis.png" alt="Jarvis OS">
-            <span class="proj-type">AI</span>
-            <span class="proj-year">2025</span>
-          </div>
-          <div class="proj-details">
-            <h4>Jarvis OS</h4>
-            <p data-t="jarvis-short">Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and
-              IoT
-              integrations, that can be controlled by voice commands and can control my home.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('edumaths')">
-          <div class="proj-thumb thumb-lime">
-            <img src="assets/img/edumaths/home.png" alt="EduMaths">
-            <span class="proj-type">WEB</span>
-            <span class="proj-year">2022</span>
-          </div>
-          <div class="proj-details">
-            <h4>EduMaths</h4>
-            <p data-t="edumaths-short">Full-stack educational platform with video courses and PDF notes, built using PHP
-              and MySQL to help
-              peers with mathematics.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('learning-platform')">
-          <div class="proj-thumb thumb-gray">
-            <img src="assets/img/learning-website.png" alt="Learn to Code Platform">
-            <span class="proj-type">WEB</span>
-            <span class="proj-year">2020</span>
-          </div>
-          <div class="proj-details">
-            <h4>Learn to Code Platform</h4>
-            <p data-t="learning-short">Created a website designed to help others learn programming back in 4th grade.
-            </p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('first-site')">
-          <div class="proj-thumb thumb-gray">
-            <img src="assets/img/my-first-website.png" alt="My First Website">
-            <span class="proj-type">OS/WEB</span>
-            <span class="proj-year">2020</span>
-          </div>
-          <div class="proj-details">
-            <h4>My First Website & OLOGRA OS</h4>
-            <p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic
-              at age 9.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
+    <div class="wrap spot" id="spotlight">
+      <div class="spot-text">
+        <span class="spot-label" data-t="spot-label">My flagship project</span>
+        <h3 class="spot-title">Clofit</h3>
+        <p class="spot-tagline" data-t="spot-tagline">Your closet. Your world. Finally connected.</p>
+        <p class="spot-desc" data-t="spot-desc">An iPhone app that turns the clothes you already own into AI-made outfits matched to the weather, and connects you with your campus and friends to share your style.</p>
+        <ul class="spot-points">
+          <li data-t="spot-p1">One photo is enough: background removed, item profiled automatically</li>
+          <li data-t="spot-p2">An AI stylist that knows your real closet and the weather</li>
+          <li data-t="spot-p3">OOTD, streaks and campus feed to share your style</li>
+        </ul>
+        <div class="feat-stack"><span>SwiftUI</span><span>Computer Vision</span><span>LLMs</span></div>
+        <div class="spot-actions">
+          <a class="spot-btn" href="https://clofit.app" target="_blank" rel="noopener"><span data-t="spot-visit">Visit clofit.app</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <button class="spot-btn ghost" onclick="openProjectModal('clofit')"><span data-t="see-project">See the project</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
-      <div id="hardware-projects" class="projects-container projects-list">
-        <div class="proj-item" onclick="openProjectModal('vr-headset')">
-          <div class="proj-thumb thumb-orange">
-            <img src="assets/img/hardware/VR_headset/V2_1.jpeg" alt="VR Headset">
-            <span class="proj-type">VR</span>
-            <span class="proj-year">2022</span>
-          </div>
-          <div class="proj-details">
-            <h4>Portable VR Headset <span class="status-tag" data-t="tag-physical">Physical Build</span></h4>
-            <p data-t="vr-short">Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion
-              tracking.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
+      <div class="spot-media" aria-hidden="true">
+        <img class="shot shot-main" src="assets/img/clofit/site-hero.jpg" alt="" loading="lazy">
+        <img class="shot shot-a" src="assets/img/clofit/site-outfit.jpg" alt="" loading="lazy">
+        <img class="shot shot-b" src="assets/img/clofit/site-ai.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+    <div class="domain sw" id="projects-sw">
+      <div class="wrap">
+        <div class="domain-head">
+          <h3 class="domain-title"><i aria-hidden="true"></i><span data-t="dom-sw">Software</span></h3>
+          <p class="section-note" data-t="dom-sw-note">Apps, AI and web platforms.</p>
         </div>
-
-        <div class="proj-item" onclick="openProjectModal('frc-robot')">
-          <div class="proj-thumb thumb-lime">
-            <img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="FRC Robot 6622">
-            <span class="proj-type">ROBOT</span>
-            <span class="proj-year">2024-ongoing</span>
-          </div>
-          <div class="proj-details">
-            <h4>FRC Competition Robot</h4>
-            <p data-t="frc-robot-short">Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and
-              wiring.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
+        <div class="cards">
+          <article class="card" data-domain="sw" role="button" tabindex="0" onclick="openProjectModal('lync')">
+            <div class="card-media logo lync-logo"><img src="assets/img/lync/logo.svg" alt="Lync logo" loading="lazy"></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>Android</span><span>2026</span></div>
+              <h4>Lync</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-lync">2nd place, HackDécouverte 2</span></span>
+              <p data-t="lync-short">Campus companion app: a student social network plus door-to-door navigation down to the room, indoors and out.</p>
+              <div class="feat-stack"><span>Kotlin</span><span>Swift</span><span>Jetpack Compose</span><span>SwiftUI</span></div>
+            </div>
+          </article>
+          <article class="card" data-domain="sw" role="button" tabindex="0" onclick="openProjectModal('trakant')">
+            <div class="card-media logo trakant-logo"><img src="assets/img/trakant/logo.png" alt="Trakant logo" loading="lazy"></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>App</span><span>2025</span></div>
+              <h4>Trakant</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-trakant">1st place, HackDécouverte 1</span></span>
+              <p data-t="trakant-short">1st place application built during HackDécouverte 1 for rapid deployment and efficient problem-solving under pressure.</p>
+              <div class="feat-stack"><span>Kotlin</span><span>Data</span><span>Hackathon</span></div>
+            </div>
+          </article>
+          <article class="card" data-domain="sw" role="button" tabindex="0" onclick="openProjectModal('floragel')">
+            <div class="card-media"><img src="assets/img/floragel.png" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>Web</span><span>2024–25</span></div>
+              <h4>Floragel</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-floragel">2nd best VP IT in Quebec</span></span>
+              <p data-t="floragel-short">Leading the mission to protect living beings. Ranked 2nd Best VP IT in Quebec for building the technological soul of this plant-survival project.</p>
+              <div class="feat-stack"><span>Web</span><span>IT architecture</span></div>
+            </div>
+          </article>
         </div>
-
-        <div class="proj-item" onclick="openProjectModal('custom-laptop')">
-          <div class="proj-thumb thumb-gray">
-            <span class="proj-type">PC</span>
-            <span class="proj-year">2020</span>
-          </div>
-          <div class="proj-details">
-            <h4>Custom Laptop <span class="status-tag">Age 9</span></h4>
-            <p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer
-              architecture.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('retro-console')">
-          <div class="proj-thumb thumb-orange">
-            <img src="assets/img/hardware/game_console/1.jpeg" alt="Retro Console">
-            <span class="proj-type">Gaming</span>
-            <span class="proj-year">2021</span>
-          </div>
-          <div class="proj-details">
-            <h4>Retro Console</h4>
-            <p data-t="console-short">Physical console build powered by RPi3 for custom emulation and retro gaming.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
-        </div>
-
-        <div class="proj-item" onclick="openProjectModal('jarvis-iot')">
-          <div class="proj-thumb thumb-lime">
-            <img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="Jarvis IoT Bridge">
-            <span class="proj-type">IoT</span>
-            <span class="proj-year">2026</span>
-          </div>
-          <div class="proj-details">
-            <h4>Jarvis IoT Bridge</h4>
-            <p data-t="iot-short">Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p>
-          </div>
-          <div class="proj-arrow">↗</div>
+        <div class="rows">
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('jarvis')">
+              <div class="th"><img src="assets/img/jarvis.png" alt="" loading="lazy"></div>
+              <div><b>Jarvis OS</b><p data-t="jarvis-short">Ultra-fast voice-to-voice AI built in Python with local TTS, app integrations and IoT integrations, that can be controlled by voice commands and can control my home.</p></div>
+              <span class="yr">2025</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('frc-scouting')">
+              <div class="th"><img src="assets/img/frc-scouting-app.png" alt="" loading="lazy"></div>
+              <div><b>FRC Scouting App</b><p data-t="frc-short">Full-stack offline and online first scouting application for FIRST Robotics Competition with predictive analytics.</p></div>
+              <span class="yr">2026</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('edumaths')">
+              <div class="th"><img src="assets/img/edumaths/home.png" alt="" loading="lazy"></div>
+              <div><b>EduMaths</b><p data-t="edumaths-short">Full-stack educational platform with video courses and PDF notes, built using PHP and MySQL to help peers with mathematics.</p></div>
+              <span class="yr">2022</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('learning-platform')">
+              <div class="th"><img src="assets/img/learning-website.png" alt="" loading="lazy"></div>
+              <div><b>Learn to Code Platform</b><p data-t="learning-short">Created a website designed to help others learn programming back in 4th grade.</p></div>
+              <span class="yr">2020</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('first-site')">
+              <div class="th"><img src="assets/img/my-first-website.png" alt="" loading="lazy"></div>
+              <div><b>My First Website & OLOGRA OS</b><p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic at age 9.</p></div>
+              <span class="yr">2020</span>
+            </div>
         </div>
       </div>
-    </section>
+    </div>
+    <div class="domain hw" id="projects-hw">
+      <div class="wrap">
+        <div class="domain-head">
+          <h3 class="domain-title"><i aria-hidden="true"></i><span data-t="dom-hw">Hardware</span></h3>
+          <p class="section-note" data-t="dom-hw-note">Robots, electronics and things I built with my hands.</p>
+        </div>
+        <div class="cards">
+          <article class="card" data-domain="hw" role="button" tabindex="0" onclick="openProjectModal('gala-robot')">
+            <div class="card-media"><span class="card-ph"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><small data-t="photos-soon">Photos coming soon</small></span></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>Robot</span><span>2026</span></div>
+              <h4>Gala Mini Robot</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-gala-robot">StanRobotix 6622, gala 2026</span></span>
+              <p data-t="gala-robot-short">A small stage robot for the Stanislas gala: Xbox-driven, smooth acceleration, drift moves and animated LEDs. C++ with WPILib.</p>
+              <div class="feat-stack"><span>C++</span><span>WPILib</span><span>SPARK MAX</span><span>LEDs</span></div>
+            </div>
+          </article>
+          <article class="card" data-domain="hw" role="button" tabindex="0" onclick="openProjectModal('frc-robot')">
+            <div class="card-media contain"><img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>Robot</span><span>2024–</span></div>
+              <h4>FRC Competition Robot</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-frc">StanRobotix, FRC team 6622</span></span>
+              <p data-t="frc-robot-short">Hardware and assembly for StanRobotix 6622. Industrial-grade mechanics and wiring.</p>
+              <div class="feat-stack"><span>Mechanics</span><span>Wiring</span><span>Strategy</span></div>
+            </div>
+          </article>
+          <article class="card" data-domain="hw" role="button" tabindex="0" onclick="openProjectModal('vr-headset')">
+            <div class="card-media"><img src="assets/img/hardware/VR_headset/V2_1.jpeg" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <div class="proj-meta"><span>VR</span><span>2022</span></div>
+              <h4>Portable VR Headset</h4>
+              <span class="feat-award"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="aw-vr">Built from scratch at 12</span></span>
+              <p data-t="vr-short">Independent VR system built with RPi4 and Arduino Leonardo. Features 9-axis motion tracking.</p>
+              <div class="feat-stack"><span>Raspberry Pi 4</span><span>Arduino</span><span>MPU9250</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="rows">
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('jarvis-iot')">
+              <div class="th"><img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="" loading="lazy"></div>
+              <div><b>Jarvis IoT Bridge</b><p data-t="iot-short">Multi-protocol hardware bridge (ESP32/Arduino) for Jarvis OS house automation.</p></div>
+              <span class="yr">2026</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('retro-console')">
+              <div class="th"><img src="assets/img/hardware/game_console/1.jpeg" alt="" loading="lazy"></div>
+              <div><b>Retro Console</b><p data-t="console-short">Physical console build powered by RPi3 for custom emulation and retro gaming.</p></div>
+              <span class="yr">2021</span>
+            </div>
+            <div class="row" role="button" tabindex="0" onclick="openProjectModal('custom-laptop')">
+              <div class="th"><span>RPi 4</span></div>
+              <div><b>Custom Laptop</b><p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer architecture.</p></div>
+              <span class="yr">2020</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="education" class="scrolly" style="animation-delay: 0.45s;">
-      <div class="section-title text-solid"><span data-t="section-edu-1">MY</span><br><span class="text-outline"
-          data-t="section-edu-2">EDUCATION</span></div>
-      <div class="experience-timeline">
-        <div class="timeline-item">
-          <div class="timeline-left">
+  <section id="experience" class="section scrolly">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" data-t="sec-experience">Experience</h2>
+        <p class="section-note legend"><i aria-hidden="true"></i><span data-t="exp-note">Filled dots open photos and details.</span></p>
+      </div>
+      <div class="exp-wrap">
+        <div class="exp-group">
+          <div class="exp-year"><b>2027</b><span class="year-label" data-t="lab-2027">Upcoming Leadership</span></div>
+          <div>
+          <div class="timeline-item">
             <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="cop-food-2027">COP Food Security 2027 (Model UN)</h4><p data-t="cop-food-2027">Appointed President of the 'Food Justice and North-South Equity' committee for the upcoming 2027 conference.</p></div>
           </div>
-          <div class="timeline-content">
-            <h3>Collège Stanislas</h3>
-            <div class="date">2024 - Present · Montreal</div>
-            <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership
-              in robotics.</p>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-left">
+        <div class="exp-group">
+          <div class="exp-year"><b>2026</b><span class="year-label" data-t="lab-2026">Leadership & Excellence</span></div>
+          <div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('shad')">
             <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="shad">SHAD 2026 Community Changemaker Scholar</h4><p data-t="shad">Awarded the prestigious SHAD 2026 Community Changemaker Scholarship (McCall MacBain Foundation) for STEM & Entrepreneurship excellence at Western University.</p></div>
           </div>
-          <div class="timeline-content">
-            <h3>Lycée Claudel</h3>
-            <div class="date">2023 - 2024 · Ottawa</div>
-            <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-left">
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('lync')">
             <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="lync-2nd">2nd Place — HackDécouverte 2 (Concordia University)</h4><p data-t="lync-2nd">Built Lync, a campus social network with door-to-door indoor navigation, and took 2nd place.</p></div>
           </div>
-          <div class="timeline-content">
-            <h3>Lycée Français International Louis Massignon</h3>
-            <div class="date">2016 - 2023 · Casablanca</div>
-            <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('gala-robot')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="gala-robot-exp">Gala Mini Robot — StanRobotix 6622</h4><p data-t="gala-robot-exp">Programmed the drive, smooth acceleration, drift moves and LEDs of the mini robot shown at the Stanislas gala.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="mc-robotix-10">Master of Ceremonies — StanRobotix 10th anniversary</h4><p data-t="mc-robotix-10">Hosted the celebration of the team's 10 years.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="mcgill-camp">McGill Computer Science Camp</h4><p data-t="mcgill-camp">Selected for this prestigious competitive programming and game development camp at McGill University. Diving into advanced algorithms and game logic.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('gala-mc-2026')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="gala-mc-2026">Gala Master of Ceremonies (MC)</h4><p data-t="gala-mc-2026">Hosted the prestigious Collège Stanislas recognition gala, animating the evening in front of 800 guests.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('rhetoric-award-2026')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="rhetoric-award-2026">Rhetoric & Humanities Award</h4><p data-t="rhetoric-award-2026">Honored with the Rhetoric and Humanities Award at the 2026 Collège Stanislas recognition gala.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="desmnu-2026">DESMNU 2026 (Model UN)</h4><p data-t="desmnu-2026">Represented China in the UN Security Council at the DESMNU simulation at Lycée Descartes.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('frc-scouting')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="frc-scout">FRC Scouting App Development</h4><p data-t="frc-scout">Architected and built a full-stack scouting platform for match strategy, predictive analytics, and team optimization.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="hack">Hackathon Competitor (ConUHacks)</h4><p data-t="hack">Pushed limits at ConUHacks 2026, building and deploying interactive software solutions under 24h pressure.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="exp-group">
+          <div class="exp-year"><b>2025</b><span class="year-label" data-t="lab-2025">Innovation & Awards</span></div>
+          <div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('trakant')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="hack-win">1st Place — HackDécouverte 1 (Concordia University)</h4><p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions rapidly.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('clofit')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="clofit-exp">Clofit — Digital Wardrobe & AI Stylist</h4><p data-t="clofit-exp">Spearheaded the development of a native iOS platform using Computer Vision to revolutionize personal fashion.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('osentreprendre-2025')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="osentreprendre-2025">Défi OSEntreprendre 2025 Winner</h4><p data-t="osentreprendre-2025">Recognized for outstanding student entrepreneurship and innovative project development.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('gala-awards-2025')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="gala-awards-2025">Academic & Merit Awards 2025</h4><p data-t="gala-awards-2025">Awarded both the Prix du Mérite and the Réussite Scolaire (3ème grade) at the Collège Stanislas recognition gala.</p></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="cop-ocean-2025">COP Océan 2025 (Model UN)</h4><p data-t="cop-ocean-2025">Represented the United Kingdom in the BBNJ (Biodiversity Beyond National Jurisdiction) committee at Collège Stanislas.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="exp-group">
+          <div class="exp-year"><b>2024</b><span class="year-label" data-t="lab-2024">Foundation & Robotics</span></div>
+          <div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('floragel')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4><p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection project that won Best Sales Pitch.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('frc-robot')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="robotics">FIRST Robotics Competition — StanRobotix (FRC 6622)</h4><p data-t="robotics">Joined the programming team, developing control systems for competitive robots and contributing to team strategy.</p></div>
+          </div>
+          </div>
+        </div>
+        <div class="exp-group">
+          <div class="exp-year"><b>2020–23</b><span class="year-label" data-t="lab-2020">The Builder's Roots</span></div>
+          <div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('edumaths')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="edu-found">EduMaths — Founder & Developer</h4><p data-t="edu-found">Created a full-stack mathematics learning platform at age 12. Directed a small team of friends to record video lessons, integrated PDF exports, and managed a MySQL database for user profiles.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('learning-platform')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="learn-coding">Learn to Code Platform</h4><p data-t="learn-coding">Launched an educational hub to teach others how to build websites, emphasizing community learning from the very start.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('first-site')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="ologra">My First Website & OLOGRA OS</h4><p data-t="ologra">Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A fundamental dive into UI design and logic.</p></div>
+          </div>
+          <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('vr-headset')">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content"><h4 data-t="hardware-roots">Hardware Engineering & Integrated Systems</h4><p data-t="hardware-roots">From age 9: Built a custom high-performance PC, a handmade gaming console, and a working portable VR headset from scratch.</p></div>
+          </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="experience" class="scrolly" style="animation-delay: 0.5s;">
-      <div class="section-title text-solid"><span data-t="section-exp-1">YEARS OF</span><br><span class="text-outline"
-          data-t="section-exp-2">EXPERIENCE</span></div>
-
-      <div class="experience-timeline">
-
-        <!-- 2027 -->
-        <div class="timeline-year-group">
-          <h3 class="year-label" data-t="lab-2027">2027 — Upcoming Leadership</h3>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="cop-food-2027">COP Food Security 2027 (Model UN)</h4>
-              <p data-t="cop-food-2027">Appointed President of the 'Food Justice and North-South Equity' committee for the upcoming 2027 conference.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2026 -->
-        <div class="timeline-year-group">
-          <h3 class="year-label" data-t="lab-2026">2026 — Leadership & Excellence</h3>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="mcgill-camp">McGill Computer Science Camp</h4>
-              <p data-t="mcgill-camp">Selected for this prestigious competitive programming and game development camp
-                at McGill University. Diving into advanced algorithms and game logic.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('shad')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="shad">SHAD 2026 Community Changemaker Scholar</h4>
-              <p data-t="shad">Awarded the prestigious SHAD 2026 Community Changemaker Scholarship (McCall MacBain Foundation) for STEM & Entrepreneurship excellence at Western University.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('gala-mc-2026')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="gala-mc-2026">Gala Master of Ceremonies (MC)</h4>
-              <p data-t="gala-mc-2026">Hosted the prestigious Collège Stanislas recognition gala, animating the evening in front of 800 guests.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('rhetoric-award-2026')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="rhetoric-award-2026">Rhetoric & Humanities Award</h4>
-              <p data-t="rhetoric-award-2026">Honored with the Rhetoric and Humanities Award at the 2026 Collège Stanislas recognition gala.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="desmnu-2026">DESMNU 2026 (Model UN)</h4>
-              <p data-t="desmnu-2026">Represented China in the UN Security Council at the DESMNU simulation at Lycée Descartes.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="frc-scout">FRC Scouting App Development</h4>
-              <p data-t="frc-scout">Architected and built a full-stack scouting platform for match strategy, predictive
-                analytics, and
-                team optimization.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="hack">Hackathon Competitor (ConUHacks)</h4>
-              <p data-t="hack">Pushed limits at ConUHacks 2026, building and deploying interactive software solutions
-                under 24h
-                pressure.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2025 -->
-        <div class="timeline-year-group">
-          <h3 class="year-label" data-t="lab-2025">2025 — Innovation & Awards</h3>
-          <div class="timeline-item clickable" onclick="openProjectModal('clofit')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="clofit-exp">Clofit — Digital Wardrobe & AI Stylist</h4>
-              <p data-t="clofit-exp">Spearheaded the development of a native iOS platform using Computer Vision to
-                revolutionize personal
-                fashion.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('trakant')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="hack-win">1st Place — HackDécouverte (Concordia University)</h4>
-              <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build
-                high-stakes solutions
-                rapidly.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('osentreprendre-2025')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="osentreprendre-2025">Défi OSEntreprendre 2025 Winner</h4>
-              <p data-t="osentreprendre-2025">Recognized for outstanding student entrepreneurship and innovative project development.</p>
-            </div>
-          </div>
-          <div class="timeline-item clickable" onclick="openProjectModal('gala-awards-2025')">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="gala-awards-2025">Academic & Merit Awards 2025</h4>
-              <p data-t="gala-awards-2025">Awarded both the Prix du Mérite and the Réussite Scolaire (3ème grade) at the Collège Stanislas recognition gala.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="cop-ocean-2025">COP Océan 2025 (Model UN)</h4>
-              <p data-t="cop-ocean-2025">Represented the United Kingdom in the BBNJ (Biodiversity Beyond National Jurisdiction) committee at Collège Stanislas.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2024 -->
-        <div class="timeline-year-group">
-          <h3 class="year-label" data-t="lab-2024">2024 — Foundation & Robotics</h3>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4>
-              <p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant
-                protection
-                project that won Best Sales Pitch.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="robotics">FIRST Robotics Competition — StanRobotix (FRC 6622)</h4>
-              <p data-t="robotics">Joined the programming team, developing control systems for competitive robots and
-                contributing to
-                team strategy.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2020-2023 -->
-        <div class="timeline-year-group">
-          <h3 class="year-label" data-t="lab-2020">2020 – 2023 — The Builder's Roots</h3>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="edu-found">EduMaths — Founder & Developer</h4>
-              <p data-t="edu-found">Created a full-stack mathematics learning platform at age 12. Directed a small team
-                of friends to
-                record video lessons, integrated PDF exports, and managed a MySQL database for user profiles.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="learn-coding">Learn to Code Platform</h4>
-              <p data-t="learn-coding">Launched an educational hub to teach others how to build websites, emphasizing
-                community learning
-                from the very start.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="ologra">My First Website & OLOGRA OS</h4>
-              <p data-t="ologra">Coded my first website and a custom operating system (OLOGRA OS) in Visual Basic. A
-                fundamental dive
-                into UI design and logic.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-left">
-              <div class="timeline-dot"></div>
-            </div>
-            <div class="timeline-content">
-              <h4 data-t="hardware-roots">Hardware Engineering & Integrated Systems</h4>
-              <p data-t="hardware-roots">From age 9: Built a custom high-performance PC, a handmade gaming console, and
-                a working portable VR
-                headset from scratch.</p>
-            </div>
-          </div>
-        </div>
-
+  <section id="education" class="section scrolly" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" data-t="sec-education">Education</h2>
       </div>
-    </section>
-
-    <section id="skills" class="scrolly">
-      <div class="section-title text-solid" style="margin-bottom: 40px;"><span data-t="section-skills-1">MY</span><br><span
-          class="text-outline" data-t="section-skills-2">SKILLS</span>
+      <div class="edu-list">
+        <div class="timeline-item"><div class="timeline-content">
+          <h3>Collège Stanislas</h3>
+          <div class="date"><span data-t="edu-present">2024 – present</span>, Montréal</div>
+          <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
+        </div></div>
+        <div class="timeline-item"><div class="timeline-content">
+          <h3>Lycée Claudel</h3>
+          <div class="date">2023 – 2024, Ottawa</div>
+          <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
+        </div></div>
+        <div class="timeline-item"><div class="timeline-content">
+          <h3>Lycée Français International Louis Massignon</h3>
+          <div class="date">2016 – 2023, Casablanca</div>
+          <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
+        </div></div>
       </div>
-      <div class="skills-grid">
-        <!-- AI & Core Software -->
-        <div class="skill-card">
-          <div class="skill-brand">✦</div>
-          <div class="skill-name">SwiftUI</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">K</div>
-          <div class="skill-name">Kotlin</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">⚡</div>
-          <div class="skill-name">React Native</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">TS</div>
-          <div class="skill-name">TypeScript</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">◩</div>
-          <div class="skill-name">Python</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">✿</div>
-          <div class="skill-name">LLMs & AI</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">◉</div>
-          <div class="skill-name">Computer Vision</div>
-        </div>
+    </div>
+  </section>
 
-        <!-- Hardware & Robotics -->
-        <div class="skill-card">
-          <div class="skill-brand">🔌</div>
-          <div class="skill-name">Arduino / ESP32</div>
+  <section id="skills" class="section scrolly">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="section-title" data-t="sec-skills">Skills</h2>
+        <p class="section-note" data-t="sk-note">Software on the cyan pins, hardware on the amber ones.</p>
+      </div>
+      <div class="pinout" id="pinout">
+        <div class="pins top">
+          <h3 data-t="sk-web">Web & data</h3>
+          <ul>
+            <li style="--i:0">Next.js / React</li>
+            <li style="--i:1">Node.js</li>
+            <li style="--i:2">JavaScript</li>
+            <li style="--i:3">HTML / CSS</li>
+            <li style="--i:4">Tailwind CSS</li>
+            <li style="--i:5">PHP</li>
+            <li style="--i:6">PostgreSQL</li>
+            <li style="--i:7">Git / GitHub</li>
+          </ul>
         </div>
-        <div class="skill-card">
-          <div class="skill-brand">🍓</div>
-          <div class="skill-name">Raspberry Pi</div>
+        <div class="pins left">
+          <h3 data-t="sk-software">Software & AI</h3>
+          <ul>
+            <li style="--i:0">SwiftUI</li>
+            <li style="--i:1">Kotlin</li>
+            <li style="--i:2">React Native</li>
+            <li style="--i:3">TypeScript</li>
+            <li style="--i:4">Python</li>
+            <li style="--i:5">LLMs & AI</li>
+            <li style="--i:6">Computer Vision</li>
+          </ul>
         </div>
-        <div class="skill-card">
-          <div class="skill-brand">🧊</div>
-          <div class="skill-name">3D Design & Blender</div>
+        <div class="chip" aria-hidden="true"><div><b>NL</b><small>rev. 2026</small></div></div>
+        <div class="pins right">
+          <h3 data-t="sk-hardware">Hardware & robotics</h3>
+          <ul>
+            <li style="--i:0">Arduino / ESP32</li>
+            <li style="--i:1">Raspberry Pi</li>
+            <li style="--i:2">IoT & sensors</li>
+            <li style="--i:3">Java / C++</li>
+            <li style="--i:4">3D design & Blender</li>
+            <li style="--i:5">Competition robotics (FRC)</li>
+          </ul>
         </div>
-        <div class="skill-card">
-          <div class="skill-brand">⚡</div>
-          <div class="skill-name">IoT & Sensors</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">☕</div>
-          <div class="skill-name">Java / C++</div>
-        </div>
-
-        <!-- Modern Web & Data -->
-        <div class="skill-card">
-          <div class="skill-brand">▲</div>
-          <div class="skill-name">Next.js / React</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">◎</div>
-          <div class="skill-name">Node.js</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">&lt;/&gt;</div>
-          <div class="skill-name">HTML / CSS</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">{ }</div>
-          <div class="skill-name">JavaScript</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">🐘</div>
-          <div class="skill-name">PHP</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">≋</div>
-          <div class="skill-name">Tailwind CSS</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">▣</div>
-          <div class="skill-name">PostgreSQL</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">⎇</div>
-          <div class="skill-name">Git / GitHub</div>
-        </div>
-
-        <!-- Systems & Strategy -->
-        <div class="skill-card">
-          <div class="skill-brand">🐧</div>
-          <div class="skill-name">Linux / Docker</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">🎯</div>
-          <div class="skill-name" data-t="skill-strategy">IT Strategy</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">📢</div>
-          <div class="skill-name" data-t="skill-leadership">Leadership</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">🗣️</div>
-          <div class="skill-name" data-t="skill-debating">Debating & Rhetoric</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">🇫🇷</div>
-          <div class="skill-name" data-t="skill-french">French</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-brand">🇬🇧</div>
-          <div class="skill-name" data-t="skill-english">English</div>
+        <div class="pins bottom">
+          <h3 data-t="sk-people">Systems & people</h3>
+          <ul>
+            <li style="--i:0">Linux / Docker</li>
+            <li style="--i:1" data-t="skill-strategy">IT Strategy</li>
+            <li style="--i:2" data-t="skill-leadership">Leadership</li>
+            <li style="--i:3" data-t="skill-debating">Debating & Rhetoric</li>
+            <li style="--i:4" data-t="skill-french">French</li>
+            <li style="--i:5" data-t="skill-english">English</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about" class="scrolly">
-      <div class="section-title text-solid" style="margin-bottom: 60px;"><span data-t="section-about-1">ABOUT</span><br><span
-          class="text-outline" data-t="section-about-2">ME</span>
+  <section id="about" class="section scrolly">
+    <div class="wrap ai-panel">
+      <div class="ai-intro">
+        <h2 class="section-title" data-t="sec-ai">Ask my assistant</h2>
+        <p data-t="ai-lede">An AI that knows my projects and my journey. Ask it anything, in French or English.</p>
       </div>
-
-      <div class="ai-launch-card" onclick="openAiModal()"
-        style="position: relative; overflow: hidden; background: #ffffff; border-radius: 32px; padding: 60px 40px; text-align: center; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.1); min-height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">
-
-        <!-- Interactive WebGL Canvas for interactive ripples -->
-        <canvas id="card-fluid-canvas"></canvas>
-
-        <div
-          style="position: relative; z-index: 2; pointer-events: none; width: 100%; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-          <div data-t="about-hey"
-            style="font-weight: 700; color: #333; margin-bottom: 4px; font-size: 15px; letter-spacing: -0.02em;">
-            Hey, I'm Nayl 👋</div>
-          <h3 data-t="about-role"
-            style="font-family: var(--font-display); font-size: 48px; font-weight: 800; color: #111; margin-bottom: 30px; letter-spacing: -0.04em; line-height: 1;">
-            Systems Developer</h3>
-
-          <!-- Avatar -->
-          <div
-            style="width: 140px; height: 140px; margin: 0 auto 40px; border-radius: 50%; background-color: var(--bg-dark); background-image: url('assets/img/nayl.jpeg'); background-size: cover; background-position: center 15%; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: relative; z-index: 2;">
-          </div>
-
-          <!-- Fake Input Bar -->
-          <div
-            style="width: 100%; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 50px; padding: 6px 6px 6px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
-            <span data-t="about-placeholder" style="color: #888; font-size: 14px; font-weight: 500;">Ask me
-              anything...</span>
-            <div
-              style="width: 36px; height: 36px; background: #60a5fa; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Action Pills -->
-          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <span
-              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-              <span style="color: #4ade80;">●</span> <span data-t="about-me">Me</span>
-            </span>
-            <span
-              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-              <span style="color: #38bdf8;">●</span> <span data-t="about-projects">Projects</span>
-            </span>
-            <span
-              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-              <span style="color: #a855f7;">●</span> <span data-t="about-skills">Skills</span>
-            </span>
-            <span
-              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-              <span style="color: #f472b6;">●</span> <span data-t="about-fun">Fun</span>
-            </span>
-            <span
-              style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.9); padding: 8px 20px; border-radius: 50px; font-size: 12px; color: #333; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; align-items: center; gap: 6px;">
-              <span style="color: #fbbf24;">●</span> <span data-t="about-contact">Contact</span>
-            </span>
-          </div>
+      <div class="term" id="term">
+        <div class="term-bar"><img src="assets/img/nayl.JPG" alt="">nayl@portfolio<span class="on" data-t="ai-status">Online</span></div>
+        <div class="term-body" aria-live="polite">
+          <div><span class="prompt">~ $</span> <span id="term-cmd" class="out"></span></div>
+          <div id="term-out" class="dim"></div>
+          <span class="caret" aria-hidden="true"></span>
+        </div>
+        <span hidden data-t="ai-term-cmd" id="src-cmd">ask nayl --lang en</span>
+        <span hidden data-t="ai-term-out" id="src-out">Ask me about my projects, my journey or my skills.</span>
+        <div class="term-actions">
+          <button class="ai-launch-card" onclick="openAiModal()"><span data-t="ai-open">Open the chat</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="chip-q" data-t="q1">What did you build for FRC?</button>
+          <button class="chip-q" data-t="q2">How does Jarvis work?</button>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="site-footer scrolly"
-      style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px;">
-      <p style="color: var(--text-gray); font-size: 14px; font-weight: 400;" data-t="footer-passion">© 2026 Nayl Lahlou.
-        Built with passion.
-      </p>
-      <div style="display: flex; gap: 24px;">
-        <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank"
-          style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
-          onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">LinkedIn</a>
-        <a href="https://github.com/floragel" target="_blank"
-          style="color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s; font-weight: 500;"
-          onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">GitHub</a>
-      </div>
-    </footer>
+</main>
 
-  </main>
-</div>
+<footer class="site-footer">
+  <div class="wrap">
+    <p data-t="footer-passion">© 2026 Nayl Lahlou.</p>
+    <nav aria-label="Social">
+      <a href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+  </div>
+</footer>
 
 <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
@@ -2275,7 +2146,6 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <div class="ai-modal-overlay" id="ai-modal" onclick="closeAiModal(event)">
@@ -2648,7 +2518,11 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 1. **Hardware Builds:** Custom PC from scratch in CM1 (4th grade), custom game console in 2021 (Gaming OS), physical portable VR headset with electronic components built entirely from scratch and programmed in 7th grade, and the Jarvis IoT Bridge (2026).
 2. **EduMaths (Full-Stack Platform):** A mathematics education platform created at age 12 (7th grade). Users could join classes, access video lessons by Nayl and his friends, and download PDF notes. Built with PHP, MySQL, JS, HTML, and CSS. [GitHub: https://github.com/floragel/EduMaths]
 3. **First Website:** Built in 4th grade [https://floragel.github.io/My-first-website/], also at that time he created an educational platform to teach others how to create their own websites [https://floragel.github.io/site-de-ouf/].
-4. **Trakant (HackDécouverte Winner):** Winning project of the HackDécouverte 2025 hackathon at Concordia University. [GitHub: https://github.com/floragel/Trakant]
+4. **Trakant (HackDécouverte 1 Winner):** Winning project (1st place) of HackDécouverte 1 (2025) at Concordia University. [GitHub: https://github.com/floragel/Trakant]
+   **Lync (HackDécouverte 2, 2nd place, 2026):** Android campus companion app for Android and iOS (Kotlin with Jetpack Compose, Swift with SwiftUI, Supabase backend): a campus-only social network plus door-to-door navigation down to the room, switching from street directions to indoor floor plans with floor detection and step counting. John Molson building mapped on 7 floors (761 nodes, ~300 rooms, 120 unit tests). [GitHub: https://github.com/floragel/HackDecouverte2]
+   **Gala Mini Robot (StanRobotix 6622, 2026):** small two-wheel stage robot for the Collège Stanislas gala, C++ with WPILib, REV SPARK MAX motors, Pigeon 2 IMU, Xbox control, acceleration ramp, drift commands and animated LEDs. Nayl wrote the drive subsystem and command, fixed CAN IDs and pointers, added the acceleration smoothing, Xbox controls and LED integration. [GitHub: https://github.com/floragel/mini-robot]
+   **Master of Ceremonies, StanRobotix 10th anniversary (2026):** hosted the celebration of the team's 10 years.
+   **Flagship project:** Clofit is Nayl's main project (https://clofit.app).
 5. **Jarvis OS (Voice LLM CLI):** Ultra-fast voice AI built in Python using LiteLLM proxy, sub-50ms TTS, and app integrations (Notion/Calendar).
 6. **Clofit (AI Fashion App):** Clofit is a modern, native iOS app built in Swift/SwiftUI that acts as a digital wardrobe, personal AI stylist, and fashion social network. 
    - **Concept:** Solves "I have a full closet but nothing to wear" by digitizing real clothes and offering outfit inspiration.
@@ -2660,7 +2534,6 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
      - *Social Network & Gamification:* Users have a TikTok/Instagram-style profile for their outfits, can like/save others' outfits, and earn "Streaks" (flames) and "Badges" for daily usage.
    - **Tech Stack:**
      - *Frontend:* Native iOS (Swift & SwiftUI) focusing on fluid animations, glassmorphism, and haptic touch.
-     - *Backend:* Supabase (PostgreSQL) for relational databases, authentication, and cloud storage.
      - *AI Engine:* Computer Vision (for background removal and auto-tagging) and LLMs/Recommendation systems to assemble the perfect outfit based on stylistic rules. (Currently deploying to the public).
 6. **FRC Team 6622 Scouting App:** Full-stack native app in React Native and Go for robotics competitions with offline sync and predictive analytics. [GitHub: https://github.com/floragel/Scouting-App]
 7. **Muse (Brainwave Analytics):** Real-time data visualization dashboard for the Muse 2 headband, displaying focus states via FFT/bandpower analysis to analyze brain waves.
@@ -2847,7 +2720,8 @@ Whenever someone asks "Who is Nayl", "What can he do", or similar, use this cont
 Rôle: Développeur Systèmes & Full-Stack
 Parcours: Code depuis l'âge de 9 ans. A tout construit, des environnements OS personnalisés aux applications iOS de production.
 Points forts:
-- 1ère Place @ HackDécouverte '25
+- 1ère Place @ HackDécouverte 1 (Trakant)
+- 2ème Place @ HackDécouverte 2 (Lync)
 - 2ème Meilleur VP IT @ JA Québec (Floragel)
 - Boursier SHAD @ Western University (London, Ontario)
 - Participant @ Camp d'informatique McGill (2026)
@@ -2860,7 +2734,8 @@ Focus: Interfaces ultra-interactives, intégrations IA et systèmes embarqués.`
 Role: Full-Stack & Systems Developer
 Background: Coding since age 9. Built everything from custom OS environments to production-ready iOS apps.
 Highlights:
-- 1st Place @ HackDécouverte '25
+- 1st Place @ HackDécouverte 1 (Trakant)
+- 2nd Place @ HackDécouverte 2 (Lync)
 - 2nd Best VP IT @ JA Québec (Floragel)
 - SHAD Scholar @ Western University (London, Ontario)
 - Selected Participant @ McGill Computer Science Camp (2026)
@@ -2871,7 +2746,7 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
       'neofetch': () => {
         const lang = localStorage.getItem('language') || 'en';
         return `<div style="display:flex; gap:15px;">
-<pre style="color:#c5ff41; font-size:10px; margin:0; line-height: 1.1;">
+<pre style="color:#7FD6A4; font-size:10px; margin:0; line-height: 1.1;">
       .---.
      /     \\
     | () () |
@@ -2879,7 +2754,7 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
       |||||
 </pre>
 <div>
-  <b style="color:#f46c38;">nayl</b>@<b style="color:#c5ff41;">portfolio</b><br>
+  <b style="color:#E3B341;">nayl</b>@<b style="color:#7FD6A4;">portfolio</b><br>
   ---<br>
   OS: Portfolio OS (V4.2.0)<br>
   Kernel: Linux 6.1.12-nayl-custom<br>
@@ -2893,7 +2768,8 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
         if (lang === 'fr') {
           return `<b>Hackathons & Récompenses</b>
 ----------------------------
-- <b>HackDécouverte 2025 :</b> 1ère Place (Concordia)
+- <b>HackDécouverte 1 (2025) :</b> 1ère Place avec Trakant (Concordia)
+- <b>HackDécouverte 2 (2026) :</b> 2ème Place avec Lync (Concordia)
 - <b>ConUHacks 2026 :</b> Participant
 - <b>Gala JA Québec :</b> Gagnant Meilleur Pitch
 - <b>Défi OSEntreprendre 2025 :</b> Lauréat
@@ -2902,7 +2778,8 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
         }
         return `<b>Hackathons & Achievements</b>
 ----------------------------
-- <b>HackDécouverte 2025:</b> 1st Place (Concordia University)
+- <b>HackDécouverte 1 (2025):</b> 1st Place with Trakant (Concordia University)
+- <b>HackDécouverte 2 (2026):</b> 2nd Place with Lync (Concordia University)
 - <b>ConUHacks 2026:</b> Participant
 - <b>JA Québec Gala:</b> Best Sales Pitch Winner
 - <b>Défi OSEntreprendre 2025:</b> Winner
@@ -2965,10 +2842,10 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
         const interval = setInterval(() => {
           if (i >= 21) {
             clearInterval(interval);
-            line.innerHTML = `<span style='color:#c5ff41;'>${lang === 'fr' ? 'Ta-da ! Acrobatie terminée.' : 'Ta-da! Acrobatics complete.'}</span>`;
+            line.innerHTML = `<span style='color:#7FD6A4;'>${lang === 'fr' ? 'Ta-da ! Acrobatie terminée.' : 'Ta-da! Acrobatics complete.'}</span>`;
             return;
           }
-          line.innerHTML = `<pre style="color:#f46c38; font-family:inherit; line-height:1.2; margin:15px 0; font-weight:bold;">${frames[i % frames.length]}</pre>`;
+          line.innerHTML = `<pre style="color:#E3B341; font-family:inherit; line-height:1.2; margin:15px 0; font-weight:bold;">${frames[i % frames.length]}</pre>`;
           i++;
         }, 150);
         return `<b>${lang === 'fr' ? 'Poussez-vous, l\'acrobate est là !' : 'Step aside, the acrobat is here!'}</b>`;
@@ -3137,6 +3014,210 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
   });
 
   // Project Modal Interaction logic is handled in the openModal/closeModal functions
+</script>
+<script>
+  document.addEventListener('keydown', (e) => {
+    const el = e.target.closest && e.target.closest('[role="button"], [role="link"]');
+    if (!el || el.tagName === 'BUTTON' || el.tagName === 'A') return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+  });
+  // Highlight the nav item for the section in view
+  (() => {
+    const map = { home: 'home', projects: 'projects', experience: 'experience', education: 'experience', skills: 'skills', about: 'about' };
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const key = map[en.target.id];
+        document.querySelectorAll('.navbar span').forEach(n => n.classList.toggle('active', (n.getAttribute('onclick') || '').includes(`'${key}'`)));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  })();
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const pm = document.getElementById('project-modal');
+    const am = document.getElementById('ai-modal');
+    if (pm && pm.classList.contains('active')) closeModal(e);
+    if (am && am.classList.contains('active')) closeAiModal(e);
+  });
+</script>
+<script>
+// == motion ==
+// Scroll-driven motion: pinned story board, horizontal project track,
+// skills pinout, terminal typing. Plain JS, no dependencies.
+(() => {
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = () => matchMedia('(max-width: 820px)').matches;
+
+  // Topbar background once we leave the hero
+  const topbar = document.getElementById('topbar');
+
+  // ---- Story: path draws and chapters advance with scroll ----
+  const story = document.getElementById('story');
+  const path = document.getElementById('story-path');
+  const head = document.getElementById('story-head');
+  const chapters = [...document.querySelectorAll('.chapter')];
+  const photos = [...document.querySelectorAll('.story-photo figure')];
+  const nodes = [...document.querySelectorAll('#story-board .node')];
+  const bars = [...document.querySelectorAll('.story-progress i')];
+  const L = path.getTotalLength();
+  path.style.strokeDasharray = L;
+
+  // distance along the path at which each chip sits
+  const NODE_XY = [[80, 90], [440, 150], [160, 330], [470, 420], [260, 560]];
+  const nodeLen = NODE_XY.map(([x, y]) => {
+    let best = 0, bd = Infinity;
+    for (let s = 0; s <= L; s += 2) {
+      const p = path.getPointAtLength(s);
+      const d = (p.x - x) ** 2 + (p.y - y) ** 2;
+      if (d < bd) { bd = d; best = s; }
+    }
+    return best;
+  });
+
+  let current = -1;
+  function updateStory() {
+    const r = story.getBoundingClientRect();
+    const total = r.height - innerHeight;
+    const p = clamp(-r.top / total);
+    // keep a short hold at the start and end of the pinned section
+    const f = clamp((p - 0.04) / 0.88);
+    const len = f * L;
+    path.style.strokeDashoffset = L - len;
+    const pt = path.getPointAtLength(len);
+    head.setAttribute('cx', pt.x);
+    head.setAttribute('cy', pt.y);
+
+    let idx = 0;
+    nodeLen.forEach((nl, i) => { if (len >= nl - 4) idx = i; });
+    nodes.forEach((n, i) => n.classList.toggle('on', len >= nodeLen[i] - 4));
+    bars.forEach((b, i) => {
+      const a = nodeLen[i], z = nodeLen[i + 1] ?? L + 1;
+      b.style.setProperty('--f', i < idx ? 1 : i === idx ? clamp((len - a) / (z - a)) : 0);
+    });
+    if (idx !== current) {
+      chapters.forEach((c, i) => {
+        c.classList.toggle('on', i === idx);
+        c.classList.toggle('past', i < idx);
+      });
+      photos.forEach((f, i) => f.classList.toggle('on', i === idx));
+      current = idx;
+    }
+  }
+
+  // ---- Projects: vertical scroll drives a horizontal track ----
+  const hs = document.getElementById('hscroll');
+  const track = document.getElementById('track');
+  const hbar = document.getElementById('hbar');
+  let distance = 0;
+
+  function sizeTrack() {
+    if (!hs) return;
+    if (small()) { hs.style.height = ''; track.style.transform = ''; return; }
+    distance = Math.max(0, track.scrollWidth - innerWidth);
+    hs.style.height = (innerHeight + distance) + 'px';
+  }
+
+  function updateTrack() {
+    if (!hs || small()) return;
+    const r = hs.getBoundingClientRect();
+    const p = distance ? clamp(-r.top / distance) : 0;
+    track.style.transform = `translate3d(${-p * distance}px, 0, 0)`;
+    hbar.style.setProperty('--p', p);
+  }
+
+  // filters
+  document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filters button').forEach(b => b.classList.toggle('active', b === btn));
+      const f = btn.dataset.f;
+      track.querySelectorAll('.proj-item').forEach(it => it.classList.toggle('hidden', f !== 'all' && it.dataset.domain !== f));
+      if (!hs) return;
+      const y = hs.getBoundingClientRect().top + scrollY;
+      sizeTrack();
+      if (scrollY > y) scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+      updateTrack();
+    });
+  });
+
+  // ---- Clofit spotlight: screenshots drift at different speeds ----
+  const spot = document.getElementById('spotlight');
+  const shots = spot ? [...spot.querySelectorAll('.shot')] : [];
+  const SPEEDS = [0, -60, 50];
+  function spotParallax() {
+    if (!spot || reduce) return;
+    const r = spot.getBoundingClientRect();
+    const p = clamp((innerHeight - r.top) / (innerHeight + r.height)) - 0.5;
+    shots.forEach((s, i) => { s.style.transform = `translate3d(0, ${p * SPEEDS[i]}px, 0)`; });
+  }
+
+  // ---- One rAF-throttled scroll loop ----
+  let ticking = false;
+  function frame() {
+    ticking = false;
+    topbar.classList.toggle('scrolled', scrollY > innerHeight * 0.6);
+    updateStory();
+    updateTrack();
+    spotParallax();
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => { sizeTrack(); onScroll(); });
+  addEventListener('load', () => { sizeTrack(); onScroll(); });
+  sizeTrack(); frame();
+
+  // ---- In-view triggers: pinout lights up, terminal types ----
+  const pinout = document.getElementById('pinout');
+  const term = document.getElementById('term');
+  let typed = false;
+
+  function type(el, text, speed) {
+    return new Promise(res => {
+      if (reduce) { el.textContent = text; return res(); }
+      let i = 0;
+      el.textContent = '';
+      const t = setInterval(() => {
+        el.textContent = text.slice(0, ++i);
+        if (i >= text.length) { clearInterval(t); res(); }
+      }, speed);
+    });
+  }
+
+  async function runTerminal() {
+    typed = true;
+    await type(document.getElementById('term-cmd'), document.getElementById('src-cmd').textContent.trim(), 45);
+    await new Promise(r => setTimeout(r, reduce ? 0 : 350));
+    await type(document.getElementById('term-out'), document.getElementById('src-out').textContent.trim(), 18);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      if (e.target === pinout) pinout.classList.add('on');
+      if (e.target === term && !typed) runTerminal();
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.35 });
+  io.observe(pinout);
+  io.observe(term);
+
+  // retype the terminal when the language changes
+  const _setLanguage = window.setLanguage;
+  window.setLanguage = function (lang) {
+    _setLanguage(lang);
+    if (typed) runTerminal();
+  };
+
+  // suggested questions: open the chat and send the question
+  document.querySelectorAll('.chip-q').forEach(b => b.addEventListener('click', () => {
+    openAiModal();
+    const input = document.getElementById('ai-modal-input');
+    input.value = b.textContent.trim();
+    if (typeof sendAiMessage === 'function') setTimeout(sendAiMessage, 450);
+  }));
+})();
+
 </script>
 </body>
 
