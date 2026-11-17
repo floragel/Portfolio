@@ -181,7 +181,7 @@ const translations = {
         "terminal-help": "<b>Available commands:</b>\n  ls        - List directory contents\n  cd [dir]  - Change directory\n  cat [file]- Display file content\n  clear     - Clear terminal screen\n  whoami    - Display detailed professional profile\n  neofetch  - Display system/profile summary\n  hackathons- View hackathon wins & awards\n  extracurriculars - View my activities\n  theme [name] - Change terminal theme\n  circus    - Watch an ASCII somersault!\n  exit      - Close terminal\n  \n<b>Tips:</b>\n  - Available themes: <b>matrix</b>, <b>retro</b>, <b>light</b>, <b>dark</b>\n  - Use <b>Tab</b> to autocomplete.\n  - Use <b>Up/Down</b> for history.",
         "terminal-fs": {
             "projects": {
-                "trakant.txt": "Trakant: 1st place application built during HackDécouverte 2025. Designed for rapid deployment and efficient problem-solving under pressure.",
+                "trakant.txt": "Trakant: 1st place at HackDécouverte 1 (2025). Designed for rapid deployment and efficient problem-solving under pressure.", "lync.txt": "Lync: 2nd place at HackDécouverte 2 (2026). Campus social network plus door-to-door indoor navigation, native on Android (Kotlin) and iOS (Swift). GitHub: https://github.com/floragel/HackDecouverte2",
                 "edumaths.txt": "EduMaths: A full-stack mathematics learning platform built at age 12 using PHP and MySQL. Features video lessons and automated PDF generation.",
                 "clofit.txt": "Clofit: Modern native iOS app acting as a digital wardrobe and personal AI stylist using Computer Vision and LLMs. Website: https://clofit.app",
                 "floragel.txt": "Floragel: Mission-driven enterprise dedicated to protecting plants as living beings. 2nd Place provincial ranking and Best Sales Pitch winner.",
@@ -191,7 +191,7 @@ const translations = {
                 "ologra-os.txt": "OLOGRA OS & First Website: Custom operating system built in Visual Basic at age 9. My very first deep dive into programming."
             },
             "hardware": {
-                "vr-headset.txt": "VR Headset: Independent portable system with RPi 4 and Arduino. Features 9-axis tracking and custom optics.",
+                "vr-headset.txt": "VR Headset: Independent portable system with RPi 4 and Arduino. Features 9-axis tracking and custom optics.", "mini-robot.txt": "Gala mini robot (StanRobotix 6622, 2026): C++ / WPILib, SPARK MAX motors, Pigeon 2 IMU, Xbox control, drift moves and LEDs. GitHub: https://github.com/floragel/mini-robot",
                 "frc-robot.txt": "FRC Competition Robot: Strategy and hardware assembly for Team 6622. Industrial electronics and pneumatics.",
                 "custom-laptop.txt": "Custom Laptop: Portable station built at age 9 using a Raspberry Pi 4 in a custom DIY housing.",
                 "retro-console.txt": "Retro Console (2021): Physical gaming system powered by RPi 3 with 3D printed housing.",
@@ -388,7 +388,7 @@ const translations = {
         "terminal-help": "<b>Commandes disponibles :</b>\n  ls        - Lister le contenu du répertoire\n  cd [dir]  - Changer de répertoire\n  cat [file]- Afficher le contenu du fichier\n  clear     - Effacer l'écran\n  whoami    - Afficher le profil professionnel détaillé\n  neofetch  - Afficher le résumé système/profil\n  hackathons- Voir les victoires et prix\n  extracurriculars - Voir mes activités\n  theme [name] - Changer le thème du terminal\n  circus    - Regarder un saut périlleux ASCII !\n  exit      - Fermer le terminal\n  \n<b>Astuces :</b>\n  - Thèmes disponibles : <b>matrix</b>, <b>retro</b>, <b>light</b>, <b>dark</b>\n  - Utilisez <b>Tab</b> pour l'autocomplétion.\n  - Utilisez <b>Haut/Bas</b> pour l'historique.",
         "terminal-fs": {
             "projets": {
-                "trakant.txt": "Trakant : Application lauréate du 1er prix HackDécouverte 2025. Conçue pour un déploiement rapide et efficace sous pression.",
+                "trakant.txt": "Trakant : 1re place à HackDécouverte 1 (2025). Conçue pour un déploiement rapide et efficace sous pression.", "lync.txt": "Lync : 2e place à HackDécouverte 2 (2026). Réseau social de campus et navigation intérieure de porte à porte, natif Android (Kotlin) et iOS (Swift). GitHub : https://github.com/floragel/HackDecouverte2",
                 "edumaths.txt": "EduMaths : Plateforme éducative de maths créée à 12 ans en PHP/MySQL. Cours vidéos et PDF automatisés.",
                 "clofit.txt": "Clofit : App iOS native agissant comme garde-robe numérique et styliste IA utilisant Computer Vision et LLMs. Site web : https://clofit.app",
                 "floragel.txt": "Floragel : Entreprise dédiée à la protection du vivant. 2ème place provinciale et Meilleur Pitch au Québec.",
@@ -398,7 +398,7 @@ const translations = {
                 "ologra-os.txt": "OLOGRA OS : Système d'exploitation personnalisé construit en Visual Basic à 9 ans."
             },
             "materiel": {
-                "casque-vr.txt": "Casque VR : Système indépendant portable avec RPi 4 et Arduino. Suivi 9 axes et optiques sur mesure.",
+                "casque-vr.txt": "Casque VR : Système indépendant portable avec RPi 4 et Arduino. Suivi 9 axes et optiques sur mesure.", "mini-robot.txt": "Mini robot du gala (StanRobotix 6622, 2026) : C++ / WPILib, moteurs SPARK MAX, IMU Pigeon 2, manette Xbox, drifts et LEDs. GitHub : https://github.com/floragel/mini-robot",
                 "robot-frc.txt": "Robot FRC : Stratégie et assemblage matériel pour StanRobotix 6622. Électronique et pneumatique industrielle.",
                 "laptop-diy.txt": "PC Portable : Station portable construite à 9 ans avec un Raspberry Pi 4 dans un boîtier DIY.",
                 "console-retro.txt": "Console Rétro (2021) : Système de jeu physique propulsé par RPi 3 avec boîtier imprimé en 3D.",
