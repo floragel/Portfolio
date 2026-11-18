@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nayl Lahlou | Software × Hardware</title>
+  <title>Nayl Lahlou | Software & Hardware</title>
   <meta name="description" content="Nayl Lahlou, Montreal. Software, AI and hardware projects since 2020.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111315'/%3E%3Cpath d='M6 6h20L6 26z' fill='%237FA7D1'/%3E%3Cpath d='M26 6v20H6z' fill='%23C9A25E'/%3E%3Crect x='11' y='11' width='10' height='10' rx='2' fill='%23111315'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#111315">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="js/translations.js?v=20261117"></script>
+  <script src="js/translations.js?v=20261118c"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&family=Fragment+Mono&display=swap"
     rel="stylesheet">
 
   <style>
@@ -1513,22 +1513,204 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
     }
+
+    /* =====================================================================
+       v5 — "Studio × Établi"
+       Studio: dark product-launch canvas, quiet precise type, photography first.
+       Établi: the hero is a workbench of material tiles (paper, PCB, screen, aluminium).
+       Domain colours stay as small markers only: soft blue = software, copper = hardware.
+       ===================================================================== */
+    :root {
+      --bg: #0E0F11; --bg-2: #16181B; --bg-3: #1D2024; --line: #24272B; --line-2: #33373C;
+      --ink: #F2F1EE; --ink-dim: #A3A4A6; --ink-3: #6E7073;
+      --sw: #8FB3E8; --hw: #D4A373; --led: #8DBF8B;
+      --paper: #F4F3EF; --paper-ink: #151618; --paper-dim: #5A5C60;
+      --pcb: #1E4A38; --copper: #C08552; --screen: #08090B; --violet: #2A2156;
+      --font: 'Inter', system-ui, sans-serif;
+      --disp: 'Inter Tight', 'Inter', sans-serif;
+      --mono: 'Fragment Mono', ui-monospace, monospace;
+      --r: 22px;
+    }
+    body { font-family: var(--font); font-variation-settings: normal; }
+    body::before { display: none; }
+    .wide, .section-title, .hero-name, .chapter .yr, .modal-title, .brand { font-variation-settings: normal; }
+
+    .topbar .wrap { height: 64px; }
+    .brand { font-family: var(--disp); font-weight: 600; font-size: 1.0625rem; letter-spacing: -.01em; }
+    .brand i { width: 18px; height: 18px; border-radius: 5px; background: var(--ink); }
+    .brand i::after { inset: 5px; }
+    .navbar>span { font-size: .9375rem; }
+    .navbar>span.active::after { height: 1.5px; background: var(--ink); }
+
+    .disp { font-family: var(--disp); letter-spacing: -.035em; }
+
+    /* ---------- section heads ---------- */
+    .s5 { padding-top: clamp(88px, 11vw, 150px); }
+    .s5-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px 48px; margin-bottom: 40px; }
+    .s5-head h2 { font-family: var(--disp); font-weight: 600; font-size: clamp(2.4rem, 5vw, 4.25rem); line-height: 1; letter-spacing: -.035em; }
+    .s5-head p { color: var(--ink-dim); max-width: 46ch; font-size: 1.0625rem; }
+
+    /* ---------- hero bench ---------- */
+    .bench { padding: 92px 0 0; }
+    .bench-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 88px; gap: 14px; }
+    .tile {
+      position: relative; border-radius: var(--r); overflow: hidden; border: 0; text-align: left; font: inherit; color: inherit;
+      box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 18px 40px -22px rgba(0,0,0,.8);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    button.tile, .tile[role="button"] { cursor: pointer; }
+    button.tile:hover, .tile[role="button"]:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 26px 50px -24px rgba(0,0,0,.9); }
+
+    .t-intro { grid-column: span 7; grid-row: span 5; background: var(--paper); color: var(--paper-ink); padding: clamp(28px, 3.4vw, 44px); display: flex; flex-direction: column; }
+    .t-intro small { color: var(--paper-dim); font-size: 1rem; }
+    .t-intro h1 { margin-top: 14px; font-family: var(--disp); font-weight: 600; font-size: clamp(2.6rem, 5.2vw, 4.6rem); line-height: .98; letter-spacing: -.04em; }
+    .t-intro h1 span { display: block; color: #9A9B9E; }
+    .t-intro p { margin-top: 18px; max-width: 42ch; font-size: 1.125rem; color: var(--paper-dim); }
+    .t-intro .cta-row { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 999px; font: 500 .9375rem var(--font); border: 0; cursor: pointer; text-decoration: none; }
+    .pill.dark { background: var(--paper-ink); color: var(--paper); }
+    .pill.line { background: transparent; color: var(--paper-ink); box-shadow: inset 0 0 0 1.5px var(--paper-ink); }
+    .pill.light { background: var(--ink); color: var(--bg); }
+    .pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+    .t-intro .soc { margin-left: auto; display: flex; gap: 14px; font-size: .9375rem; }
+    .t-intro .soc a { color: var(--paper-dim); text-decoration: none; }
+    .t-intro .soc a:hover { color: var(--paper-ink); text-decoration: underline; text-underline-offset: 3px; }
+
+    .t-photo { grid-column: span 5; grid-row: span 5; margin: 0; background: var(--bg-2); }
+    .t-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 48% 32%; }
+    .t-photo figcaption { position: absolute; left: 14px; bottom: 14px; padding: 7px 12px; border-radius: 999px; background: rgba(244,243,239,.92); color: var(--paper-ink); font-size: .875rem; }
+
+    .t-pcb { grid-column: span 4; grid-row: span 3; background: var(--pcb); color: #E9F1EC; padding: 24px; }
+    .t-pcb > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .t-pcb .lbl { position: relative; font: 400 .8125rem var(--mono); color: #A9C9B6; }
+    .t-pcb strong { position: relative; display: block; margin-top: 8px; font-family: var(--disp); font-size: 1.75rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.05; }
+    .t-pcb .go { position: absolute; left: 24px; bottom: 22px; display: inline-flex; gap: 8px; align-items: center; font-size: .9375rem; }
+
+    .t-term { grid-column: span 4; grid-row: span 3; background: var(--screen); color: #E7E9EC; padding: 22px 24px; font: 400 .875rem/1.8 var(--mono); }
+    .t-term strong { display: block; font: 600 1.6rem/1.05 var(--disp); letter-spacing: -.02em; margin-bottom: 12px; color: #fff; }
+    .t-term .p { color: var(--sw); }
+    .t-term .c { display: inline-block; width: 8px; height: 16px; background: var(--copper); vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+
+    .t-stat { grid-column: span 2; grid-row: span 3; background: linear-gradient(165deg, #F7F8F9, #D9DCDF); color: var(--paper-ink); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .t-stat b { font-family: var(--disp); font-size: 2.9rem; font-weight: 700; letter-spacing: -.045em; line-height: 1; }
+    .t-stat span { margin-top: 8px; font-size: .875rem; color: var(--paper-dim); line-height: 1.35; }
+
+    .t-img { grid-column: span 4; grid-row: span 3; background: var(--bg-2); }
+    .t-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .t-img .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 20px 18px; background: linear-gradient(transparent, rgba(0,0,0,.82)); }
+    .t-img .cap b { display: block; font-family: var(--disp); font-size: 1.25rem; font-weight: 600; letter-spacing: -.015em; }
+    .t-img .cap span { font-size: .875rem; color: #CFD0D2; }
+    .t-alu { grid-column: span 4; grid-row: span 3; background: linear-gradient(165deg, #F7F8F9, #D9DCDF); color: var(--paper-ink); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .t-alu b { font-family: var(--disp); font-size: 2.4rem; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+    .t-alu span { margin-top: 8px; color: var(--paper-dim); font-size: .9375rem; }
+
+    /* ---------- story restyle ---------- */
+    .story-title { font-family: var(--disp); font-weight: 600; color: var(--ink-dim); letter-spacing: -.01em; }
+    .chapter .yr { font-family: var(--disp); font-weight: 700; letter-spacing: -.05em; color: var(--ink); }
+    .chapter h3 { font-family: var(--disp); font-weight: 600; letter-spacing: -.02em; }
+    .story-photo { border-radius: var(--r); border: 0; }
+    .story-photo .frame-c { display: none; }
+    .tag { border-color: var(--line-2); }
+
+    /* ---------- Clofit stage ---------- */
+    .stage-head { text-align: center; }
+    .stage-head small { color: #B3A9F0; font-size: 1rem; font-weight: 500; }
+    .stage-head h2 { margin-top: 8px; font-family: var(--disp); font-weight: 600; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; letter-spacing: -.045em; }
+    .stage-head p { margin: 18px auto 0; max-width: 46ch; color: var(--ink-dim); font-size: 1.1875rem; }
+    .stage-head .cta-row { margin-top: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .stage { margin-top: 48px; border-radius: 28px; padding: clamp(20px, 4vw, 56px) clamp(16px, 4vw, 56px) 0; background: radial-gradient(120% 90% at 50% 0%, #3A3178 0%, #1E1A44 55%, var(--bg-2) 100%); overflow: hidden; }
+    .stage img { width: 100%; border-radius: 14px 14px 0 0; box-shadow: 0 -20px 80px rgba(0,0,0,.45); }
+    .stage-shots { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .stage-shots img { width: 100%; border-radius: 16px; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; background: #fff; }
+    .stage-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+    .stage-feats h4 { font-family: var(--disp); font-weight: 600; font-size: 1.1875rem; letter-spacing: -.01em; }
+    .stage-feats p { margin-top: 6px; color: var(--ink-dim); font-size: .9375rem; }
+
+    /* ---------- projects ---------- */
+    .domain { background: none; border-top: 0; padding: clamp(64px, 8vw, 110px) 0 0; }
+    .domain-title { font-family: var(--disp); font-weight: 600; letter-spacing: -.035em; font-size: clamp(2rem, 4.2vw, 3.4rem); color: var(--ink); gap: 14px; }
+    .domain-title i { width: 12px; height: 12px; border-radius: 50%; box-shadow: none; background: var(--c); }
+    .card { border-radius: var(--r); border: 0; background: var(--bg-2); }
+    .card:hover, .card:focus-visible { border: 0; box-shadow: 0 0 0 1px var(--line-2); }
+    .card-body h4 { font-family: var(--disp); font-weight: 600; letter-spacing: -.025em; font-variation-settings: normal; }
+    .proj-meta span:first-child { color: var(--c); font-weight: 500; }
+
+    details.more { margin-top: 18px; border-radius: var(--r); background: var(--bg-2); }
+    details.more > summary {
+      list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 20px 24px; font-weight: 500; color: var(--ink); border-radius: var(--r);
+    }
+    details.more > summary::-webkit-details-marker { display: none; }
+    details.more > summary::after { content: "+"; font-size: 1.5rem; line-height: 1; color: var(--ink-dim); transition: transform .25s ease; }
+    details.more[open] > summary::after { transform: rotate(45deg); }
+    details.more > summary:hover { background: var(--bg-3); }
+    details.more .rows { margin: 0; padding: 4px 24px 18px; }
+    details.more .inner { padding: 4px 24px 28px; }
+
+    /* ---------- timeline highlights ---------- */
+    .hl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .hl { border-radius: var(--r); background: var(--bg-2); padding: 24px; display: flex; flex-direction: column; min-height: 200px; cursor: pointer; transition: background-color .2s; }
+    .hl:hover, .hl:focus-visible { background: var(--bg-3); }
+    .hl .k { display: flex; justify-content: space-between; color: var(--ink-3); font-size: .875rem; }
+    .hl .k b { font-family: var(--disp); font-size: 2rem; font-weight: 700; color: var(--ink); letter-spacing: -.04em; line-height: 1; }
+    .hl h4 { margin-top: auto; padding-top: 18px; font-family: var(--disp); font-weight: 600; font-size: 1.25rem; line-height: 1.2; letter-spacing: -.015em; }
+    .hl p { margin-top: 8px; color: var(--ink-dim); font-size: .9375rem; line-height: 1.45; }
+    .more .exp-group { border-top-color: var(--line); }
+    .more .exp-year b { font-family: var(--disp); font-variation-settings: normal; letter-spacing: -.04em; font-weight: 700; }
+    .more .edu-title { margin: 36px 0 18px; font-family: var(--disp); font-weight: 600; font-size: 1.75rem; letter-spacing: -.02em; }
+    .edu-list .timeline-item { border-top-color: var(--line-2); }
+    .edu-list h3 { font-family: var(--disp); font-variation-settings: normal; font-weight: 600; letter-spacing: -.015em; }
+
+    /* ---------- skills ---------- */
+    .sk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .sk-grid .pins { grid-area: auto !important; grid-column: auto !important; border-radius: var(--r); background: var(--bg-2); padding: 24px; text-align: left !important; }
+    .sk-grid .pins h3 { color: var(--c); font-size: .9375rem; font-weight: 600; margin-bottom: 14px; text-align: left !important; }
+    .sk-grid .pins ul { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start !important; }
+    .sk-grid .pins li { padding: 7px 12px !important; border-radius: 999px; background: var(--bg-3); border: 0 !important; color: var(--ink) !important; font-size: .9375rem; }
+    .sk-grid .pins li::after { display: none !important; }
+    .sk-grid .pins.bottom { --c: var(--led); }
+
+    /* ---------- AI ---------- */
+    .ai5 { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 72px); align-items: center; padding-bottom: clamp(88px, 11vw, 150px); }
+    .ai5 h2 { font-family: var(--disp); font-weight: 600; font-size: clamp(2.4rem, 5vw, 4.25rem); line-height: 1; letter-spacing: -.035em; }
+    .ai5 p.lede { margin-top: 16px; color: var(--ink-dim); max-width: 40ch; font-size: 1.125rem; }
+    .term { border-radius: var(--r); border: 0; background: var(--screen); box-shadow: 0 30px 80px -30px rgba(0,0,0,.9); }
+    .term-bar { border-bottom-color: #15171A; }
+    .term-body { font-family: var(--mono); }
+    .ai-launch-card { background: var(--ink); color: var(--bg); border-radius: 999px; padding: 11px 18px; }
+    .chip-q { border-radius: 999px; }
+
+    .site-footer { border-top: 1px solid var(--line); }
+
+    @media (max-width: 1000px) {
+      .bench-grid { grid-template-columns: repeat(6, 1fr); }
+      .t-intro, .t-photo { grid-column: span 6; }
+      .t-intro { grid-row: span 4; }
+      .t-photo { grid-row: span 6; }
+      .t-pcb, .t-term, .t-img, .t-alu { grid-column: span 3; }
+      .t-stat { grid-column: span 3; grid-row: span 2; }
+      .hl-grid { grid-template-columns: 1fr 1fr; }
+      .sk-grid { grid-template-columns: 1fr 1fr; }
+      .ai5 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .bench { padding-top: 80px; }
+      .bench-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 10px; }
+      .tile { grid-column: span 2 !important; grid-row: auto !important; min-height: 200px; }
+      .t-photo { aspect-ratio: 4 / 5; }
+      .t-stat { grid-column: span 1 !important; min-height: 150px; }
+      .t-intro .soc { margin-left: 0; width: 100%; }
+      .hl-grid, .sk-grid, .stage-feats, .stage-shots { grid-template-columns: 1fr; }
+      details.more .rows, details.more .inner { padding-left: 16px; padding-right: 16px; }
+    }
+
+    .modal-video { display: block; width: 100%; max-height: 560px; border-radius: 14px; background: #000; object-fit: contain; }
+    .card-media { position: relative; }
+    .vid-badge { position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; background: rgba(242,241,238,.92); color: #151618; font-size: .8125rem; font-weight: 500; }
   </style>
 </head>
 
 <body>
-
-<div id="language-splash">
-  <div class="splash-content">
-    <div class="splash-welcome">$ hello --world</div>
-    <div class="splash-logo">NAYL</div>
-    <p class="splash-choose">Choisissez votre langue / Choose your language</p>
-    <div class="splash-btns">
-      <button class="splash-btn fr" onclick="setLanguage('fr')" data-t="splash-fr">Français</button>
-      <button class="splash-btn en" onclick="setLanguage('en')" data-t="splash-en">English</button>
-    </div>
-  </div>
-</div>
 
 <header class="topbar" id="topbar">
   <div class="wrap">
@@ -1553,43 +1735,54 @@
 
 <main>
 
-  <section id="home" class="hero">
-    <!-- HyperFrames composition (hyperframes/hero-reel) playing live as the hero background -->
-    <iframe class="hero-reel" src="hyperframes/hero-reel/index.html" title="" aria-hidden="true" tabindex="-1" loading="eager"></iframe>
-    <div class="wrap hero-grid">
-      <div class="hero-main">
-      <div class="hero-kicker" data-t="hero-kicker">Montreal, building since 2020</div>
-      <h1 class="hero-name"><span><b>Nayl</b></span><span><b>Lahlou</b></span></h1>
-      <p class="hero-split"><span class="sw" data-t="hero-sw">Software</span><span class="x">×</span><span class="hw" data-t="hero-hw">Hardware</span></p>
-      <p class="hero-desc" data-t="hero-desc">I have been coding and building systems since I was 9. From assembling my first PC to winning hackathons with custom apps and managing IT infrastructure for award-winning ventures.</p>
-      <div class="ports">
-        <button class="port" onclick="openProjectModal('expertise-web')">
-          <span class="port-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5M12 19h8"/></svg></span>
-          <span><strong data-t="try-terminal">Open my terminal</strong><small data-t="try-terminal-sub">Software, apps and AI</small></span>
-        </button>
-        <button class="port hwp" onclick="openProjectModal('expertise-hardware')">
-          <span class="port-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
-          <span><strong data-t="try-circuit">Wire a circuit</strong><small data-t="try-circuit-sub">Hardware, simulated live</small></span>
-        </button>
+  <section id="home" class="bench">
+    <div class="wrap bench-grid">
+      <div class="tile t-intro">
+        <small data-t="hero-kicker">Montreal, building since 2020</small>
+        <h1><span data-t="h-title1" style="color:inherit">I build apps and robots.</span><span data-t="h-title2">Since I was 9.</span></h1>
+        <p data-t="h-desc">I write apps and build robots: Clofit, two podiums at HackDécouverte and FRC team 6622.</p>
+        <div class="cta-row">
+          <button class="pill dark" onclick="scrollToSection('projects')"><span data-t="h-cta-projects">See my projects</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="pill line" onclick="openAiModal()" data-t="h-cta-ai">Ask my AI</button>
+          <span class="soc">
+            <a href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" rel="noopener">Instagram</a>
+          </span>
+        </div>
       </div>
-      <div class="socials">
-        <a href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" rel="noopener">Instagram</a>
-      </div>
-      </div>
-      <figure class="portrait">
-        <img src="assets/img/nayl.JPG" alt="Nayl Lahlou">
-        <figcaption data-t="hero-photo">Nayl, Montreal</figcaption>
-      </figure>
+      <figure class="tile t-photo"><img src="assets/img/nayl.JPG" alt="Nayl Lahlou"><figcaption data-t="hero-photo">Nayl, Montreal</figcaption></figure>
+
+      <button class="tile t-pcb" onclick="openProjectModal('expertise-hardware')">
+        <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g fill="none" stroke="#C08552" stroke-width="3" stroke-linecap="round" opacity=".7"><path d="M250 -10 V60 L290 100 H410"/><path d="M310 -10 V40 L340 70 H410"/><path d="M410 150 H360 L330 180 V290"/></g>
+          <g fill="#1E4A38" stroke="#E2B36E" stroke-width="3"><circle cx="330" cy="180" r="7"/><circle cx="290" cy="100" r="7"/><circle cx="340" cy="70" r="6"/></g>
+        </svg>
+        <span class="lbl" data-t="t-pcb-label">hardware / live</span>
+        <strong data-t="try-circuit">Wire a circuit</strong>
+        <span class="go"><span data-t="t-pcb-go">Open the simulator</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </button>
+      <button class="tile t-term" onclick="openProjectModal('expertise-web')">
+        <strong data-t="try-terminal">Open my terminal</strong>
+        <div><span class="p">~ $</span> ls projects</div>
+        <div>clofit  lync  trakant  jarvis</div>
+        <div><span class="p">~ $</span> cat lync.txt</div>
+        <div data-t="aw-lync">2nd place, HackDécouverte 2</div>
+        <div><span class="p">~ $</span> <span class="c"></span></div>
+      </button>
+      <div class="tile t-stat" role="button" tabindex="0" onclick="openProjectModal('trakant')"><b data-t="big-1st">1st</b><span data-t="st-hd1">place, HackDécouverte 1</span></div>
+      <div class="tile t-stat" role="button" tabindex="0" onclick="openProjectModal('lync')"><b data-t="big-2nd">2nd</b><span data-t="st-hd2">place, HackDécouverte 2</span></div>
+
+      <div class="tile t-alu" role="button" tabindex="0" onclick="openProjectModal('shad')"><b>SHAD 2026</b><span data-t="t-shad">Changemaker Scholar, Western University</span></div>
+      <div class="tile t-img" role="button" tabindex="0" onclick="openProjectModal('frc-robot')"><img src="assets/img/hardware/frc-robot/frc-robot-6622-2025.png" alt=""><div class="cap"><b>StanRobotix 6622</b><span data-t="t-frc">Robot builder, FIRST Robotics</span></div></div>
+      <div class="tile t-img" role="button" tabindex="0" onclick="openProjectModal('gala-mc-2026')"><img src="assets/img/maitre-de-ceremonie-1.jpg" alt="" style="object-position:center 30%"><div class="cap"><b data-t="t-mc-title">Master of ceremonies</b><span data-t="t-mc">Stanislas gala, 800 guests</span></div></div>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span data-t="scroll-cue">Scroll</span><i></i></div>
   </section>
 
   <section id="story" class="story" aria-label="Journey">
     <div class="story-sticky">
       <div class="story-text">
-        <h2 class="story-title" data-t="st-title">From code to copper</h2>
+        <h2 class="story-title" data-t="st-title">My journey, year by year</h2>
         <div class="chapters">
           <div class="chapter on" data-i="0" style="--c1: var(--sw); --c2: var(--hw)">
             <span class="yr">2020</span>
@@ -1636,7 +1829,7 @@
       <svg class="board" id="story-board" viewBox="0 -20 620 660" aria-hidden="true">
         <defs>
           <linearGradient id="swhw" x1="0" y1="0" x2="620" y2="640" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#7FA7D1"/><stop offset="1" stop-color="#C9A25E"/>
+            <stop offset="0" stop-color="#38E1FF"/><stop offset="1" stop-color="#FFB341"/>
           </linearGradient>
         </defs>
         <text class="ghost-code" x="300" y="40">void setup() { Serial.begin(9600); }</text>
@@ -1688,35 +1881,26 @@
   </section>
 
   <section id="projects" class="projects scrolly">
-    <div class="section projects-intro">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 class="section-title" data-t="sec-projects">Projects</h2>
-          <p class="section-note" data-t="sec-projects-note2">One flagship, then software and hardware side by side. Select a project for photos and links.</p>
+    <div class="wrap s5" id="spotlight">
+      <div class="stage-head">
+        <small data-t="spot-label">My flagship project</small>
+        <h2>Clofit</h2>
+        <p data-t="spot-desc">An iPhone app that turns the clothes you already own into AI-made outfits matched to the weather, and connects you with your campus and friends to share your style.</p>
+        <div class="cta-row">
+          <a class="pill light" href="https://clofit.app" target="_blank" rel="noopener"><span data-t="spot-visit">Visit clofit.app</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <button class="pill ghost" onclick="openProjectModal('clofit')"><span data-t="see-project">See the project</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
-    </div>
-    <div class="wrap spot" id="spotlight">
-      <div class="spot-text">
-        <span class="spot-label" data-t="spot-label">My flagship project</span>
-        <h3 class="spot-title">Clofit</h3>
-        <p class="spot-tagline" data-t="spot-tagline">Your closet. Your world. Finally connected.</p>
-        <p class="spot-desc" data-t="spot-desc">An iPhone app that turns the clothes you already own into AI-made outfits matched to the weather, and connects you with your campus and friends to share your style.</p>
-        <ul class="spot-points">
-          <li data-t="spot-p1">One photo is enough: background removed, item profiled automatically</li>
-          <li data-t="spot-p2">An AI stylist that knows your real closet and the weather</li>
-          <li data-t="spot-p3">OOTD, streaks and campus feed to share your style</li>
-        </ul>
-        <div class="feat-stack"><span>SwiftUI</span><span>Computer Vision</span><span>LLMs</span></div>
-        <div class="spot-actions">
-          <a class="spot-btn" href="https://clofit.app" target="_blank" rel="noopener"><span data-t="spot-visit">Visit clofit.app</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-          <button class="spot-btn ghost" onclick="openProjectModal('clofit')"><span data-t="see-project">See the project</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
+      <div class="stage"><img src="assets/img/clofit/site-hero.jpg" alt="Clofit website" loading="lazy"></div>
+      <div class="stage-shots">
+        <img src="assets/img/clofit/site-closet.jpg" alt="" loading="lazy">
+        <img src="assets/img/clofit/site-outfit.jpg" alt="" loading="lazy">
+        <img src="assets/img/clofit/site-ai.jpg" alt="" loading="lazy">
       </div>
-      <div class="spot-media" aria-hidden="true">
-        <img class="shot shot-main" src="assets/img/clofit/site-hero.jpg" alt="" loading="lazy">
-        <img class="shot shot-a" src="assets/img/clofit/site-outfit.jpg" alt="" loading="lazy">
-        <img class="shot shot-b" src="assets/img/clofit/site-ai.jpg" alt="" loading="lazy">
+      <div class="stage-feats">
+        <div><h4 data-t="f1-t">One photo is enough</h4><p data-t="spot-p1">One photo is enough: background removed, item profiled automatically</p></div>
+        <div><h4 data-t="f2-t">A stylist that knows you</h4><p data-t="spot-p2">An AI stylist that knows your real closet and the weather</p></div>
+        <div><h4 data-t="f3-t">Your style, shared</h4><p data-t="spot-p3">OOTD, streaks and a campus feed to share your style</p></div>
       </div>
     </div>
     <div class="domain sw" id="projects-sw">
@@ -1727,7 +1911,7 @@
         </div>
         <div class="cards">
           <article class="card" data-domain="sw" role="button" tabindex="0" onclick="openProjectModal('lync')">
-            <div class="card-media logo lync-logo"><img src="assets/img/lync/logo.svg" alt="Lync logo" loading="lazy"></div>
+            <div class="card-media logo lync-logo"><img src="assets/img/lync/logo.svg" alt="Lync logo" loading="lazy"><span class="vid-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg><span data-t="lync-video">Demo video</span></span></div>
             <div class="card-body">
               <div class="proj-meta"><span>Android</span><span>2026</span></div>
               <h4>Lync</h4>
@@ -1757,6 +1941,7 @@
             </div>
           </article>
         </div>
+        <details class="more"><summary data-t="more-sw">See 5 more software projects</summary>
         <div class="rows">
             <div class="row" role="button" tabindex="0" onclick="openProjectModal('jarvis')">
               <div class="th"><img src="assets/img/jarvis.png" alt="" loading="lazy"></div>
@@ -1783,7 +1968,7 @@
               <div><b>My First Website & OLOGRA OS</b><p data-t="ologra-short">Built my first website and a custom operating system (OLOGRA OS) using Visual Basic at age 9.</p></div>
               <span class="yr">2020</span>
             </div>
-        </div>
+        </div></details>
       </div>
     </div>
     <div class="domain hw" id="projects-hw">
@@ -1824,6 +2009,7 @@
             </div>
           </article>
         </div>
+        <details class="more"><summary data-t="more-hw">See 3 more hardware projects</summary>
         <div class="rows">
             <div class="row" role="button" tabindex="0" onclick="openProjectModal('jarvis-iot')">
               <div class="th"><img src="assets/img/hardware/jarvis_iot/jarvis_iot.jpeg" alt="" loading="lazy"></div>
@@ -1840,18 +2026,53 @@
               <div><b>Custom Laptop</b><p data-t="laptop-short">Built a portable station using RPi4 and a DIY housing to learn computer architecture.</p></div>
               <span class="yr">2020</span>
             </div>
-        </div>
+        </div></details>
       </div>
     </div>
   </section>
 
-  <section id="experience" class="section scrolly">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 class="section-title" data-t="sec-experience">Experience</h2>
-        <p class="section-note legend"><i aria-hidden="true"></i><span data-t="exp-note">Filled dots open photos and details.</span></p>
+  <section id="experience" class="scrolly">
+    <div class="wrap s5">
+      <div class="s5-head">
+        <h2 data-t="sec-experience">Experience</h2>
+        <p data-t="exp-intro">The highlights first. Everything else, school included, is one click away.</p>
       </div>
-      <div class="exp-wrap">
+      <div class="hl-grid">
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('shad')">
+          <div class="k"><b>SHAD</b><span>2026</span></div>
+          <h4 data-t="shad">SHAD 2026 Community Changemaker Scholar</h4>
+          <p data-t="shad">Awarded the SHAD 2026 Community Changemaker Scholarship (McCall MacBain Foundation) for STEM & Entrepreneurship excellence at Western University.</p>
+        </div>
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('lync')">
+          <div class="k"><b data-t="big-2nd">2e</b><span>2026</span></div>
+          <h4 data-t="lync-2nd">2nd Place — HackDécouverte 2 (Concordia University)</h4>
+          <p data-t="lync-2nd">Built Lync, a campus social network with door-to-door indoor navigation, and took 2nd place.</p>
+        </div>
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('trakant')">
+          <div class="k"><b data-t="big-1st">1re</b><span>2025</span></div>
+          <h4 data-t="hack-win">1st Place — HackDécouverte 1 (Concordia University)</h4>
+          <p data-t="hack-win">Won top honors for Trakant, proving technical agility and the ability to build high-stakes solutions rapidly.</p>
+        </div>
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('floragel')">
+          <div class="k"><b data-t="big-2nd">2e</b><span>2024</span></div>
+          <h4 data-t="vpit">Vice President IT — Floragel (JA Québec)</h4>
+          <p data-t="vpit">Ranked 2nd Best VP IT in Quebec. Built the technological soul of a mission-driven plant protection project that won Best Sales Pitch.</p>
+        </div>
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('gala-mc-2026')">
+          <div class="k"><b>800</b><span>2026</span></div>
+          <h4 data-t="gala-mc-2026">Gala Master of Ceremonies (MC)</h4>
+          <p data-t="gala-mc-2026">Hosted the Collège Stanislas recognition gala in front of 800 guests.</p>
+        </div>
+        <div class="hl" role="button" tabindex="0" onclick="openProjectModal('osentreprendre-2025')">
+          <div class="k"><span>2025</span></div>
+          <h4 data-t="osentreprendre-2025">Défi OSEntreprendre 2025 Winner</h4>
+          <p data-t="osentreprendre-2025">Recognized for outstanding student entrepreneurship and innovative project development.</p>
+        </div>
+      </div>
+      <details class="more" id="education">
+        <summary><span data-t="more-exp">See the full timeline and education</span></summary>
+        <div class="inner">
+          <div class="exp-wrap">
         <div class="exp-group">
           <div class="exp-year"><b>2027</b><span class="year-label" data-t="lab-2027">Upcoming Leadership</span></div>
           <div>
@@ -1965,55 +2186,37 @@
           </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="education" class="section scrolly" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 class="section-title" data-t="sec-education">Education</h2>
-      </div>
-      <div class="edu-list">
-        <div class="timeline-item"><div class="timeline-content">
-          <h3>Collège Stanislas</h3>
-          <div class="date"><span data-t="edu-present">2024 – present</span>, Montréal</div>
-          <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
-        </div></div>
-        <div class="timeline-item"><div class="timeline-content">
-          <h3>Lycée Claudel</h3>
-          <div class="date">2023 – 2024, Ottawa</div>
-          <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
-        </div></div>
-        <div class="timeline-item"><div class="timeline-content">
-          <h3>Lycée Français International Louis Massignon</h3>
-          <div class="date">2016 – 2023, Casablanca</div>
-          <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
-        </div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="section scrolly">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 class="section-title" data-t="sec-skills">Skills</h2>
-        <p class="section-note" data-t="sk-note">Software on the cyan pins, hardware on the amber ones.</p>
-      </div>
-      <div class="pinout" id="pinout">
-        <div class="pins top">
-          <h3 data-t="sk-web">Web & data</h3>
-          <ul>
-            <li style="--i:0">Next.js / React</li>
-            <li style="--i:1">Node.js</li>
-            <li style="--i:2">JavaScript</li>
-            <li style="--i:3">HTML / CSS</li>
-            <li style="--i:4">Tailwind CSS</li>
-            <li style="--i:5">PHP</li>
-            <li style="--i:6">PostgreSQL</li>
-            <li style="--i:7">Git / GitHub</li>
-          </ul>
+          </div>
+          <h3 class="edu-title" data-t="sec-education">Education</h3>
+          <div class="edu-list">
+            <div class="timeline-item"><div class="timeline-content">
+              <h3>Collège Stanislas</h3>
+              <div class="date"><span data-t="edu-present">2024 – present</span>, Montréal</div>
+              <p data-t="edu-stan-desc">Current studies, focusing on high-level academics and extracurricular leadership in robotics.</p>
+            </div></div>
+            <div class="timeline-item"><div class="timeline-content">
+              <h3>Lycée Claudel</h3>
+              <div class="date">2023 – 2024, Ottawa</div>
+              <p data-t="edu-claudel-desc">Completed grade 8 with a focus on core sciences and mathematics.</p>
+            </div></div>
+            <div class="timeline-item"><div class="timeline-content">
+              <h3>Lycée Français International Louis Massignon</h3>
+              <div class="date">2016 – 2023, Casablanca</div>
+              <p data-t="edu-mass-desc">Early academic foundation in a rigorous international environment.</p>
+            </div></div>
+          </div>
         </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="skills" class="scrolly">
+    <div class="wrap s5">
+      <div class="s5-head">
+        <h2 data-t="sec-skills">Skills</h2>
+        <p data-t="sk-intro">What I use to build, from the app to the circuit.</p>
+      </div>
+      <div class="sk-grid" id="pinout">
         <div class="pins left">
           <h3 data-t="sk-software">Software & AI</h3>
           <ul>
@@ -2026,7 +2229,6 @@
             <li style="--i:6">Computer Vision</li>
           </ul>
         </div>
-        <div class="chip" aria-hidden="true"><div><b>NL</b><small>rev. 2026</small></div></div>
         <div class="pins right">
           <h3 data-t="sk-hardware">Hardware & robotics</h3>
           <ul>
@@ -2036,6 +2238,19 @@
             <li style="--i:3">Java / C++</li>
             <li style="--i:4">3D design & Blender</li>
             <li style="--i:5">Competition robotics (FRC)</li>
+          </ul>
+        </div>
+        <div class="pins top">
+          <h3 data-t="sk-web">Web & data</h3>
+          <ul>
+            <li style="--i:0">Next.js / React</li>
+            <li style="--i:1">Node.js</li>
+            <li style="--i:2">JavaScript</li>
+            <li style="--i:3">HTML / CSS</li>
+            <li style="--i:4">Tailwind CSS</li>
+            <li style="--i:5">PHP</li>
+            <li style="--i:6">PostgreSQL</li>
+            <li style="--i:7">Git / GitHub</li>
           </ul>
         </div>
         <div class="pins bottom">
@@ -2053,11 +2268,11 @@
     </div>
   </section>
 
-  <section id="about" class="section scrolly">
-    <div class="wrap ai-panel">
-      <div class="ai-intro">
-        <h2 class="section-title" data-t="sec-ai">Ask my assistant</h2>
-        <p data-t="ai-lede">An AI that knows my projects and my journey. Ask it anything, in French or English.</p>
+  <section id="about" class="scrolly">
+    <div class="wrap s5 ai5">
+      <div>
+        <h2 data-t="sec-ai">Ask my assistant</h2>
+        <p class="lede" data-t="ai-lede">An AI that knows my projects and my journey. Ask it anything, in French or English.</p>
       </div>
       <div class="term" id="term">
         <div class="term-bar"><img src="assets/img/nayl.JPG" alt="">nayl@portfolio<span class="on" data-t="ai-status">Online</span></div>
@@ -2128,11 +2343,11 @@
           <p id="modal-desc">Detailed description of the project goes here.</p>
           <div class="tech-stack" id="modal-techs"></div>
 
+          <div id="modal-video-wrap" style="display:none; margin-top: 2rem;"></div>
           <div id="modal-gallery-section"
             style="margin-top: 2rem; display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-            <h4
-              style="color: var(--text-white); margin-bottom: 1rem; font-family: var(--font-display); font-size: 1.1rem;">
-              Gallery & Screenshots</h4>
+            <h4 data-t="gallery-title"
+              style="color: var(--text-white); margin-bottom: 1rem; font-family: var(--font-display); font-size: 1.1rem;">Gallery & Screenshots</h4>
             <div id="modal-gallery-grid"
               style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
           </div>
@@ -2265,6 +2480,16 @@
     imgBanner.style.backgroundColor = 'transparent';
     gallerySection.style.display = 'none';
     galleryGrid.innerHTML = '';
+    const videoWrap = document.getElementById('modal-video-wrap');
+    videoWrap.innerHTML = '';
+    videoWrap.style.display = 'none';
+    if (extra && extra.video) {
+      const v = document.createElement('video');
+      v.src = extra.video; v.controls = true; v.playsInline = true; v.preload = 'metadata';
+      v.className = 'modal-video';
+      videoWrap.appendChild(v);
+      videoWrap.style.display = 'block';
+    }
 
     if (imagePath && imagePath !== '') {
       imgBanner.style.backgroundImage = `url('${imagePath}')`;
@@ -2360,6 +2585,8 @@
 
   function closeModal(event) {
     projModal.classList.remove('active');
+    const vw = document.getElementById('modal-video-wrap');
+    if (vw) { vw.innerHTML = ''; vw.style.display = 'none'; }
     document.body.style.overflow = 'auto';
     const hwSim = document.getElementById('modal-hardware-simulator');
     if (hwSim) {
@@ -2962,7 +3189,7 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
       container.addEventListener('click', () => input.focus());
       const lang = localStorage.getItem('language') || 'en';
       writeLine(lang === 'fr' ? '<span style="color:#10b981;">[OK]</span> Session NaylOS démarrée.' : '<span style="color:#10b981;">[OK]</span> Portfolio Shell session started.');
-      writeLine(lang === 'fr' ? 'Tapez <b>help</b> pour la liste des commandes.\\n' : 'Type <b>help</b> for command list.\\n');
+      writeLine(lang === 'fr' ? 'Tapez <b>help</b> pour la liste des commandes.' : 'Type <b>help</b> for command list.');
       input.focus();
     }
 
@@ -3156,7 +3383,7 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
   let ticking = false;
   function frame() {
     ticking = false;
-    topbar.classList.toggle('scrolled', scrollY > innerHeight * 0.6);
+    topbar.classList.toggle('scrolled', scrollY > 24);
     updateStory();
     updateTrack();
     spotParallax();
@@ -3216,6 +3443,15 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
     input.value = b.textContent.trim();
     if (typeof sendAiMessage === 'function') setTimeout(sendAiMessage, 450);
   }));
+})();
+
+// No language splash any more: pick the visitor's language once, the toggle stays in the nav.
+(() => {
+  let saved = null;
+  try { saved = localStorage.getItem('language'); } catch (e) {}
+  const lang = saved || ((navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en');
+  const apply = () => setLanguage(lang);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply); else apply();
 })();
 
 </script>
