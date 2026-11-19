@@ -168,9 +168,9 @@ robot = HEAD.format(title="Gala mini robot", slug="mini-robot", desc="Case study
   <section class="hero">
     <span class="kicker">{fr_en('Étude de cas, matériel', 'Case study, hardware')}</span>
     <h1>{fr_en('Mini robot du gala', 'Gala mini robot')}</h1>
-    <p class="lede" data-lang="fr">Un petit robot à deux roues pour traverser la scène du gala du Collège Stanislas devant le public : piloté à la manette, sans à-coups, avec des LEDs qui réagissent à ce qu'il fait.</p>
-    <p class="lede" data-lang="en">A small two-wheel robot built to cross the stage at the Collège Stanislas gala in front of the audience: driven with a controller, no jerks, with LEDs that react to what it does.</p>
-    {facts([('Équipe', 'Team', 'StanRobotix, FRC 6622', 'StanRobotix, FRC 6622'), ('Langage', 'Language', 'C++, WPILib', 'C++, WPILib'), ('Matériel', 'Hardware', '2 SPARK MAX, IMU Pigeon 2, LEDs', '2 SPARK MAX, Pigeon 2 IMU, LEDs'), ('Historique', 'History', '29 commits', '29 commits')])}
+    <p class="lede" data-lang="fr">Un petit robot à deux moteurs pour traverser la scène du gala du Collège Stanislas devant le public : piloté à la manette, sans à-coups, avec des LEDs qui réagissent à ce qu'il fait.</p>
+    <p class="lede" data-lang="en">A small two-motor robot built to cross the stage at the Collège Stanislas gala in front of the audience: driven with a controller, no jerks, with LEDs that react to what it does.</p>
+    {facts([('Équipe', 'Team', 'StanRobotix, FRC 6622', 'StanRobotix, FRC 6622'), ('Langage', 'Language', 'C++, WPILib', 'C++, WPILib'), ('Matériel', 'Hardware', '2 SPARK MAX, 20 LEDs', '2 SPARK MAX, 20 LEDs'), ('Période', 'Timeline', 'Mai – sept. 2026', 'May – Sept 2026')])}
     <div class="actions"><a class="pill light" href="https://github.com/floragel/mini-robot" target="_blank" rel="noopener">{fr_en('Voir le code sur GitHub', 'View the code on GitHub')}</a></div>
   </section>
 """ + block("01", "01", "La mission", "The mission", p(
@@ -182,12 +182,12 @@ robot = HEAD.format(title="Gala mini robot", slug="mini-robot", desc="Case study
     ("<strong>Manette et LEDs</strong> : passage à la manette Xbox, et intégration des bandes de LEDs (dégradé qui défile, pulsation orange).", "<strong>Controller and LEDs</strong>: switch to the Xbox controller, and integration of the LED strips (scrolling gradient, orange pulse)."),
 ])) + block("03", "03", "Le code qui compte", "The code that matters", p(
     "Au lieu d'envoyer directement la valeur du joystick aux moteurs, chaque cycle rapproche la vitesse actuelle de la vitesse demandée de 20 %. Le résultat : un démarrage et un arrêt progressifs, même si on pousse le stick d'un coup.",
-    "Instead of sending the joystick value straight to the motors, each cycle moves the current speed 20% closer to the requested speed. The result: progressive starts and stops, even if you slam the stick.") + f'<pre class="code">{CODE}</pre>') + block("04", "04", "Les LEDs racontent l'état du robot", "LEDs tell the robot's state", cards([
-    ("Mouvement", "Moving", "Il roule", "It's driving", "Dès qu'un stick dépasse 20 %, les LEDs passent en mode « mouvement ».", "As soon as a stick passes 20%, the LEDs switch to \"moving\" mode."),
-    ("Salut", "Wave", "Bouton Y", "Y button", "Un mode « waving » pour saluer le public pendant le gala.", "A \"waving\" mode to greet the audience during the gala."),
-    ("Drift", "Drift", "LB et RB", "LB and RB", "Des commandes de drift à gauche ou à droite, avec l'IMU Pigeon 2.", "Left and right drift commands, using the Pigeon 2 IMU."),
-    ("Arrêt", "Stop", "Bouton A", "A button", "Arrêt immédiat du robot tant que le bouton est maintenu.", "Immediate stop while the button is held."),
-])) + block("05", "05", "Stack", "Stack", '<div class="stack"><span>C++</span><span>WPILib (command-based)</span><span>REV SPARK MAX</span><span>CTRE Pigeon 2</span><span>' + fr_en("LEDs adressables", "Addressable LEDs") + '</span><span>' + fr_en("Manette Xbox", "Xbox controller") + '</span></div>' + p(
+    "Instead of sending the joystick value straight to the motors, each cycle moves the current speed 20% closer to the requested speed. The result: progressive starts and stops, even if you slam the stick.") + f'<pre class="code">{CODE}</pre>') + block("04", "04", "Commandes et LEDs", "Controls and LEDs", cards([
+    ("LEDs", "LEDs", "Il roule", "It's driving", "Dès qu'un stick dépasse 20 %, un dégradé rouge vers bleu défile sur les 20 LEDs.", "As soon as a stick passes 20%, a red-to-blue gradient scrolls along the 20 LEDs."),
+    ("LEDs", "LEDs", "Au repos", "At rest", "Sans commande, les LEDs font une pulsation orange. Les boutons Y et RB les passent au blanc.", "With no input, the LEDs pulse orange. The Y and RB buttons turn them white."),
+    ("Manette", "Controller", "Drift : LB et RB", "Drift: LB and RB", "Le robot garde sa vitesse et part en courbe à gauche ou à droite (commandes écrites par l'équipe).", "The robot keeps its speed and curves left or right (commands written by the team)."),
+    ("Manette", "Controller", "Arrêt : bouton A", "Stop: A button", "Arrêt immédiat du robot tant que le bouton est maintenu.", "Immediate stop while the button is held."),
+])) + block("05", "05", "Stack", "Stack", '<div class="stack"><span>C++</span><span>WPILib (command-based)</span><span>REV SPARK MAX</span><span>' + fr_en("LEDs adressables", "Addressable LEDs") + '</span><span>' + fr_en("Manette Xbox", "Xbox controller") + '</span></div>' + p(
     "Le projet est né dans le dépôt hors saison de l'équipe ; le dépôt public garde tout l'historique du mini robot.",
     "The project started in the team's off-season repository; the public repo keeps the mini robot's full history.")) + foot("lync.html", "Lync")
 

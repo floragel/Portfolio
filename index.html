@@ -24,7 +24,7 @@
   <link rel="canonical" href="https://nayl.ca/">
   <meta name="theme-color" content="#111315">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="js/translations.js?v=20261119c"></script>
+  <script src="js/translations.js?v=20261119d"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -2158,7 +2158,7 @@
           </div>
           <div class="timeline-item clickable" role="button" tabindex="0" onclick="openProjectModal('gala-robot')">
             <div class="timeline-dot"></div>
-            <div class="timeline-content"><h4 data-t="gala-robot-exp">Gala Mini Robot — StanRobotix 6622</h4><p data-t="gala-robot-exp">Programmed the drive, smooth acceleration, drift moves and LEDs of the mini robot shown at the Stanislas gala.</p></div>
+            <div class="timeline-content"><h4 data-t="gala-robot-exp">Gala Mini Robot — StanRobotix 6622</h4><p data-t="gala-robot-exp">Programmed the drive, smooth acceleration, Xbox controls and LEDs of the mini robot shown at the Stanislas gala.</p></div>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
@@ -2836,7 +2836,7 @@ Your ONLY purpose is to answer questions about Nayl, his skills, projects, backg
 3. **First Website:** Built in 4th grade [https://floragel.github.io/My-first-website/], also at that time he created an educational platform to teach others how to create their own websites [https://floragel.github.io/site-de-ouf/].
 4. **Trakant (HackDécouverte 1 Winner):** Winning project (1st place) of HackDécouverte 1 (2025) at Concordia University. [GitHub: https://github.com/floragel/Trakant]
    **Lync (HackDécouverte 2, 2nd place, 2026):** Android campus companion app for Android and iOS (Kotlin with Jetpack Compose, Swift with SwiftUI, Supabase backend): a campus-only social network plus door-to-door navigation down to the room, switching from street directions to indoor floor plans with floor detection and step counting. John Molson building mapped on 7 floors (761 nodes, ~300 rooms, 120 unit tests). [GitHub: https://github.com/floragel/HackDecouverte2]
-   **Gala Mini Robot (StanRobotix 6622, 2026):** small two-wheel stage robot for the Collège Stanislas gala, C++ with WPILib, REV SPARK MAX motors, Pigeon 2 IMU, Xbox control, acceleration ramp, drift commands and animated LEDs. Nayl wrote the drive subsystem and command, fixed CAN IDs and pointers, added the acceleration smoothing, Xbox controls and LED integration. [GitHub: https://github.com/floragel/mini-robot]
+   **Gala Mini Robot (StanRobotix 6622, 2026):** small stage robot for the Collège Stanislas gala with two drive motors, C++ with WPILib (command-based), two REV SPARK MAX brushless controllers, Xbox control (left stick speed, right stick turn, right trigger = precision mode that slows it down, A = stop, LB/RB = drift left/right), an acceleration ramp and a 20-LED strip (orange pulse at rest, red-to-blue gradient when moving, white on Y/RB). A Pigeon 2 IMU class exists in the code but is not used yet. The drift commands came from other team commits, not from Nayl. Nayl wrote the drive subsystem and command, fixed CAN IDs and pointers, added the acceleration smoothing, Xbox controls and LED integration. [GitHub: https://github.com/floragel/mini-robot]
    **Master of Ceremonies, StanRobotix 10th anniversary (2026):** hosted the celebration of the team's 10 years.
    **Flagship project:** Clofit is Nayl's main project (https://clofit.app).
 5. **Jarvis OS (Voice LLM CLI):** Ultra-fast voice AI built in Python using LiteLLM proxy, sub-50ms TTS, and app integrations (Notion/Calendar).
