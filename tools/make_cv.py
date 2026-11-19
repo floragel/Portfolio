@@ -5,8 +5,8 @@ Needs Google Chrome installed (headless print to PDF). Fill EMAIL / SITE when kn
 """
 import html, pathlib, subprocess, tempfile
 
-EMAIL = ""   # e.g. "nayl@example.com" — leave empty to hide
-SITE = ""    # e.g. "https://naylahlou.com" — leave empty to hide
+EMAIL = "lahlou@nayl.ca"
+SITE = "https://nayl.ca"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "cv"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"

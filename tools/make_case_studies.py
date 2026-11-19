@@ -15,7 +15,9 @@ HEAD = """<!DOCTYPE html>
   <meta name="theme-color" content="#0E0F11">
   <meta property="og:title" content="{title} | Nayl Lahlou">
   <meta property="og:description" content="{desc}">
-  <meta property="og:image" content="{og}">
+  <meta property="og:image" content="https://nayl.ca/{og}">
+  <meta property="og:url" content="https://nayl.ca/projets/{slug}.html">
+  <link rel="canonical" href="https://nayl.ca/projets/{slug}.html">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F2F1EE'/%3E%3Crect x='10' y='10' width='12' height='12' rx='2' fill='%230E0F11'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +85,7 @@ def facts(items):
     return '<dl class="facts">' + "".join(f"<div><dt>{fr_en(a, b)}</dt><dd>{fr_en(c, d)}</dd></div>" for a, b, c, d in items) + "</dl>"
 
 # ---------------------------------------------------------------- LYNC
-lync = HEAD.format(title="Lync", desc="Case study: Lync, a campus app with door-to-door indoor navigation. 2nd place at HackDécouverte 2.", og="../assets/img/lync/team-2.jpg", color="var(--sw)") + f"""
+lync = HEAD.format(title="Lync", slug="lync", desc="Case study: Lync, a campus app with door-to-door indoor navigation. 2nd place at HackDécouverte 2.", og="assets/img/lync/team-2.jpg", color="var(--sw)") + f"""
   <section class="hero">
     <span class="kicker">{fr_en('Étude de cas, logiciel', 'Case study, software')}</span>
     <h1>Lync</h1>
@@ -120,7 +122,7 @@ lync = HEAD.format(title="Lync", desc="Case study: Lync, a campus app with door-
 """ + foot("clofit.html", "Clofit")
 
 # ---------------------------------------------------------------- CLOFIT
-clofit = HEAD.format(title="Clofit", desc="Case study: Clofit, an iPhone app that turns the clothes you own into AI-made outfits matched to the weather.", og="../assets/img/clofit/site-hero.jpg", color="#B3A9F0") + f"""
+clofit = HEAD.format(title="Clofit", slug="clofit", desc="Case study: Clofit, an iPhone app that turns the clothes you own into AI-made outfits matched to the weather.", og="assets/img/clofit/site-hero.jpg", color="#B3A9F0") + f"""
   <section class="hero">
     <span class="kicker">{fr_en('Étude de cas, projet phare', 'Case study, flagship project')}</span>
     <h1>Clofit</h1>
@@ -162,7 +164,7 @@ mDrivetrain-&gt;<span class="k">DriveRobot</span>(
   -(mCurrentSpeed    * kSpeed        * (1.2 - rightTrigger)),
   -(mCurrentRotation * kRotationRate * (1.2 - rightTrigger)));"""
 
-robot = HEAD.format(title="Gala mini robot", desc="Case study: the StanRobotix 6622 mini robot built for the Collège Stanislas gala, C++ with WPILib.", og="../assets/img/hardware/frc-robot/frc-robot-6622-2025.png", color="var(--hw)") + f"""
+robot = HEAD.format(title="Gala mini robot", slug="mini-robot", desc="Case study: the StanRobotix 6622 mini robot built for the Collège Stanislas gala, C++ with WPILib.", og="assets/img/hardware/frc-robot/frc-robot-6622-2025.png", color="var(--hw)") + f"""
   <section class="hero">
     <span class="kicker">{fr_en('Étude de cas, matériel', 'Case study, hardware')}</span>
     <h1>{fr_en('Mini robot du gala', 'Gala mini robot')}</h1>
