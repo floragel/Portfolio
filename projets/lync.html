@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lync | Nayl Lahlou</title>
+  <meta name="description" content="Case study: Lync, a campus app with door-to-door indoor navigation. 2nd place at HackDécouverte 2.">
+  <meta name="theme-color" content="#0E0F11">
+  <meta property="og:title" content="Lync | Nayl Lahlou">
+  <meta property="og:description" content="Case study: Lync, a campus app with door-to-door indoor navigation. 2nd place at HackDécouverte 2.">
+  <meta property="og:image" content="../assets/img/lync/team-2.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F2F1EE'/%3E%3Crect x='10' y='10' width='12' height='12' rx='2' fill='%230E0F11'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="case.css">
+  <script>try { var l = localStorage.getItem('language'); document.documentElement.lang = l === 'fr' ? 'fr' : (l === 'en' ? 'en' : ((navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en')); } catch (e) {}</script>
+</head>
+<body style="--c: var(--sw)">
+<header class="top"><div class="wrap">
+  <a class="back" href="../index.html#projects"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-lang="fr">Portfolio de Nayl</span><span data-lang="en">Nayl's portfolio</span></a>
+  <div class="lang"><button data-set="en">EN</button><button data-set="fr">FR</button></div>
+</div></header>
+<main class="wrap">
+
+  <section class="hero">
+    <span class="kicker"><span data-lang="fr">Étude de cas, logiciel</span><span data-lang="en">Case study, software</span></span>
+    <h1>Lync</h1>
+    <p class="lede" data-lang="fr">Trouver sa salle sur un campus qu'on ne connaît pas, sans GPS à l'intérieur. Une app conçue et construite en équipe pendant HackDécouverte 2, à l'Université Concordia.</p>
+    <p class="lede" data-lang="en">Finding your room on a campus you don't know, with no GPS indoors. An app designed and built as a team during HackDécouverte 2 at Concordia University.</p>
+    <dl class="facts"><div><dt><span data-lang="fr">Résultat</span><span data-lang="en">Result</span></dt><dd><span data-lang="fr">2e place, HackDécouverte 2</span><span data-lang="en">2nd place, HackDécouverte 2</span></dd></div><div><dt><span data-lang="fr">Plateformes</span><span data-lang="en">Platforms</span></dt><dd><span data-lang="fr">Android et iOS</span><span data-lang="en">Android and iOS</span></dd></div><div><dt><span data-lang="fr">Bâtiment cartographié</span><span data-lang="en">Building mapped</span></dt><dd><span data-lang="fr">John Molson, 7 étages</span><span data-lang="en">John Molson, 7 floors</span></dd></div><div><dt><span data-lang="fr">Fiabilité</span><span data-lang="en">Reliability</span></dt><dd><span data-lang="fr">120 tests unitaires</span><span data-lang="en">120 unit tests</span></dd></div></dl>
+    <div class="actions"><a class="pill light" href="https://github.com/floragel/HackDecouverte2" target="_blank" rel="noopener"><span data-lang="fr">Voir le code sur GitHub</span><span data-lang="en">View the code on GitHub</span></a></div>
+  </section>
+  <figure class="media" style="max-width:420px"><video src="../assets/img/lync/demo.mp4" controls playsinline preload="metadata"></video></figure>
+  <figcaption><span data-lang="fr">Démo de l’app (46 s).</span><span data-lang="en">App demo (46 s).</span></figcaption>
+
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">01</span><span data-lang="en">01</span></span>
+    <h2><span data-lang="fr">Le problème</span><span data-lang="en">The problem</span></h2>
+    <p data-lang="fr">Le GPS s'arrête à la porte des bâtiments. Pour un nouvel étudiant, une salle comme <strong>MB-2.255</strong> ne veut rien dire : quel bâtiment, quel étage, quel couloir ? On voulait une app qui guide <strong>de la rue jusqu'à la porte de la salle</strong>, et qui serve aussi à rencontrer les gens de son campus.</p><p data-lang="en">GPS stops at the building door. For a new student, a room like <strong>MB-2.255</strong> means nothing: which building, which floor, which hallway? We wanted an app that guides you <strong>from the street to the classroom door</strong>, and that also helps you meet people on your campus.</p>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">02</span><span data-lang="en">02</span></span>
+    <h2><span data-lang="fr">Ce qu'on a construit</span><span data-lang="en">What we built</span></h2>
+    <ul class="points" data-lang="fr"><li><strong>Réseau</strong> : un réseau social réservé au campus avec fil, stories, camarades, clubs, événements et carte des amis en direct.</li><li><strong>Cartes</strong> : tu choisis une salle (ou un cours dans ton calendrier), Lync te guide dans les rues comme une app de cartes, puis passe tout seul au plan intérieur quand tu entres dans le bâtiment.</li><li><strong>Étage par étage</strong> : l'app détecte l'étage par l'altitude et compte tes pas pour avancer le point sur le plan.</li><li><strong>Données</strong> : 761 points de navigation, environ 300 salles, escaliers et ascenseurs reliés entre les étages.</li></ul><ul class="points" data-lang="en"><li><strong>Network</strong>: a campus-only social app with a feed, stories, classmates, clubs, events and a live friends map.</li><li><strong>Maps</strong>: pick a room (or a class in your calendar), Lync walks you through the streets like a maps app, then switches to the indoor floor plan by itself when you enter the building.</li><li><strong>Floor by floor</strong>: the app detects your floor from altitude and counts your steps to move the dot on the plan.</li><li><strong>Data</strong>: 761 navigation nodes, about 300 rooms, stairs and elevators linked between floors.</li></ul>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">03</span><span data-lang="en">03</span></span>
+    <h2><span data-lang="fr">Le défi technique : se repérer sans GPS</span><span data-lang="en">The hard part: positioning without GPS</span></h2>
+    <p data-lang="fr">À l'intérieur, l'app estime ta position <strong>pas à pas</strong> (navigation à l'estime, ou PDR). Chaque pas détecté fait avancer le point d'une longueur de pas, dans la direction où tu marches. Simple sur le papier, plein de pièges en vrai :</p><p data-lang="en">Indoors, the app estimates your position <strong>step by step</strong> (pedestrian dead reckoning, PDR). Each detected step moves the dot by one step length, in the direction you are walking. Simple on paper, full of traps in practice:</p><div class="cards"><div class="card"><span class="tag"><span data-lang="fr">Boussole</span><span data-lang="en">Compass</span></span><h3><span data-lang="fr">Le métal fausse le nord</span><span data-lang="en">Metal breaks the compass</span></h3><p data-lang="fr">Le magnétomètre saute près des structures en acier. On utilise un capteur d'orientation qui fusionne gyroscope et accéléromètre <strong>sans magnétomètre</strong> : pas de sauts, au prix d'un cap relatif au point de départ.</p><p data-lang="en">The magnetometer jumps near steel structures. We use an orientation sensor that fuses gyroscope and accelerometer <strong>without the magnetometer</strong>: no jumps, at the cost of a heading relative to the starting point.</p></div><div class="card"><span class="tag"><span data-lang="fr">Temps</span><span data-lang="en">Timing</span></span><h3><span data-lang="fr">Des pas qui arrivent en retard</span><span data-lang="en">Steps that arrive late</span></h3><p data-lang="fr">Le détecteur de pas d'Android peut livrer un pas jusqu'à ~2 s après le contact du pied. On garde 2,5 s d'historique d'orientation pour retrouver le cap <strong>au moment exact du pas</strong>, pas le cap actuel.</p><p data-lang="en">Android's step detector can deliver a step up to ~2 s after the foot lands. We keep 2.5 s of orientation history to recover the heading <strong>at the exact moment of the step</strong>, not the current one.</p></div><div class="card"><span class="tag"><span data-lang="fr">Maths</span><span data-lang="en">Maths</span></span><h3><span data-lang="fr">Moyenner des angles</span><span data-lang="en">Averaging angles</span></h3><p data-lang="fr">La moyenne de +179° et −179° n'est pas 0°. Le cap de chaque pas est une <strong>moyenne circulaire</strong> sur les 150 ms qui précèdent : θ = atan2(Σ sin θᵢ, Σ cos θᵢ).</p><p data-lang="en">The average of +179° and −179° is not 0°. Each step's heading is a <strong>circular mean</strong> over the previous 150 ms: θ = atan2(Σ sin θᵢ, Σ cos θᵢ).</p></div><div class="card"><span class="tag"><span data-lang="fr">Calibration</span><span data-lang="en">Calibration</span></span><h3><span data-lang="fr">Ta longueur de pas</span><span data-lang="en">Your step length</span></h3><p data-lang="fr">Au départ, tu marches 5 mètres : la longueur de pas vaut 5 m divisés par le nombre de pas, et elle doit rester plausible (entre 0,2 et 1,5 m). Sinon l'app demande de recommencer.</p><p data-lang="en">At the start you walk 5 metres: step length is 5 m divided by the number of steps, and it must stay plausible (0.2 to 1.5 m). Otherwise the app asks you to redo it.</p></div></div><pre class="code"><span class="c">// for each accepted step</span>
+<span class="k">θ</span>   = meanHeadingAt(step.timestamp) − referenceYaw
+<span class="k">pos</span> = pos + (L · sin θ, L · cos θ)
+<span class="k">distance</span> += L</pre>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">04</span><span data-lang="en">04</span></span>
+    <h2><span data-lang="fr">Stack</span><span data-lang="en">Stack</span></h2>
+    <div class="stack"><span>Kotlin</span><span>Jetpack Compose</span><span>Swift</span><span>SwiftUI</span><span>Supabase</span><span><span data-lang="fr">Capteurs Android</span><span data-lang="en">Android sensors</span></span><span><span data-lang="fr">Tests unitaires</span><span data-lang="en">Unit tests</span></span></div><p data-lang="fr">L'app fonctionne aussi hors ligne avec des données de démonstration de Concordia, ce qui a permis de la présenter au jury sans dépendre du réseau.</p><p data-lang="en">The app also runs offline on built-in Concordia demo data, which let us demo it to the judges without depending on the network.</p>
+  </section>
+  <figure class="media"><img src="../assets/img/lync/team-2.jpg" alt=""></figure>
+  <div class="media-grid">
+    <img src="../assets/img/lync/team-1.jpg" alt="">
+    <img src="../assets/img/lync/photo-2.jpg" alt="">
+    <img src="../assets/img/lync/photo-3.jpg" alt="">
+  </div>
+
+  <div class="next">
+    <div><small><span data-lang="fr">Étude de cas suivante</span><span data-lang="en">Next case study</span></small><a class="big" href="clofit.html">Clofit</a></div>
+    <a class="pill ghost" href="../index.html#contact"><span data-lang="fr">Me contacter</span><span data-lang="en">Get in touch</span></a>
+  </div>
+</main>
+<footer class="wrap">© 2026 Nayl Lahlou</footer>
+<script>
+  (function () {
+    function sync() { document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.set === document.documentElement.lang); }); }
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.addEventListener('click', function () { document.documentElement.lang = b.dataset.set; try { localStorage.setItem('language', b.dataset.set); } catch (e) {} sync(); });
+    });
+    sync();
+  })();
+</script>
+</body>
+</html>

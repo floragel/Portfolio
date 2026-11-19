@@ -7,9 +7,22 @@
   <title>Nayl Lahlou | Software & Hardware</title>
   <meta name="description" content="Nayl Lahlou, Montreal. Software, AI and hardware projects since 2020.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111315'/%3E%3Cpath d='M6 6h20L6 26z' fill='%237FA7D1'/%3E%3Cpath d='M26 6v20H6z' fill='%23C9A25E'/%3E%3Crect x='11' y='11' width='10' height='10' rx='2' fill='%23111315'/%3E%3C/svg%3E">
+  <!-- Share preview. When the public URL is known, make og:image / og:url absolute (https://YOUR-SITE/...). -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nayl Lahlou">
+  <meta property="og:title" content="Nayl Lahlou | Apps & robots">
+  <meta property="og:description" content="Je crée des apps et des robots depuis mes 9 ans : Clofit, deux podiums à HackDécouverte et l'équipe FRC 6622.">
+  <meta property="og:image" content="assets/img/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Nayl Lahlou, développeur logiciel et matériel à Montréal">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nayl Lahlou | Apps & robots">
+  <meta name="twitter:description" content="Je crée des apps et des robots depuis mes 9 ans : Clofit, deux podiums à HackDécouverte et l'équipe FRC 6622.">
+  <meta name="twitter:image" content="assets/img/og-cover.jpg">
   <meta name="theme-color" content="#111315">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="js/translations.js?v=20261118c"></script>
+  <script src="js/translations.js?v=20261119c"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -415,7 +428,7 @@
     .section-note { color: var(--ink-dim); max-width: 46ch; }
 
     /* ---------------- Story (pinned) ---------------- */
-    .story { position: relative; height: 560vh; }
+    .story { position: relative; height: 360vh; }
 
     .story-sticky {
       position: sticky;
@@ -1708,6 +1721,42 @@
     .card-media { position: relative; }
     .vid-badge { position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; background: rgba(242,241,238,.92); color: #151618; font-size: .8125rem; font-weight: 500; }
     @media (max-width: 640px) { .t-intro h1 { font-size: 2.35rem; } .t-intro p { font-size: 1.0625rem; } }
+    .contact5 { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; padding: clamp(28px, 4vw, 48px); border-radius: var(--r); background: var(--bg-2); margin-bottom: clamp(88px, 11vw, 150px); }
+    .contact5 h2 { font-family: var(--disp); font-weight: 600; font-size: clamp(2.2rem, 4.6vw, 3.8rem); line-height: 1; letter-spacing: -.035em; }
+    .contact5 .lede { margin-top: 12px; color: var(--ink-dim); max-width: 44ch; font-size: 1.0625rem; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+    #about .ai5 { padding-bottom: clamp(56px, 7vw, 96px); }
+    @media (max-width: 800px) { .contact5 { grid-template-columns: 1fr; } .contact-actions { justify-content: flex-start; } }
+    .cases { margin-top: 56px; }
+    .cases h3 { font-family: var(--disp); font-weight: 600; font-size: 1.5rem; letter-spacing: -.02em; margin-bottom: 16px; }
+    .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .case { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 22px 22px 20px; border-radius: var(--r); background: var(--bg-2); text-decoration: none; color: var(--ink); transition: background-color .2s; }
+    .case:hover { background: var(--bg-3); }
+    .case span { color: var(--c); font-size: .8125rem; font-weight: 500; }
+    .case b { font-family: var(--disp); font-weight: 600; font-size: 1.5rem; letter-spacing: -.02em; }
+    .case small { color: var(--ink-dim); font-size: .9375rem; padding-right: 28px; }
+    .case svg { position: absolute; right: 20px; bottom: 20px; color: var(--ink-dim); transition: transform .2s; }
+    .case:hover svg { transform: translateX(3px); color: var(--ink); }
+    @media (max-width: 800px) { .cases-grid { grid-template-columns: 1fr; } }
+    .gh-profile { color: var(--ink); text-underline-offset: 3px; }
+    .gh-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .gh-card { display: flex; flex-direction: column; gap: 8px; min-height: 150px; padding: 20px 22px; border-radius: var(--r); background: var(--bg-2); color: var(--ink); text-decoration: none; transition: background-color .2s; }
+    .gh-card:hover { background: var(--bg-3); }
+    .gh-card.skel { background: linear-gradient(100deg, var(--bg-2) 30%, var(--bg-3) 50%, var(--bg-2) 70%) 0 0 / 300% 100%; animation: gh-skel 1.4s linear infinite; }
+    @keyframes gh-skel { to { background-position: -300% 0; } }
+    .gh-card b { font-family: var(--disp); font-weight: 600; font-size: 1.1875rem; letter-spacing: -.015em; }
+    .gh-card p { color: var(--ink-dim); font-size: .9375rem; line-height: 1.45; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .gh-meta { display: flex; flex-wrap: wrap; gap: 14px; color: var(--ink-3); font-size: .8125rem; }
+    .gh-meta i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+    .gh-empty { grid-column: 1 / -1; color: var(--ink-dim); }
+    @media (max-width: 1000px) { .gh-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .gh-grid { grid-template-columns: 1fr; } }
+    #contact-email[hidden] { display: none; }
+    .stage-shots.app { grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+    .stage-shots.app figure { margin: 0; }
+    .stage-shots.app img { aspect-ratio: 1320 / 2868; object-fit: cover; border-radius: 26px; background: #1E1A44; box-shadow: 0 0 0 1px rgba(255,255,255,.06); }
+    .stage-shots.app figcaption { margin-top: 10px; text-align: center; color: var(--ink-dim); font-size: .875rem; }
+    @media (max-width: 760px) { .stage-shots.app { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 
@@ -1749,6 +1798,7 @@
             <a href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
             <a href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://www.instagram.com/nayl.lahlou/" target="_blank" rel="noopener">Instagram</a>
+            <a data-cv href="assets/cv/cv-nayl-lahlou-en.pdf" download>CV</a>
           </span>
         </div>
       </div>
@@ -1889,19 +1939,29 @@
         <p data-t="spot-desc">An iPhone app that turns the clothes you already own into AI-made outfits matched to the weather, and connects you with your campus and friends to share your style.</p>
         <div class="cta-row">
           <a class="pill light" href="https://clofit.app" target="_blank" rel="noopener"><span data-t="spot-visit">Visit clofit.app</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a href="projets/clofit.html" class="pill ghost"><span data-t="read-case">Read the case study</span></a>
           <button class="pill ghost" onclick="openProjectModal('clofit')"><span data-t="see-project">See the project</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
       <div class="stage"><img src="assets/img/clofit/site-hero.jpg" alt="Clofit website" loading="lazy"></div>
-      <div class="stage-shots">
-        <img src="assets/img/clofit/site-closet.jpg" alt="" loading="lazy">
-        <img src="assets/img/clofit/site-outfit.jpg" alt="" loading="lazy">
-        <img src="assets/img/clofit/site-ai.jpg" alt="" loading="lazy">
+      <div class="stage-shots app">
+        <figure><img src="assets/img/clofit/app-closet.jpg" alt="" loading="lazy"><figcaption data-t="app-c1">Your closet</figcaption></figure>
+        <figure><img src="assets/img/clofit/app-outfit.jpg" alt="" loading="lazy"><figcaption data-t="app-c2">A saved outfit</figcaption></figure>
+        <figure><img src="assets/img/clofit/app-wishlist.jpg" alt="" loading="lazy"><figcaption data-t="app-c3">Wishlist</figcaption></figure>
+        <figure><img src="assets/img/clofit/app-profile.jpg" alt="" loading="lazy"><figcaption data-t="app-c4">Profile and lookbook</figcaption></figure>
       </div>
       <div class="stage-feats">
         <div><h4 data-t="f1-t">One photo is enough</h4><p data-t="spot-p1">One photo is enough: background removed, item profiled automatically</p></div>
         <div><h4 data-t="f2-t">A stylist that knows you</h4><p data-t="spot-p2">An AI stylist that knows your real closet and the weather</p></div>
         <div><h4 data-t="f3-t">Your style, shared</h4><p data-t="spot-p3">OOTD, streaks and a campus feed to share your style</p></div>
+      </div>
+      <div class="cases">
+        <h3 data-t="cases-title">Case studies</h3>
+        <div class="cases-grid">
+          <a class="case" href="projets/clofit.html" style="--c:#B3A9F0"><span data-t="case-clofit-k">Flagship, iOS</span><b>Clofit</b><small data-t="case-clofit">How an app turns your own closet into outfits.</small><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="case" href="projets/lync.html" style="--c:var(--sw)"><span data-t="case-lync-k">Software, 2nd place</span><b>Lync</b><small data-t="case-lync">Indoor navigation without GPS, step by step.</small><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="case" href="projets/mini-robot.html" style="--c:var(--hw)"><span data-t="case-robot-k">Hardware, C++</span><b data-t="case-robot-t">Gala mini robot</b><small data-t="case-robot">A smooth, reliable robot on stage.</small><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
     </div>
     <div class="domain sw" id="projects-sw">
@@ -2269,6 +2329,19 @@
     </div>
   </section>
 
+  <section id="github" class="scrolly">
+    <div class="wrap s5">
+      <div class="s5-head">
+        <h2 data-t="sec-github">On GitHub right now</h2>
+        <p><span data-t="gh-intro">My latest public repositories, updated live.</span> <a class="gh-profile" href="https://github.com/floragel" target="_blank" rel="noopener">github.com/floragel</a></p>
+      </div>
+      <div class="gh-grid" id="gh-grid" aria-live="polite">
+        <div class="gh-card skel"></div><div class="gh-card skel"></div><div class="gh-card skel"></div>
+        <div class="gh-card skel"></div><div class="gh-card skel"></div><div class="gh-card skel"></div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="scrolly">
     <div class="wrap s5 ai5">
       <div>
@@ -2288,6 +2361,23 @@
           <button class="ai-launch-card" onclick="openAiModal()"><span data-t="ai-open">Open the chat</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           <button class="chip-q" data-t="q1">What did you build for FRC?</button>
           <button class="chip-q" data-t="q2">How does Jarvis work?</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="scrolly">
+    <div class="wrap s5">
+      <div class="contact5">
+        <div>
+          <h2 data-t="sec-contact">Let's talk</h2>
+          <p class="lede" data-t="contact-lede">A project, an internship, a hackathon team or just a question: I reply quickly.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="pill light" id="contact-email" href="#" hidden><span data-t="contact-email">Email me</span></a>
+          <a class="pill ghost" href="https://www.linkedin.com/in/nayl-lahlou/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="pill ghost" href="https://github.com/floragel" target="_blank" rel="noopener">GitHub</a>
+          <a class="pill ghost cv-link" data-cv href="assets/cv/cv-nayl-lahlou-en.pdf" download><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-t="contact-cv">Download my CV</span></a>
         </div>
       </div>
     </div>
@@ -3208,7 +3298,8 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
   window.TerminalSimulator = TerminalSimulator;
 </script>
 <script src="js/webgl-fluid.js"></script>
-<script src="js/circuit-simulator.js?v=11"></script>
+<script src="js/arduino-lang.js?v=1"></script>
+<script src="js/circuit-simulator.js?v=16"></script>
 <script>
   // --- LANGUAGE MANAGEMENT ---
   function setLanguage(lang) {
@@ -3466,6 +3557,74 @@ Focus: Highly interactive UIs, AI integrations, and embedded systems.`;
       const orig = window[fn];
       if (typeof orig === 'function') window[fn] = function (...a) { close(); return orig.apply(this, a); };
     });
+  })();
+</script>
+<script>
+  // Contact config: set CONTACT_EMAIL to show the email button. CV link follows the site language.
+  (() => {
+    const CONTACT_EMAIL = '';
+    const btn = document.getElementById('contact-email');
+    if (CONTACT_EMAIL && btn) { btn.href = 'mailto:' + CONTACT_EMAIL; btn.hidden = false; }
+    const syncCV = () => {
+      let l = 'en'; try { l = localStorage.getItem('language') === 'fr' ? 'fr' : 'en'; } catch (e) {}
+      document.querySelectorAll('[data-cv]').forEach(a => a.setAttribute('href', 'assets/cv/cv-nayl-lahlou-' + l + '.pdf'));
+    };
+    const orig = window.setLanguage;
+    if (typeof orig === 'function') window.setLanguage = function (lang) { orig(lang); syncCV(); };
+    document.addEventListener('DOMContentLoaded', syncCV); syncCV();
+  })();
+</script>
+<script>
+  // Live GitHub repositories (public API, cached 30 min per visitor to stay under the rate limit).
+  (() => {
+    const USER = 'floragel', KEY = 'gh-repos-v1', TTL = 30 * 60 * 1000;
+    const grid = document.getElementById('gh-grid'); if (!grid) return;
+    const COLORS = { Kotlin: '#A97BFF', Swift: '#F05138', HTML: '#E34C26', 'C++': '#F34B7D', TypeScript: '#3178C6', JavaScript: '#F1E05A', Python: '#3572A5', CSS: '#563D7C', Java: '#B07219', PHP: '#4F5D95' };
+    const NAMES = {
+      HackDecouverte2: { t: 'Lync', fr: "App de campus Android et iOS : réseau social étudiant et navigation intérieure. 2e place à HackDécouverte 2.", en: 'Android and iOS campus app: student social network and indoor navigation. 2nd place at HackDécouverte 2.' },
+      'mini-robot': { t: 'Mini robot du gala / Gala mini robot', fr: 'Robot de scène de StanRobotix 6622 en C++ / WPILib : conduite douce, drifts et LEDs.', en: 'StanRobotix 6622 stage robot in C++ / WPILib: smooth drive, drifts and LEDs.' },
+    };
+    const lang = () => { try { return localStorage.getItem('language') === 'fr' ? 'fr' : 'en'; } catch (e) { return 'en'; } };
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    function ago(iso) {
+      const l = lang(), d = (new Date(iso) - Date.now()) / 1000;
+      const rtf = new Intl.RelativeTimeFormat(l, { numeric: 'auto' });
+      const steps = [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]];
+      for (const [u, s] of steps) if (Math.abs(d) >= s) return rtf.format(Math.round(d / s), u);
+      return rtf.format(0, 'minute');
+    }
+    let repos = null;
+    function render() {
+      if (!repos) return;
+      const l = lang();
+      if (!repos.length) { grid.innerHTML = `<p class="gh-empty">${l === 'fr' ? 'Aucun dépôt public pour le moment.' : 'No public repositories yet.'}</p>`; return; }
+      grid.innerHTML = repos.map(r => {
+        const n = NAMES[r.name]; const title = n ? n.t.split(' / ')[l === 'fr' ? 0 : n.t.includes(' / ') ? 1 : 0] : r.name;
+        const desc = n ? n[l] : (r.description || (l === 'fr' ? 'Pas encore de description.' : 'No description yet.'));
+        const lg = r.language ? `<span><i style="background:${COLORS[r.language] || '#8b9096'}"></i>${esc(r.language)}</span>` : '';
+        const stars = r.stargazers_count ? `<span>★ ${r.stargazers_count}</span>` : '';
+        return `<a class="gh-card" href="${esc(r.html_url)}" target="_blank" rel="noopener"><b>${esc(title)}</b><p>${esc(desc)}</p><div class="gh-meta">${lg}${stars}<span>${l === 'fr' ? 'Mis à jour' : 'Updated'} ${ago(r.pushed_at)}</span></div></a>`;
+      }).join('');
+    }
+    function fail() {
+      const l = lang();
+      grid.innerHTML = `<p class="gh-empty">${l === 'fr' ? 'GitHub ne répond pas pour l’instant.' : 'GitHub is not responding right now.'} <a class="gh-profile" href="https://github.com/${USER}" target="_blank" rel="noopener">${l === 'fr' ? 'Voir mon profil' : 'See my profile'}</a></p>`;
+    }
+    async function load() {
+      try { const c = JSON.parse(sessionStorage.getItem(KEY) || 'null'); if (c && Date.now() - c.t < TTL) { repos = c.d; render(); return; } } catch (e) {}
+      try {
+        const res = await fetch(`https://api.github.com/users/${USER}/repos?sort=pushed&per_page=12`, { headers: { Accept: 'application/vnd.github+json' } });
+        if (!res.ok) throw new Error(res.status);
+        const all = await res.json();
+        repos = all.filter(r => !r.fork && !r.archived).slice(0, 6).map(r => ({ name: r.name, html_url: r.html_url, description: r.description, language: r.language, stargazers_count: r.stargazers_count, pushed_at: r.pushed_at }));
+        try { sessionStorage.setItem(KEY, JSON.stringify({ t: Date.now(), d: repos })); } catch (e) {}
+        render();
+      } catch (e) { fail(); }
+    }
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '400px' });
+    io.observe(grid);
+    const orig = window.setLanguage;
+    if (typeof orig === 'function') window.setLanguage = function (l) { orig(l); render(); };
   })();
 </script>
 </body>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gala mini robot | Nayl Lahlou</title>
+  <meta name="description" content="Case study: the StanRobotix 6622 mini robot built for the Collège Stanislas gala, C++ with WPILib.">
+  <meta name="theme-color" content="#0E0F11">
+  <meta property="og:title" content="Gala mini robot | Nayl Lahlou">
+  <meta property="og:description" content="Case study: the StanRobotix 6622 mini robot built for the Collège Stanislas gala, C++ with WPILib.">
+  <meta property="og:image" content="../assets/img/hardware/frc-robot/frc-robot-6622-2025.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F2F1EE'/%3E%3Crect x='10' y='10' width='12' height='12' rx='2' fill='%230E0F11'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="case.css">
+  <script>try { var l = localStorage.getItem('language'); document.documentElement.lang = l === 'fr' ? 'fr' : (l === 'en' ? 'en' : ((navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en')); } catch (e) {}</script>
+</head>
+<body style="--c: var(--hw)">
+<header class="top"><div class="wrap">
+  <a class="back" href="../index.html#projects"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span data-lang="fr">Portfolio de Nayl</span><span data-lang="en">Nayl's portfolio</span></a>
+  <div class="lang"><button data-set="en">EN</button><button data-set="fr">FR</button></div>
+</div></header>
+<main class="wrap">
+
+  <section class="hero">
+    <span class="kicker"><span data-lang="fr">Étude de cas, matériel</span><span data-lang="en">Case study, hardware</span></span>
+    <h1><span data-lang="fr">Mini robot du gala</span><span data-lang="en">Gala mini robot</span></h1>
+    <p class="lede" data-lang="fr">Un petit robot à deux roues pour traverser la scène du gala du Collège Stanislas devant le public : piloté à la manette, sans à-coups, avec des LEDs qui réagissent à ce qu'il fait.</p>
+    <p class="lede" data-lang="en">A small two-wheel robot built to cross the stage at the Collège Stanislas gala in front of the audience: driven with a controller, no jerks, with LEDs that react to what it does.</p>
+    <dl class="facts"><div><dt><span data-lang="fr">Équipe</span><span data-lang="en">Team</span></dt><dd><span data-lang="fr">StanRobotix, FRC 6622</span><span data-lang="en">StanRobotix, FRC 6622</span></dd></div><div><dt><span data-lang="fr">Langage</span><span data-lang="en">Language</span></dt><dd><span data-lang="fr">C++, WPILib</span><span data-lang="en">C++, WPILib</span></dd></div><div><dt><span data-lang="fr">Matériel</span><span data-lang="en">Hardware</span></dt><dd><span data-lang="fr">2 SPARK MAX, IMU Pigeon 2, LEDs</span><span data-lang="en">2 SPARK MAX, Pigeon 2 IMU, LEDs</span></dd></div><div><dt><span data-lang="fr">Historique</span><span data-lang="en">History</span></dt><dd><span data-lang="fr">29 commits</span><span data-lang="en">29 commits</span></dd></div></dl>
+    <div class="actions"><a class="pill light" href="https://github.com/floragel/mini-robot" target="_blank" rel="noopener"><span data-lang="fr">Voir le code sur GitHub</span><span data-lang="en">View the code on GitHub</span></a></div>
+  </section>
+
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">01</span><span data-lang="en">01</span></span>
+    <h2><span data-lang="fr">La mission</span><span data-lang="en">The mission</span></h2>
+    <p data-lang="fr">Sur une scène, devant des centaines de personnes, un robot qui donne un coup brusque ou qui ne répond plus, ça se voit tout de suite. Il fallait un robot <strong>fiable, doux à piloter et lisible</strong> : le public doit comprendre ce qu'il fait.</p><p data-lang="en">On stage, in front of hundreds of people, a robot that lurches or stops responding is obvious immediately. It had to be <strong>reliable, smooth to drive and readable</strong>: the audience should understand what it is doing.</p>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">02</span><span data-lang="en">02</span></span>
+    <h2><span data-lang="fr">Ma part</span><span data-lang="en">My part</span></h2>
+    <ul class="points" data-lang="fr"><li><strong>Conduite</strong> : le sous-système de transmission et la commande de pilotage (arcade : stick gauche pour avancer, stick droit pour tourner).</li><li><strong>Débogage</strong> : le robot ne bougeait pas parce que le sous-système était créé deux fois (dans le conteneur et dans la commande), ce qui dupliquait les CAN ID des moteurs. Corrigé, avec l'initialisation des pointeurs.</li><li><strong>Accélération douce</strong> : une rampe sur la vitesse et la rotation pour éviter les à-coups.</li><li><strong>Manette et LEDs</strong> : passage à la manette Xbox, et intégration des bandes de LEDs (dégradé qui défile, pulsation orange).</li></ul><ul class="points" data-lang="en"><li><strong>Drive</strong>: the drivetrain subsystem and the drive command (arcade: left stick to move, right stick to turn).</li><li><strong>Debugging</strong>: the robot would not move because the subsystem was created twice (in the container and in the command), which duplicated the motors' CAN IDs. Fixed, along with pointer initialisation.</li><li><strong>Smooth acceleration</strong>: a ramp on speed and rotation to avoid jerks.</li><li><strong>Controller and LEDs</strong>: switch to the Xbox controller, and integration of the LED strips (scrolling gradient, orange pulse).</li></ul>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">03</span><span data-lang="en">03</span></span>
+    <h2><span data-lang="fr">Le code qui compte</span><span data-lang="en">The code that matters</span></h2>
+    <p data-lang="fr">Au lieu d'envoyer directement la valeur du joystick aux moteurs, chaque cycle rapproche la vitesse actuelle de la vitesse demandée de 20 %. Le résultat : un démarrage et un arrêt progressifs, même si on pousse le stick d'un coup.</p><p data-lang="en">Instead of sending the joystick value straight to the motors, each cycle moves the current speed 20% closer to the requested speed. The result: progressive starts and stops, even if you slam the stick.</p><pre class="code"><span class="c">// Smooth the joystick so the robot never jerks on stage</span>
+mCurrentSpeed    += (targetSpeed    - mCurrentSpeed)    * <span class="n">kSmooth</span>;   <span class="c">// kSmooth = 0.2</span>
+mCurrentRotation += (targetRotation - mCurrentRotation) * <span class="n">kSmooth</span>;
+
+<span class="c">// Right trigger = precision mode: the harder you press, the slower it goes</span>
+mDrivetrain-&gt;<span class="k">DriveRobot</span>(
+  -(mCurrentSpeed    * kSpeed        * (1.2 - rightTrigger)),
+  -(mCurrentRotation * kRotationRate * (1.2 - rightTrigger)));</pre>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">04</span><span data-lang="en">04</span></span>
+    <h2><span data-lang="fr">Les LEDs racontent l'état du robot</span><span data-lang="en">LEDs tell the robot's state</span></h2>
+    <div class="cards"><div class="card"><span class="tag"><span data-lang="fr">Mouvement</span><span data-lang="en">Moving</span></span><h3><span data-lang="fr">Il roule</span><span data-lang="en">It's driving</span></h3><p data-lang="fr">Dès qu'un stick dépasse 20 %, les LEDs passent en mode « mouvement ».</p><p data-lang="en">As soon as a stick passes 20%, the LEDs switch to "moving" mode.</p></div><div class="card"><span class="tag"><span data-lang="fr">Salut</span><span data-lang="en">Wave</span></span><h3><span data-lang="fr">Bouton Y</span><span data-lang="en">Y button</span></h3><p data-lang="fr">Un mode « waving » pour saluer le public pendant le gala.</p><p data-lang="en">A "waving" mode to greet the audience during the gala.</p></div><div class="card"><span class="tag"><span data-lang="fr">Drift</span><span data-lang="en">Drift</span></span><h3><span data-lang="fr">LB et RB</span><span data-lang="en">LB and RB</span></h3><p data-lang="fr">Des commandes de drift à gauche ou à droite, avec l'IMU Pigeon 2.</p><p data-lang="en">Left and right drift commands, using the Pigeon 2 IMU.</p></div><div class="card"><span class="tag"><span data-lang="fr">Arrêt</span><span data-lang="en">Stop</span></span><h3><span data-lang="fr">Bouton A</span><span data-lang="en">A button</span></h3><p data-lang="fr">Arrêt immédiat du robot tant que le bouton est maintenu.</p><p data-lang="en">Immediate stop while the button is held.</p></div></div>
+  </section>
+  <section class="block narrow">
+    <span class="num"><span data-lang="fr">05</span><span data-lang="en">05</span></span>
+    <h2><span data-lang="fr">Stack</span><span data-lang="en">Stack</span></h2>
+    <div class="stack"><span>C++</span><span>WPILib (command-based)</span><span>REV SPARK MAX</span><span>CTRE Pigeon 2</span><span><span data-lang="fr">LEDs adressables</span><span data-lang="en">Addressable LEDs</span></span><span><span data-lang="fr">Manette Xbox</span><span data-lang="en">Xbox controller</span></span></div><p data-lang="fr">Le projet est né dans le dépôt hors saison de l'équipe ; le dépôt public garde tout l'historique du mini robot.</p><p data-lang="en">The project started in the team's off-season repository; the public repo keeps the mini robot's full history.</p>
+  </section>
+  <div class="next">
+    <div><small><span data-lang="fr">Étude de cas suivante</span><span data-lang="en">Next case study</span></small><a class="big" href="lync.html">Lync</a></div>
+    <a class="pill ghost" href="../index.html#contact"><span data-lang="fr">Me contacter</span><span data-lang="en">Get in touch</span></a>
+  </div>
+</main>
+<footer class="wrap">© 2026 Nayl Lahlou</footer>
+<script>
+  (function () {
+    function sync() { document.querySelectorAll('.lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.set === document.documentElement.lang); }); }
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.addEventListener('click', function () { document.documentElement.lang = b.dataset.set; try { localStorage.setItem('language', b.dataset.set); } catch (e) {} sync(); });
+    });
+    sync();
+  })();
+</script>
+</body>
+</html>
